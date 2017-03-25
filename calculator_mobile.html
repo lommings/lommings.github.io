@@ -4,9 +4,13 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 ,use-scalable=no " />
 
 <title>calculator</title>
+
+
+
+
 <style>
 .block {
     float: left;
@@ -16,35 +20,46 @@
 } 
 </style>
 
+
+
+<script src="calculator.js" ></script>
+
 <script type="text/javascript">
-// /////////////////////// 進入手機
+  
+function hidekeyboard(){           //處理 mobile  keyboard is not showing up
+     setTimeout(function(){
 
-//進階用法：解決進入手機版，在點回首頁時，又被系統轉回手機版的情況。//分頁
-
-
-function to_mobile(){
-       
-	if(navigator.userAgent.match(/Android|iPhone|iPad/i)) {
-	 	window.location = 'calculator_mobile.html' ;          //'手機版網址'
-	    	 }
- 
-         }
- 
+       var field=document.createElement('input');
+           field.setAttribute('type','text');
+           field.setAttribute('style','position:absolute;top:0px;opacity:0;
+                               -webkit-user-modify:read-write-plaintext-only;left:0px;');                                          
+           document.body.appendChild(field);  
+           field.onfocus=function(){
+               setTimeout(function(){ 
+                  field.setAttribute('style','display:none;');
+                  setTimeout(function(){
+                         document.body.removeChild(field); 
+                         document.body.focus();
+                                       },14);
+                                    },200};
+                                    };
+                         field.focus();
+                          },50);
+                          }
 
 
 </script>
 
-
-<script src="calculator.js" ></script>
-   
-
 </head>
-<body onload=" to_mobile() ;document.getElementById('input').focus()  ">
+<body onload="document.getElementById('input').focus()">
 <form id="calc">
 
 <div class="block">
- 
-       <tr><td colspan="7" rowspan="6"><textarea id="input" cols="35" rows="5" style="width:100%;"></textarea></td></tr>
+
+
+       
+     
+       <tr><td colspan="6" rowspan="5" ><textarea id="input" cols="35" rows="5" required  style="width:100%;"></textarea></td></tr>
        <tr></tr>
        <tr></tr> 
        <tr></tr>
@@ -55,7 +70,7 @@ function to_mobile(){
 
    <table id="mytable" border="1" marginheight="0" marginwidth="0" style="width:100%;border:2px black solid;" >
 
-        <tr align="center" ><td><input type="button" id="1_1" value="exp" style="width:100%;border:2px blue none;background-color:cyan;color:blue;" OnClick="key_1('exp')"  ></td>
+     <tr align="center" ><td><input type="button" id="1_1" value="exp" style="width:100%;border:2px blue none;background-color:cyan;color:blue;" OnClick="key_1('exp')"  ></td>
            <td><input type="button"  id="1_2" value="arc" style="width:100%;border:2px blue none;background-color:Lime;color:blue;" OnClick="key_1('a')" ></td>
            <td><input type="button"  id="1_3" value="7" style="width:100%;border:2px blue none;background-color:white ;color:blue;" OnClick="key_1('7')" ></td>
            <td><input type="button"  id="1_4" value="8" style="width:100%;border:2px blue none;background-color:white;color:blue;" OnClick="key_1('8')" ></td>
@@ -90,13 +105,14 @@ function to_mobile(){
            <td><input type="button"  id="5_5" value=")" style="width:100%;border:2px blue none;background-color:white;color:blue;" OnClick="key_1(')')" ></td>  
            <td><input type="button"  id="5_6" value="<=x"  style="width:100%;border:2px blue none;background-color:pink;color:blue;" OnClick="backspace()" ></td>  
 
-      <tr align="center" ><td><input type="button"  id="6_1" value="xxx" style="width:100%;border:2px blue none;background-color:olive;color:white;"OnClick="" ></td>
-            <td><input type="button"  id="6_2" value="xxx" style="width:100%;border:2px blue none;background-color:olive;color:white;" OnClick="" ></td>
+      <tr align="center" ><td><input type="button"  id="6_1" value="xx" style="width:100%;border:2px blue none;background-color:olive;color:white;"OnClick="" ></td>
+            <td><input type="button"  id="6_2" value="xx" style="width:100%;border:2px blue none;background-color:olive;color:white;" OnClick="" ></td>
             <td><input type="button"  id="6_3" value="spc" style="width:100%;border:2px blue none;background-color:pink;color:blue;"  OnClick="key_1(' ')" ></td>
             <td><input type="button"  id="6_4" value="Ent" style="width:100%;border:2px blue none;background-color:pink;color:blue;" OnClick="enter_1()" ></td>
             <td><input type="button"  id="6_5" value="ac" style="width:100%;border:2px blue none;background-color:pink;color:blue;" OnClick="clear_all_1('ac')" ></td>
             <td colspan="1" align="center"><input type="button"   id="6_6" value="="  style="width:100%;border:2px blue none;background-color:#FF3333;color:#000000;" OnClick="calculate('=')" ></td></tr>
 
+          
 
 </table>
 
@@ -104,7 +120,7 @@ function to_mobile(){
 
 <div class="block">
 <br>計算小數點後位數:
-  <input type="text" id="input2" size="2" maxlength="2" value=15></td></tr>
+  <input type="text" id="input2" size="2" maxlength="2" value=14></td></tr>
 
 <br>
   註:<br>
@@ -151,6 +167,8 @@ function to_mobile(){
        <br>
    
 </div>
+   
+
 
 </form>
 </body>

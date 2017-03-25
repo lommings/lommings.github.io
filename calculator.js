@@ -1,7 +1,25 @@
 ﻿
  
+var insert_flag="yes";   //旗標
 
-  
+var PI=3.14159265358979323846;
+var SQRPI=1.77245385090551602730;
+var RR=0.577215664901532860605129;
+var LN2=0.69314718055994530942;
+var LN3=1.09861228866810969140;
+var LN10=2.30258509299404568402;
+var E1=2.7182818284590452353602874;
+var DEG=0.01745329251994329577;      //rad
+var RAD=57.29577951308232087680;      //。 
+var e=E1;
+var max_st=[[biΝd]];
+var π = 3.1415926535897932384623846;
+var ln10 = 2.30258509299404568401799145468;
+var ln2 = 0.693147180559945309417232121458 ;
+var M =0.434294481903251827651128918917;  // M =log10e
+
+
+ 
   // //////////////////////////////////////////////////////classical model  "↓"
 
  function Math_c(){               //classical
@@ -36,7 +54,7 @@ var mc = new Math_c();   //class head
 
   //  //////////////////////////////////////////////////////////////////////////   cursor  "↓"
 
-   var display_width = 45;   //與設定有差異(45  )
+   var display_width = 35;   //與設定有差異(35  )
    function doGetCaretPosition (ctrl) {
      
     	var CaretPos = 0;
@@ -433,63 +451,10 @@ function cursor_position_row(){                //計算 cursor  行數 位置
 
 //  //////////////////////////////////////////////////////////////////////////   key  "↓"
 
- var repeat_bs;
- var repeat_del;
- var repeat_sp;
- var repeat_left;
- var repeat_right;
- var repeat_up;
- var repeat_down;
+ 
 
 
-function m_repeat_fu(nub){  
-
-  var nub_a=nub;
-
-    if(nub_a==0){
-        repeat_bs = setInterval("backspace()" , 100);  }   //repeat 
-    
-    if(nub_a==1){
-        repeat_del = setInterval("delete_a()" , 100);  }   //repeat
-
-    if(nub_a==2){
-        repeat_sp = setInterval("space_1()" , 100);  }   //repeat
-    if(nub_a==3){
-        repeat_left = setInterval("cursor_left_1()" , 100);  }   //repeat
-     if(nub_a==4){
-        repeat_right = setInterval("cursor_right_1()" , 100);  }   //repeat
-      if(nub_a==5){
-        repeat_up = setInterval("cursor_up_1()" , 100);  }   //repeat
-      if(nub_a==6){
-        repeat_down = setInterval("cursor_down_1()" , 100);  }   //repeat
-
-             
-  }
-
-
- function m_stop_repeat_fu(nub){
-
-  var nub_a=nub;
-    if(nub_a==0){
-      clearInterval(repeat_bs); }    //stop repeat
-     if(nub_a==1){
-      clearInterval(repeat_del); }    //stop repeat
-     if(nub_a==2){
-      clearInterval(repeat_sp); }    //stop repeat
-    if(nub_a==3){
-      clearInterval(repeat_left); }    //stop repeat
-    if(nub_a==4){
-      clearInterval(repeat_right); }    //stop repeat 
-    if(nub_a==5){
-      clearInterval(repeat_up); }    //stop repeat 
-    if(nub_a==6){
-      clearInterval(repeat_down); }    //stop repeat 
-   
-
-
-
- }
-
+ 
 
 
 function backspace(){
@@ -541,7 +506,7 @@ function delete_a(){
 
 function clear_all_1(item_1){
   
-  s_chang_visible_all();          //key 解禁
+  s_chang_visible_all();          
 
    var item_a=item_1;
        s_chang_sum(item_a);     //防呆
@@ -550,6 +515,9 @@ function clear_all_1(item_1){
     var new_str ="";
       document.getElementById('input').value = new_str;
        cursor_position_set(0) ;    //set cursor  位置
+
+       hidekeyboard();  /處理 mobile  keyboard is not showing up //暫用
+
 
  }
 
@@ -580,11 +548,14 @@ function space_1(){
 
 
 
- function key_1(char_1){
- 
-      var char_1=char_1;
+function key_1(char_1){
 
-         s_chang_sum(char_1);      //防呆
+
+     
+
+      var char_1=char_1;
+   
+         s_chang_sum(char_1);      //防呆 
 
       var char_lg = char_1.length;  //代入字串長度
 
@@ -615,11 +586,13 @@ function space_1(){
 
          cursor_position_set(no+char_lg) ;    //set cursor  位置
 
-
+         
             s_check_nb(new_str);         //  check 是否隱藏 ")"
 
-            s_check_end(new_str);        //尾 2碼 之隱藏
+           s_check_end(new_str);        //尾 2碼 之隱藏 //cos 
   }
+
+
 
  var insert_flag="not";   //旗標
 
@@ -664,7 +637,7 @@ function rept_1(char_1, nb){
 
 function enter_1(){      //cursor 及後面字串換行
 
-    s_chang_visible_all();     //key 解禁
+     s_chang_visible_all();     //key 解禁
         
    var no = cursor_position();
 
@@ -705,7 +678,7 @@ function enter_1(){      //cursor 及後面字串換行
 
 function newline_1(){                 //cursor 在所有字串 後,換行
 
-  // s_chang_visible_all();     //key 解禁
+    s_chang_visible_all();     //key 解禁
 
 
    var no = cursor_position();
@@ -749,11 +722,6 @@ function scroll_cursor(){       //配和 cursor  scroll_cursor()
 //  //////////////////////////////////////////////////////////////////////////   display "↑" 
 //  //////////////////////////////////////////////////////////////////////////   customer math   "↓"
  
-var π = 3.1415926535897932384623846;
-var ln10 = 2.30258509299404568401799145468;
-var ln2 = 0.693147180559945309417232121458 ;
-var M =0.434294481903251827651128918917;  // M =log10e
-var e_exp=2.718281828459045235360287471353;
 
   function m_n(n){             // n! 階乘    n 正整數 >=0
 
@@ -911,7 +879,7 @@ function m_c_u(n,k){           //(n,k)= n!/((n-k)! * k!)    //組合 Combination
        var zz=x;
        var nn=100;        //設定執行次數
        var sum_total_m=1;
-       var ee = e_exp;    //e_exp=2.718281828459045235360287471353;
+       var ee = 2.718281828459045235360287471353;    //
        var sum_total_p=0; 
      
           var ee_100 = m_pow_m(ee,100); //ee 100次方
@@ -981,15 +949,27 @@ function m_c_u(n,k){           //(n,k)= n!/((n-k)! * k!)    //組合 Combination
       var sum_total = (1.0e0/sum_total)};  //負數取倒數
 
 
+      if( x < 0 && sum_total ==0 ){
+
+                
+                 var ans_1= message_1(10);
+
+                 return   ans_1 ; }   //去掉 0的產生  實際為趨近 zero  "->0 ,approximation zero"
+
      
      return sum_total; 
    
    }
 
 
-function m_pow(base,p){                      // (-1)^2=-1 不須處理
+function m_pow(base,p){                      // (-1)^2=-1 不須處理 //  Math.pow(0.5,300.2)=4.2736140814882916e-91
+                                                                   // m_pow(0.005,300.2)=0
 
+                                                                   //Math.pow(0.005,100.4)= 9.475201082736407e-232
+                                                                  // Math.pow(0.0055,100.4)=1.3564819687931545e-227  
 
+                  //m_pow(200,133)=1.0889035741470031e+306  //base=200  p 最大133
+                  //m_pow(300,124)=1.4555783429306887e+307  //base=300  p 最大124
    var bb=base;
    var pp=p;
    var ans_1;
@@ -1004,6 +984,8 @@ function m_pow(base,p){                      // (-1)^2=-1 不須處理
                        }
        else{ var ppp =0;}
 
+     
+  
     if(bb==1){ ans_1=1;}
 
     else if( pp == 0) { ans_1=1;}
@@ -1014,7 +996,9 @@ function m_pow(base,p){                      // (-1)^2=-1 不須處理
     else if(bb==0 && pp ==0) { ans_1=1;}
 
      
-   
+    //else if(bb !=0 && ppi ==0 && ppp==0 ){ans_1=1;}  //指數 為0時
+
+
     else if(bb !=0 && ppi !=0 && ppp==0 ){     //指數 整數
 
         ans_1= m_pow_m(bb,pp);
@@ -1022,15 +1006,26 @@ function m_pow(base,p){                      // (-1)^2=-1 不須處理
              }
 
      else if(ppp !=0 && bb > 0){      //bb ^ pp =M   ; M=exp(pp * ln(bb))  //指數 有小數
-         
+        
+
           var bb_a = m_ln(bb);
- 
+
+           
+            
+              
+           
+
                ans_1= m_exp( m_abs(pp) * bb_a) ;
 
-              
+            
+             
+             
+
+
                if( pp < 0 ){ var  ans_1=  (1/ans_1) ;}   //取倒數    
              
-            
+           
+
         }
   
   
@@ -1039,11 +1034,13 @@ function m_pow(base,p){                      // (-1)^2=-1 不須處理
         }
   
 
-      
+       
+
         return ans_1; 
 
     
  }
+
 
 
 
@@ -1057,16 +1054,26 @@ function m_ln(x){       //  x>0
   var xx=x;
   var xxabs = Number(m_abs(xx));  //轉數字
 
-  var ee =e_exp ;  //常數
+  
+
+  var ee = 2.718281828459045235360287471353; //常數
   var count_m = m_cut_nub_m(xxabs);             // count 整數位數  >0  位數  , 含 -符號
+ 
+
   var count_p = m_cut_nub_p(xxabs);             // count 小數位數  <0  位數  , 不含 -符號  不含 point
-  var count_t = count_m+count_p+1;
+ 
+
+ var count_t = count_m+count_p+1;
   var ans_0 = 0;
+
+   
+
   var ee_10 =m_pow_m(ee,10);  //ee 10次方 = 22026.465794806707
   var ee_7 =m_pow_m(ee,7);   // ee 7次方 = 1096.633158428458
   var ee_5 =m_pow_m(ee,5);   // ee 5次方 = 148.4131591025766
   var ee_3 =m_pow_m(ee,3);    //ee 3次方 = 20.08553692318766                        //ee  =2.718281828459045
 
+      
 
       while(xxabs >= ee_10){
                                  //快數取出10 的指數部分  
@@ -1140,6 +1147,8 @@ function m_ln(x){       //  x>0
                            }
 
 
+
+
      var ans_1 = m_series_ln_a_z(xxabs) ;   //由公式作法   0.5 < xxabs  <1.5 
      
      
@@ -1148,12 +1157,16 @@ function m_ln(x){       //  x>0
        if(xx<0){              //負值
            ans_t=1.0/ans_t;   
                }
-      if ( xx == 0){ var ans_t = "< = -infinty >";}
-      if ( xx < 0) { var ans_t =message_1(5); }
+      if ( xx == 0){ var ans_t = "-infinty";}
+      if ( xx < 0) {  var ans_t =message_1(5); }
 
-                         
+ 
+
+                        
   return ans_t;
 }
+
+
 
 
 function m_log(x){       //log x = M * ln x  ;   M =loge =0.43429 44819 03251 82765 11289 18917 
@@ -1217,50 +1230,118 @@ function m_log(x){       //log x = M * ln x  ;   M =loge =0.43429 44819 03251 82
 
 
 function m_sin(x){
- 
-      
-       var zz = x % (3.14159265358979323846 * 2);   // x >2 pi 
-       var nn=100;       //設定執行次數
-       var sum_total=0;
+    var xx=m_abs(x);
+    
+    var data_t=0;
+   
+    var data_a=0.5*PI;
+    var data_b=PI;
+    var data_c=1.5*PI;
+    var data_d=2*PI;
 
 
-         for(var i = 0 ; i < (nn+1) ; i++){
+    var xx_1_4=0
+    
+     if(xx > data_d){
+        xx = xx % data_d;}   //1_4 項限
 
-           var k=2*i+1;
-            sum_total=sum_total+ Math.pow(-1,i)*Math.pow(zz,k)/m_n(k);     //級數作法
+        xx_1_4 = xx;         //1_4 項限  test ref
+    
+   
+     if(xx<=data_a && xx >=0){ xx=xx;}; // 1 項限
+     if(xx<=PI && xx >data_a){ xx=PI -xx;}; // 2 項限
+     if(xx >PI && xx <= data_c){ xx=xx -PI;}; //3 項限
+     if(xx >data_c && xx <= data_d){ xx=data_d-xx ;}; //4 項限
 
 
-              }
+     if(xx==0){ data_t=0; return data_t;  }
+     if(xx==PI/2 ){ data_t=1; return data_t;  }  //PI/2  //先計算正值
+                                                 
+     var nn=150;       //設定執行次數  
 
-      
+           if(xx !=PI/2 && xx!=0){    
 
-          return sum_total; 
+                for(var i = 0 ; i < (nn+1) ; i++){
 
-   }
+                   var k=2*i+1;
+                   data_t=data_t+ Math.pow(-1,i)*Math.pow(xx,k)/m_n(k);     //級數作法
 
+
+                                                }
+
+     
+                                }   //級數作法
+
+
+       if((x > 0 && xx_1_4 >PI ) ||( x< 0 && xx_1_4 < PI) ) {data_t=-data_t;}  //轉負
+  
+  
+
+ return data_t; 
+}
 
 
 function m_cos(x){
- 
-        var zz = x % (3.14159265358979323846 * 2);   // x >2 pi ;
-
-       var nn = 100;       //設定執行次數
-       var sum_total=0;
-
-
-         for(var i = 0 ; i < (nn+1) ; i++){
-
-           var k=2*i;  //
-
-            sum_total=sum_total+ Math.pow(-1,i)*Math.pow(zz,k)/m_n(k);     //級數作法
+    var xx=m_abs(x);
+    
+    var data_t=0;
+   
+    var data_a=0.5*PI;
+    var data_b=PI;
+    var data_c=1.5*PI;
+    var data_d=2*PI;
 
 
-              }
+    var xx_1_4=0
+    
+     if(xx > data_d){
+        xx = xx % data_d;}   //1_4 項限
 
-      
-     return sum_total; 
+        xx_1_4 = xx;         //1_4 項限  test ref
+    
+   
+     if(xx<=data_a && xx >=0){ xx=xx;}; // 1 項限
+     if(xx<=PI && xx >data_a){ xx=PI -xx;}; // 2 項限
+     if(xx >PI && xx <= data_c){ xx=xx -PI;}; //3 項限
+     if(xx >data_c && xx <= data_d){ xx=data_d-xx ;}; //4 項限  轉至第1項限
 
-   }
+
+     if(xx==0){ data_t=1; return data_t;  }
+     if(xx==PI/2 ){ data_t=0; return data_t;  }  //PI/2  //先計算正值
+                                                 
+     var nn=150;       //設定執行次數  
+
+           if(xx !=PI/2 && xx!=0){    
+
+                for(var i = 0 ; i < (nn+1) ; i++){
+
+                   var k=2*i;                                                //未加1
+                   data_t=data_t+ Math.pow(-1,i)*Math.pow(xx,k)/m_n(k);     //級數作法
+
+
+                                                }
+
+     
+                                }   //級數作法
+
+
+         if(x > 0 && xx_1_4 >PI/2  &&  xx_1_4 < (3*PI/2))  {data_t=-data_t;}  //轉負
+
+         if( x< 0 && (xx_1_4 > PI/2 && xx_1_4 < (3*PI/2))) {data_t=-data_t;}  //轉負
+
+  
+  
+
+ return data_t; 
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -1405,6 +1486,7 @@ function m_tanh(x){
 
 
 
+
 function m_asin(x){
  
       var zz = m_abs(x);
@@ -1413,14 +1495,20 @@ function m_asin(x){
        var nn =1000;       //設定執行次數  //次數不足影響精度
        var sum_total=0;
 
-    
+     
     
     if((zz >0.7) && (zz < 1)){             //分段執行 避免 x>0.99 誤差  級數產生誤差    //加速級數收斂
 
         var  zz2=zz*zz;
         var  zz3 = 1-zz2;
-        var  zz5 = m_pow(zz3,1/2);  //開方
 
+     
+
+        var  zz5 = m_pow(zz3,0.5);  //開方
+
+
+             
+         
             for(var i = 0 ; i < (nn+1) ; i++){    //i由 0 star?
 
                var k=2*i+1;
@@ -1428,9 +1516,10 @@ function m_asin(x){
             sum_total=sum_total+ m_n_oe(i)*m_pow(zz5,k)/(k);   // m_n_oe(i) 先做  m_exp( Math.abs(pp) * m_ln(bb))
   
                                           } 
+               
 
-             sum_total= (3.14159265358979323846/2)-sum_total;  //90度 補角作法   避免 x>0.99 誤差
-
+             sum_total= (PI/2)-sum_total;  //90度 補角作法   避免 x>0.99 誤差
+                 
 
                              }
 
@@ -1711,7 +1800,9 @@ function message_1(n){
           message_1 = "<--  Msg : log(x) , x > 0 -->" ;
           break;
 
-
+          case 10:
+          message_1 = "<--  Msg : value approximation to  0 -->" ;
+          break;
           
        default:
          
@@ -2397,7 +2488,9 @@ function m_str_math_replacec(this_it){         //自製公式取代 display
 
  var this_it_a = this_it;
 
+            this_it_a = this_it_a.toLowerCase(); //大寫轉小寫//增加
 
+             this_it_a = m_fun_aft_many(this_it_a ,' ','');   // 代 " "  空白取消
 
             this_it_a = m_fun_aft_many(this_it_a ,'asinh','azh');   //azh 代  asinh     //第1次 處理  三角部分
             this_it_a = m_fun_aft_many(this_it_a ,'asin','azz');   //azz 代  asin
@@ -2557,7 +2650,7 @@ return  this_it_a;
 
 
 
- function m_cut_nub_m(nub){             // count 整數位數  >0  位數  , 含 -符號
+function m_cut_nub_m(nub){             // count 整數位數  >0  位數  , 含 -符號
     var nn = m_abs(nub);                //abs 值
     var nn_lg = nn.toString().length;  //數字長度     
           
@@ -2570,12 +2663,11 @@ return  this_it_a;
                                          }
       if(nub < 0 ){count_p = count_p +1;}   // -符號加入
 
-   
+  
 
       return count_p;    
 
   }
-
 
 function m_cut_nub_p(nub){             // count 小數位數  <0  位數  , 不含 -符號 及 point 符號
     var nn=nub;
@@ -2614,9 +2706,9 @@ function m_nub_m(nub){         //取 point 前 整數部分 , 含 -符號
 function m_nub_p(nub){         //取 point 後 小數部分
    var nn = nub;
    var mm = m_nub_m(nn);      //取 point 前 整數部分 含 -符號
-
-     
+   
      var ans_1= nn - mm ;
+
 
   
    var power_n = m_cut_nub_p(nn) ;
@@ -2625,7 +2717,7 @@ function m_nub_p(nub){         //取 point 後 小數部分
 
        ans_1 = Math.round(ans_1*data_n)/data_n ;
 
-    
+   
      return ans_1; 
      
 }
@@ -2725,13 +2817,24 @@ function m_series_ln_a_z(base){        // ln(1+z) = z - z2/2 + z3/3 -z4/4 +.....
 
 
 function m_pow_m(base,pit_n){       //base >0 ,pit_n 為整數時(無小數部分)
+
+
+
    var base_a=m_abs(base);
+
    var base_i = base; //原值
+
+
+
    var base_p = m_nub_p(base_a);      //取 point 後 小數部分
+
+
+
    var pit_a=m_abs(pit_n);
    var pit_sta=m_abs(pit_n);
    var pit_i=pit_n;  //原值
 
+ 
    var base_2=0;
    var base_4=0;
    var base_5=0;
@@ -2774,7 +2877,7 @@ function m_pow_m(base,pit_n){       //base >0 ,pit_n 為整數時(無小數部�
 
         }
 
-    
+   
   
            if(pit_a >=1600 ){ 
              for(var j=0; j< pit_a ;j++){       //處理
@@ -2869,11 +2972,12 @@ function m_pow_m(base,pit_n){       //base >0 ,pit_n 為整數時(無小數部�
           
                var  base_tot= base_tot* base_a ;
 
-                         
+                          
                
                             }
                     } 
  
+
        
      if(base_i > 0 && pit_i < 0 ){
            var  base_tot= 1/base_tot ;    //負指數 產生導數
@@ -2896,12 +3000,10 @@ function m_pow_m(base,pit_n){       //base >0 ,pit_n 為整數時(無小數部�
             var  base_tot=  1/base_tot ;     //負偶數指數 
              }
 
-      
-  
+          
        
    return base_tot;
 }
-
 
 
 
@@ -3024,39 +3126,7 @@ function m_c_fixed(nub_1,nub_2,end_nub){        //消除c語言影響小數點�
 
 //  //////////////////////////////////////////////////////////////////////////   防呆1      "↓"
 
-function s_chang_hidden_all(){
 
-       for(var i=1;i< 5;i++){
-
-       for(var j=1;j< 8;j++){
-
-       var item_n= i+"_"+j;
-     
-       
-       document.getElementById(item_n).disabled=true; 
-       
-         document.getElementById(item_n).style.backgroundColor= "#6495ed";
-         document.getElementById(item_n).style.color="silver";
-
-                            }
-                          }
-
-       document.getElementById("4_6").disabled=false;
-       document.getElementById("4_6").style.backgroundColor="pink";
-       document.getElementById("4_6").style.color="blue";
-       document.getElementById("5_1").disabled=true; 
-       document.getElementById("5_2").disabled=true; 
-       document.getElementById("6_7").disabled=true; 
-       document.getElementById("5_1").style.backgroundColor="#6495ed";
-       document.getElementById("5_2").style.backgroundColor="#6495ed";
-       document.getElementById("6_7").style.backgroundColor="#6495ed";
-       document.getElementById("5_1").style.color="silver";
-       document.getElementById("5_2").style.color="silver";
-       document.getElementById("6_7").style.color="silver";
-
-
-
-}
 
 
 
@@ -3080,9 +3150,10 @@ function s_chang_hidden_array(array_1){     //陣列元素 隱藏
 
 function s_chang_hidden_nub(nub_1){      //隱藏 單筆
    var nub_a = nub_1;
-       document.getElementById(nub_a).disabled=true; 
+       document.getElementById(nub_a).disabled=true;                  //隱藏
+       //document.getElementById(nub_a).setAttribute("disabled","disabled");//隱藏 同上
        document.getElementById(nub_a).style.backgroundColor="#6495ed";
-       document.getElementById(nub_a).style.color="silver";
+       document.getElementById(nub_a).style.color="while";
 }
   
 
@@ -3091,107 +3162,136 @@ function s_nub_array(nub_1){      //產生將隱藏 之 陣列元素
     var nub_a=nub_1;
     var array_a=[];
 
+     s_chang_visible_all();       //所有還原顯示
+   
     switch(nub_a){
     case "1_1":
-      array_a=["1_1","1_2","1_3","1_7","2_1","2_2","2_3","2_7","3_1","3_2","4_1","4_2","4_3","4_7","5_1","5_2"];
+      array_a=["1_1","1_2","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_1","5_2","5_3","5_5"];
       break;
     case "1_2":
-      array_a=["1_1","1_2","1_3","1_4","1_5","1_6","1_7","2_1","2_3","2_4","2_5","2_6","2_7","3_1","3_3","3_4","3_5","3_6","3_7","4_1","4_3","4_4","4_5","4_7","5_1","5_2"];
-      break;
-    case "1_3":
-      array_a=["1_1","1_2","1_3","1_4","1_5","1_6","2_1","2_2","2_3","2_4","2_5","2_6","3_1","3_2","3_3","3_4","3_5","3_6","4_1","4_2","4_4","4_5","5_1","5_2"];
-      break;
-    case "1_4":
-      array_a=["5_2"];
-      break;
-    case "1_5":
-      array_a=["5_2"];
-      break;
-    case "1_6":
-      array_a=["5_2"];
-      break;
-    case "1_7":
-      array_a=["4_1","4_3","5_2"];
-      break;
-    case "2_1":
-      array_a=["1_1","1_2","1_3","1_7","2_1","2_2","2_3","2_7","3_1","3_2","3_7","4_1","4_2","4_3","4_7","5_1","5_2"];
-      break;
-    case "2_2":
-      array_a=["1_1","1_2","1_3","1_7","2_1","2_2","2_7","3_1","3_2","4_1","4_2","4_3","4_7","5_1"];
-      break;
-    case "2_3":
-      array_a=["1_1","1_2","1_3","1_4","1_5","1_6","2_1","2_2","2_3","2_4","2_5","2_6","3_1","3_2","3_3","3_4","3_5","3_6","4_2","4_4","4_5","5_1","5_2"];
-      break;
-    case "2_4":
-      array_a=["5_2"];
-      break;
-    case "2_5":
-      array_a=["5_2"];
-      break;
-    case "2_6":
-      array_a=["5_2"];
-      break;
-    case "2_7":
-      array_a=["4_1","4_3","5_2"];
-      break;
-    case "3_1":
-      array_a=["1_1","1_2","1_3","1_7","2_1","2_2","2_3","2_7","3_1","3_2","3_7","4_1","4_2","4_3","4_7","5_1","5_2"];
-      break;
-    case "3_2":
-      array_a=["1_1","1_2","1_3","1_7","2_1","2_2","2_7","3_1","3_2","4_1","4_2","4_3","4_7","5_1"];
-      break;
-    case "3_3":
-      array_a=["1_3","1_7","2_7","4_1","4_3","4_7","5_1","5_2"];
-      break;
-    case "3_4":
-      array_a=["5_2"];
-      break;
-    case "3_5":
-      array_a=["5_2"];
-      break;
-    case "3_6":
-      array_a=["5_2"];
-      break;
-    case "3_7":
-      array_a=["4_1","4_3","5_2"];
-      break;
-    case "4_1":
-      array_a=["1_1","1_2","1_3","1_7","2_1","2_2","2_7","3_1","3_2","4_1","4_2","4_3","4_7","5_1","5_2"];
-      break;
-    case "4_2":
-      array_a=["1_1","1_2","1_3","1_7","2_1","2_2","2_7","3_1","3_2","4_1","4_2","4_3","4_7","5_1"];
-      break;
-    case "4_3":
-      array_a=["4_5","5_2"];
-      break;
-    case "4_4":
-      array_a=["5_2"];
-      break;
-    case "4_5":
-      array_a=["3_3","4_3","5_1","5_2"];
-      break;
-   
-    case "4_7":
-      array_a=["4_1","4_3","5_2"];
-      break;
-    case "5_1":
-      array_a=["1_1","1_2","1_3","1_4","1_5","1_6","2_1","2_2","2_3","2_4","2_5","2_6","3_1","3_2","3_3","3_4","3_5","3_6","4_1","4_2","4_4","4_5","5_1","5_2"];
-      break;
-    case "5_2":
-      array_a=["1_1","1_2","1_3","1_7","2_1","2_2","2_7","3_1","3_2","4_1","4_2","4_3","4_7","5_1","5_2"];
+      array_a=["1_1","1_2","1_3","1_4","1_5","1_6","2_1","2_3","2_4","2_5","2_6","3_1","3_3","3_4","3_5","3_6","4_1","4_3","4_4","4_5","4_6","5_1","5_2","5_3","5_4","5_5"];
       break;
 
-     case "5_7":
-      array_a=["1_3","1_7","2_7","4_1","4_3","4_7","5_1","5_2","6_7"];
-      break; 
-   
-    case "6_7":
-      array_a=["1_3","1_7","2_7","4_1","4_3","4_7","5_1","5_2","6_7"];
+    case "1_3":
+      
+      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
       break;
+    case "1_4":
+      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
+      break;
+    case "1_5":
+      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
+      break;
+    case "1_6":
+      array_a=["1_6","2_6","3_6","4_6","4_1","5_1","5_2","5_5"];
+      break;
+   
+    case "2_1":
+      array_a=["1_1","1_2","1_6","2_1","2_2","2_6","3_1","3_2","3_6","4_1","4_2","4_3","4_6","5_1","5_2","5_3","5_5"];
+      break;
+    case "2_2":
+      array_a=["1_1","1_2","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_1","5_5"];
+      break;
+    case "2_3":
+      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
+      break;
+    case "2_4":
+      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
+      break;
+    case "2_5":
+      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
+      break;
+    case "2_6":
+      array_a=["1_6","2_6","3_6","4_6","4_1","5_1","5_2","5_5"];
+      break;
+   
+    case "3_1":
+      array_a=["1_1","1_2","1_6","2_1","2_2","2_6","3_1","3_2","3_6","4_1","4_2","4_3","4_6","5_1","5_2","5_3","5_5"];
+      break;
+    case "3_2":
+      array_a=["1_1","1_2","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_1","5_5"];
+      break;
+    case "3_3":
+      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
+      break;
+    case "3_4":
+      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
+      break;
+    case "3_5":
+      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
+      break;
+    case "3_6":
+      array_a=["1_6","2_6","3_6","4_6","4_1","5_1","5_2","5_5"];
+      break;
+   
+    case "4_1":
+      array_a=["1_1","1_2","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_3","4_6","5_1","5_2","5_3","5_5"];
+      break;
+    case "4_2":
+     array_a=["1_1","1_2","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_1","5_5"];
+      break;
+    case "4_3":
+      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_1","4_2","5_1","5_2"];
+      break;
+    case "4_4":
+      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
+      break;
+    case "4_5":
+      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_1","4_2","5_1","5_2"];
+      break;
+   case "4_6":
+      array_a=["1_6","2_6","3_6","4_6","4_1","5_1","5_2","5_5"];
+      break;
+   
+   case "5_1":                                                  
+      array_a=["1_1","1_2","1_3","1_4","1_5","2_1","2_2","2_3","2_4","2_5","3_1","3_2","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2","5_3","5_4","5_5"];
+      break;
+
+
+    case "5_2":
+      array_a=["1_1","1_2","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_1","5_2","5_3","5_5"];
+      break;
+
+    case "5_3":
+      array_a=["1_1","1_2","1_3","1_4","1_5","2_1","2_2","2_3","2_4","2_5","3_1","3_2","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2","5_3","5_4"];
+      break;
+
+    case "5_4":
+      array_a=["1_6","2_6","4_1","4_6","5_1","5_3","5_5"];
+      break;
+   
+     case "5_5":
+      
+      break;
+   case "5_6":
+      
+      break; 
+
+    case "6_1":
+      
+      break;
+    case "6_2":
+      
+      break;
+    case "6_3":
+    
+      break;
+    case "6_4":
+     
+      break;
+    
+   case "6_5":
+      array_a=["4_1","5_1","5_2","5_5"];
+      break;
+   case "6_6":
+     array_a=["4_1","5_1","5_2","5_5"];
+
+      break; 
      }
   
     return array_a;
  }
+
 
 
 function s_map(item_1){
@@ -3199,25 +3299,25 @@ function s_map(item_1){
   var item_a = item_1;
   var item_a_p =item_a.substr(1,1); //取 "_"     
 
-   var A = m_new_mtx(6,7);
-  var B = m_new_mtx(6,7);
-  var T = m_new_mtx(6,7);
+  var A = m_new_mtx(6,6);
+  var B = m_new_mtx(6,6);
+  var T = m_new_mtx(6,6);
 
   var item_map="" ;
 
-   var A=[["exp","a","°","7","8","9","/"],
-         ["ln","sin","π","4","5","6","*"],
-         ["log","cos","(","1","2","3","-"],
-         ["^","tan",")","0",".","del","+"],
-         ["!","h","Ent","ins","↑","Bs","ac"],
-         ["[...]","sts","spc","←","↓","→","="]]
+   var A=[["exp","a","7","8","9","/"],
+         ["ln","sin","4","5","6","*"],
+         ["log","cos","1","2","3","-"],
+         ["^","tan","π","0",".","+"],
+         ["!","h","°","(",")","<=x"],                // n!
+         ["xxx","xxx","spc","Ent","ac","="]];
 
-   var B=[["1_1","1_2","1_3","1_4","1_5","1_6","1_7"],
-          ["2_1","2_2","2_3","2_4","2_5","2_6","2_7"],
-          ["3_1","3_2","3_3","3_4","3_5","3_6","3_7"],
-          ["4_1","4_2","4_3","4_4","4_5","4_6","4_7"],
-          ["5_1","5_2","5_3","5_4","5_5","5_6","5_7"],
-          ["6_1","6_2","6_3","6_4","6_5","6_6","6_7"]]
+   var B=[["1_1","1_2","1_3","1_4","1_5","1_6"],
+          ["2_1","2_2","2_3","2_4","2_5","2_6"],
+          ["3_1","3_2","3_3","3_4","3_5","3_6"],
+          ["4_1","4_2","4_3","4_4","4_5","4_6"],
+          ["5_1","5_2","5_3","5_4","5_5","5_6"],
+          ["6_1","6_2","6_3","6_4","6_5","6_6"]];
 
      if( item_a_p =="_"){
         T=A;
@@ -3253,11 +3353,10 @@ function s_map(item_1){
 
 function s_chang_visible_all(){
 
-   
+ 
+     for(var i=1;i <= 6;i++){     //row
 
-     for(var i=1;i < 7;i++){
-
-       for(var j=1;j < 8;j++){
+       for(var j=1;j <= 6;j++){   //col
 
        var item_n= i+"_"+j;
           document.getElementById(item_n).disabled=false;
@@ -3265,26 +3364,39 @@ function s_chang_visible_all(){
             if(i<=5 && j==1){
                 document.getElementById(item_n).style.backgroundColor= "cyan";
                 document.getElementById(item_n).style.color="blue";}
+
            if((i<=5) && (j==2)){
                 document.getElementById(item_n).style.backgroundColor= "Lime";
                 document.getElementById(item_n).style.color="blue";}
-           if(i<=4  && j>2 && j<=5 ){
+
+           if(i<=5  && j>2 && j<=5 ){
                 document.getElementById(item_n).style.backgroundColor= "white";
                 document.getElementById(item_n).style.color="blue";}
-            if(i<=3 && j==6 ){
-                document.getElementById(item_n).style.backgroundColor= "white";
-                document.getElementById(item_n).style.color="blue";}    
-            if(i<=4 && j==7){
+               
+            if(i<=4 && j==6){
                 document.getElementById(item_n).style.backgroundColor= "yellow";
                 document.getElementById(item_n).style.color="blue";}
-            if(i==6 && j==7){
+
+             if(i==5 && j==6){
+                document.getElementById(item_n).style.backgroundColor= "pink";
+                document.getElementById(item_n).style.color="#000000";}
+
+
+            if(i==6 && j<=5 && j>=3 ){
+                document.getElementById(item_n).style.backgroundColor= "pink";
+                document.getElementById(item_n).style.color="#000000";}
+
+             if(i==6 && j==6 ){
                 document.getElementById(item_n).style.backgroundColor= "#FF3333";
                 document.getElementById(item_n).style.color="#000000";}
+
+              if(i==6 && (j==1 || j==2)){
+                document.getElementById(item_n).style.backgroundColor= "olive";
+                document.getElementById(item_n).style.color="#000000";}
+
         
                             }
                           }
-
-
 
 }
 
@@ -3296,7 +3408,7 @@ function s_chang_sum(item){     //綜整
 
    var array_a = s_nub_array(item_a);      //產生將隱藏 之 陣列元素
 
-       s_chang_hidden_array(array_a);    //陣列元素 隱藏 
+     s_chang_hidden_array(array_a);    //陣列元素 隱藏 
 
 }
 
@@ -3314,7 +3426,7 @@ function s_chang_sum(item){     //綜整
 
           if( befor_a <=after_a){   
            
-             s_chang_hidden_nub("4_3");      //隱藏 單筆
+            // s_chang_hidden_nub("4_3");      //隱藏 單筆
 
                           }
      }
@@ -3354,25 +3466,25 @@ function s_chang_sum(item){     //綜整
        var array_a=[];    //產生將隱藏 之 陣列元素
 
            if(asin_1==1 || acos_1==1){                                             //check 2碼
-                array_a=["1_4","1_5","1_6","2_3","2_4","2_5","2_6","3_5","3_6"]; }
+                array_a=["1_3","1_4","1_5","1_6","2_3","2_4","2_5","2_6","3_4","3_5","4_3","4_3","5_3"]; }
 
             if(acosh_1==1 ){
-                array_a=["2_3","4_4","4_5"]; }
+                array_a=["4_4","4_5","5_2","5_3"]; }
 
              if(atanh_1==1 ){
-                array_a=["1_4","1_5","1_6","2_3","2_4","2_5","2_6","3_4","3_5","3_6"]; }
+                array_a=["1_3","1_4","1_5","1_6","2_3","2_4","2_5","2_6","3_3","3_4","3_5","4_3"]; }
 
 
              if(asin1_1==1 || acos1_1==1 ||asin_1_1==1 || acos_1_1==1){                 //check 3碼
-                array_a=["1_1","1_2","1_3","1_4","1_5","1_6","2_1","2_2","2_3","2_4","2_5","2_6","3_2","3_1","3_3","3_4","3_5","3_6","4_1","4_2","4_3","4_4","4_5","5_1","5_2"];
+                array_a=["1_1","1_2","1_3","1_4","1_5","2_1","2_2","2_3","2_4","2_5","3_2","3_1","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2","5_3"];
                   }
                
              if(asin1_a==1 || acos1_a==1 ||asin_1_a==1 || acos_1_a==1){                 //check 3碼
-                array_a=["1_1","1_2","1_3","1_4","1_5","1_6","2_1","2_2","2_3","2_4","2_5","2_6","3_2","3_1","3_3","3_4","3_5","3_6","4_1","4_2","4_4","4_5","5_1","5_2"];
+                array_a=["1_1","1_2","1_3","1_4","1_5","2_1","2_2","2_3","2_4","2_5","3_2","3_1","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2"];
                   }
 
 
-        s_chang_hidden_array(array_a);    //陣列元素 隱藏 
+       s_chang_hidden_array(array_a);    //陣列元素 隱藏 
 
   }
 
@@ -3402,8 +3514,11 @@ function m_new_mtx(rows,cols){
     function calculate(item_1){
 
       //......................................
-            s_chang_visible_all();          //key 解禁
+             s_chang_visible_all();          //key 解禁 
 
+
+
+          // alert("ppp");
 
              var str_part_lg= string_lg_1();             //getElementById input 字串長度
              var str_cursor_pos = cursor_position();     //get cursor  位置
@@ -3421,16 +3536,17 @@ function m_new_mtx(rows,cols){
               var item_a=calc.input.value;  //保持原型
 
 
-      
+         
 
           var it = calc.input.value;
     
      //........................................
 
-        s_chang_sum('6_7');          //防呆  
+        
 
-      var this_s = it.trim();           //原值
+      var this_s = it.trim();           //原值    //字串中間空白刪除
 
+    
         
                                 
       var this_it = m_dele_bf_char(it,';').trim();        //結束符號前字串 刪除 //s 為字串   c結束字
@@ -3477,14 +3593,18 @@ function m_new_mtx(rows,cols){
 
             
 
-            
+           
 
-          s_chang_sum(item_a);     //防呆
+          
 
-           newline_1();
+          newline_1();
+
+           s_chang_sum("=");     //防呆 //暫停
+
+
            scroll_cursor();
   
-         
+           hidekeyboard();  /處理 mobile  keyboard is not showing up //暫用
            
           //初值:計算到小數點第6位
 
