@@ -516,7 +516,7 @@ function clear_all_1(item_1){
       document.getElementById('input').value = new_str;
        cursor_position_set(0) ;    //set cursor  位置
 
-       hidekeyboard();  /處理 mobile  keyboard is not showing up //暫用
+      
 
 
  }
@@ -3604,7 +3604,7 @@ function m_new_mtx(rows,cols){
 
            scroll_cursor();
   
-           hidekeyboard();  /處理 mobile  keyboard is not showing up //暫用
+           
            
           //初值:計算到小數點第6位
 
