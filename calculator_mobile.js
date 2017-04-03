@@ -467,7 +467,7 @@ function cursor_coords(){      //新增 cursor 做標
   var y=enent.clientY;
   //var data_a= "x="+x +";y="+y;
 
-   alert(x);
+   //alert(x);
 
   return data_a;
  }
@@ -533,10 +533,14 @@ function delete_a(){
 
 function clear_all_1(item_1){
   
-  s_chang_visible_all();          
+  s_chang_visible_all();    //暫close
+       
 
    var item_a=item_1;
-       s_chang_sum(item_a);     //防呆
+
+    
+
+      s_chang_sum(item_a);     //防呆  //暫close
 
     var input_str = calc.input.value;
     var new_str ="";
@@ -1927,6 +1931,7 @@ function m_replace(str_s ,old_s ,new_s ){          //  new str replace old str  
 function m_replace_star(str_s ){          //  m_fuc 前有數字 或")" 則中間加 *
     var str_1=str_s;
 
+ // alert("uu="+str_1);   //pi^2 ??/
 
     var str_new = m_replace(str_1 ,')m',')*m');
 
@@ -1946,12 +1951,27 @@ function m_replace_star(str_s ){          //  m_fuc 前有數字 或")" 則中�
 function m_str_spec_part_bf(str ,spec){          //    取特殊字前之部分數字字串[含 () ]   , b為前  a為後    //處理  n!
      var str_1 = str.trim();
      var spec_1= spec;
-     var pos = str_1.indexOf(spec_1) ;  //特殊字 之 index
+
+    
+                //π^2 例外刪除
+                 
+        
+
+     
+        var pos = str_1.indexOf(spec_1) ; 
+                                                   
+
      var mark_1 =str_1[pos - 1];        //取前1碼
      var count_1 = 1 ;
      var count_mark = pos ;
 
-    
+      // alert("ooo="+spec_1);
+
+       //alert("ooo1="+pos);
+
+       // alert("ooo2="+ mark_1);
+
+
 
           if(mark_1 ==")"){
             
@@ -1972,7 +1992,7 @@ function m_str_spec_part_bf(str ,spec){          //    取特殊字前之部分�
                            }
 
             
-          if(mark_1 >=0 && mark_1<=9) {
+          if((mark_1 >=0 && mark_1<=9)) {
 
              var count_mark = pos-1;   //前1碼
 
@@ -1994,6 +2014,8 @@ function m_str_spec_part_bf(str ,spec){          //    取特殊字前之部分�
    
          var str_part_b= str_1.substring(count_mark,pos);
 
+
+         
        
      return str_part_b;
 
@@ -2163,11 +2185,11 @@ function m_str_spec_part_af(str ,spec){          //    取特殊字 後 之部�
   
 
     if(part_bf_lg > 0 ){
-        str_1 = str_1.replace(part_bf+"π" , part_bf+'* pi' ) ; }           //自製函數取代  ,已有()
+        str_1 = str_1.replace(part_bf+"π" , part_bf+'*3.141592653589793' ) ; }           //自製函數取代  ,已有()  //修正 3.141592653589793
 
          
    
-    if(part_bf_lg == 0){  str_1 = str_1.replace(part_bf+"π" , part_bf+'pi' ) ; }
+    if(part_bf_lg == 0){  str_1 = str_1.replace(part_bf+"π" , part_bf+'3.141592653589793' ) ; }     //修正 3.141592653589793
 
      
      return str_1;
@@ -2186,10 +2208,10 @@ function m_star_deg(str){                                 // 處理   degree  1�
 
    
     if(part_bf_lg > 0 ){
-        str_1 = str_1.replace(part_bf+"°" , part_bf+'*deg' ) ; }           //自製函數取代  ,已有()
+        str_1 = str_1.replace(part_bf+"°" , part_bf+'* 0.017453292519943' ) ; }           //自製函數取代  ,已有() //修正
 
            
-    if(part_bf_lg == 0){  str_1 = str_1.replace(part_bf+"°" , part_bf+'deg' ) ; }
+    if(part_bf_lg == 0){  str_1 = str_1.replace(part_bf+"°" , part_bf+'0.017453292519943' ) ; }   //修正
 
      
      return str_1;
@@ -2234,7 +2256,15 @@ function m_hat_bf_aft(str,spec1,spec2){                   // 處理  hat ^  1筆
    var spec_1=spec1;
    var spec_2=spec2;
 
+
+    //alert("s0="+str_1);
+
    var part_bf = m_str_spec_part_bf(str_1 ,spec1);
+
+        // alert("s11="+part_bf); //
+
+
+
    var part_bf_lg = part_bf.length;
 
    var part_aft =  m_str_spec_part_af(str_1 ,spec_1);
@@ -2253,14 +2283,17 @@ function m_hat_bf_aft(str,spec1,spec2){                   // 處理  hat ^  1筆
     }
     else{part_bf_1= part_bf;}
 
+    
+
  
    if((part_bf_lg > 0)  && (part_aft_lg > 0 )){
-        str_1 = str_1.replace(part_bf+spec_1+part_aft , spec2+"("+part_bf_1 +','+part_aft_1+")" ) ;  }           //自製函數取代  ,已有()
+        str_1 = str_1.replace(part_bf+spec_1+part_aft , spec2+"("+part_bf_1 +','+part_aft_1+")" ) ;  }        //自製函數取代 ,已有()
+ 
  
      if(part_aft_lg == 0 || part_bf_lg == 0 ){  str_1 = "error,  not data" ; }
 
  
-
+    
 
      return str_1;
 
@@ -2535,18 +2568,27 @@ function m_str_math_replacec(this_it){         //自製公式取代 display
              this_it_a = m_fact_many(this_it_a);                 // 處理 n!
 
              this_it_a = m_star_many(this_it_a);                // 處理 pi  多筆
-             this_it_a = this_it_a.replace(/π/g , "(3.14159265358979323846) ");       //取代 replace  
+
+          // alert("1="+this_it_a);
+
+             this_it_a = this_it_a.replace(/π/g , "(3.14159265358979323846) ");       //取代 replace
+
+
+         
               
              this_it_a =  m_star_deg_many(this_it_a);           // 處理   degree  多筆
              this_it_a = this_it_a.replace(/°/g , "(3.14159265358979323846/180) ");   //取代 replace
 
-
+     //alert("2="+this_it_a);
              this_it_a = m_hat_bf_aft_many(this_it_a ,'^','hhh');
+
+    // alert("3="+this_it_a);
+
              this_it_a = this_it_a.replace(/hhh/g , "m_pow");   //自製函數取代      //第2次 處理
 
              this_it_a = m_replace_star(this_it_a) ;         //  m_fuc 前有數字 或")" 則中間加 *
 
- 
+            
 
 return  this_it_a;
 
@@ -3304,132 +3346,119 @@ function s_nub_array(nub_1){      //產生將隱藏 之 陣列元素
     var array_a=[];
 
      s_chang_visible_all();       //所有還原顯示
-   
+
+  
+  
     switch(nub_a){
     case "1_1":
-      array_a=["1_1","1_2","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_1","5_2","5_3","5_5"];
+      array_a=["1_1","1_2","1_3","1_4","1_5","1_6","2_2","2_3","2_4","2_5","2_6","3_2","3_3","3_4","3_5","3_6","4_2","4_3","4_4","4_5","4_6","5_1","5_2","5_3","5_4"];
       break;
     case "1_2":
-      array_a=["1_1","1_2","1_3","1_4","1_5","1_6","2_1","2_3","2_4","2_5","2_6","3_1","3_3","3_4","3_5","3_6","4_1","4_3","4_4","4_5","4_6","5_1","5_2","5_3","5_4","5_5"];
+      array_a=["1_2","1_3","2_2","5_1","5_4"];
       break;
-
+  
     case "1_3":
       
-      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
+      array_a=["1_4","1_5","1_6","2_6","3_6","4_6","5_1"];
       break;
     case "1_4":
-      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
+      array_a=["1_1","1_2","1_3","1_4","2_1","2_2","2_3","2_4","2_5","3_1","3_2","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2","5_3","5_4"];
+     
       break;
     case "1_5":
-      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
+      array_a=["1_4","1_5","1_6","2_6","3_6","4_6","5_1"];
       break;
     case "1_6":
-      array_a=["1_6","2_6","3_6","4_6","4_1","5_1","5_2","5_5"];
+      array_a=["1_4","1_5","1_6","2_6","3_6","4_6","5_1"];
       break;
    
     case "2_1":
-      array_a=["1_1","1_2","1_6","2_1","2_2","2_6","3_1","3_2","3_6","4_1","4_2","4_3","4_6","5_1","5_2","5_3","5_5"];
+      array_a=["1_1","1_2","1_4","1_5","1_6","2_1","2_6","3_1","3_2","4_1","4_2","4_6","5_2"];
       break;
     case "2_2":
-      array_a=["1_1","1_2","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_1","5_5"];
+       array_a=["1_2","1_3","2_2","5_1","5_4"];
       break;
     case "2_3":
-      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
+      array_a=["1_3","5_1"];
       break;
     case "2_4":
-      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
+     array_a=["1_3","5_1"];
       break;
     case "2_5":
-      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
+      array_a=["1_3","5_1"];
       break;
     case "2_6":
-      array_a=["1_6","2_6","3_6","4_6","4_1","5_1","5_2","5_5"];
+      array_a=["1_4","1_5","1_6","2_6","3_6","4_6","5_1"];
       break;
    
     case "3_1":
-      array_a=["1_1","1_2","1_6","2_1","2_2","2_6","3_1","3_2","3_6","4_1","4_2","4_3","4_6","5_1","5_2","5_3","5_5"];
+      array_a=["1_1","1_2","1_4","1_5","1_6","2_1","2_6","3_1","3_2","4_1","4_2","4_6","5_2"];
       break;
     case "3_2":
-      array_a=["1_1","1_2","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_1","5_5"];
+      array_a=["1_1","1_2","1_4","1_5","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_1","5_2"];
       break;
     case "3_3":
-      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
+      array_a=["1_3","5_1"];
       break;
     case "3_4":
-      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
+      array_a=["1_3","5_1"];
       break;
     case "3_5":
-      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
+      array_a=["1_3","5_1"];
       break;
     case "3_6":
-      array_a=["1_6","2_6","3_6","4_6","4_1","5_1","5_2","5_5"];
+      array_a=["1_4","1_5","1_6","2_6","3_6","4_6","5_1"];
       break;
    
     case "4_1":
-      array_a=["1_1","1_2","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_3","4_6","5_1","5_2","5_3","5_5"];
+      array_a=["1_1","1_2","1_4","1_5","1_6","2_1","2_6","3_1","3_2","4_1","4_2","4_6","5_2"];
       break;
     case "4_2":
-     array_a=["1_1","1_2","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_1","5_5"];
+     array_a=["1_1","1_2","1_4","1_5","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_1","5_2"];
       break;
     case "4_3":
-      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_1","4_2","5_1","5_2"];
+       array_a=["1_3","5_1"];
       break;
     case "4_4":
-      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_2","5_2"];
+      array_a=["1_3","5_1"];
       break;
     case "4_5":
-      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_1","4_2","5_1","5_2"];
+       array_a=["1_3","5_1"];
       break;
    case "4_6":
-      array_a=["1_6","2_6","3_6","4_6","4_1","5_1","5_2","5_5"];
+      array_a=["1_4","1_5","1_6","2_6","3_6","4_6","5_1"];
       break;
    
    case "5_1":                                                  
-      array_a=["1_1","1_2","1_3","1_4","1_5","2_1","2_2","2_3","2_4","2_5","3_1","3_2","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2","5_3","5_4","5_5"];
+      array_a=["1_1","1_2","1_4","1_5","1_6","2_1","2_6","3_1","3_2","4_1","4_2","4_6","5_2"];
       break;
 
 
     case "5_2":
-      array_a=["1_1","1_2","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_1","5_2","5_3","5_5"];
+      array_a=["1_1","1_2","1_4","1_5","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_1","5_2"];
       break;
-
     case "5_3":
-      array_a=["1_1","1_2","1_3","1_4","1_5","2_1","2_2","2_3","2_4","2_5","3_1","3_2","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2","5_3","5_4"];
+      array_a=["1_3","5_1"];
       break;
 
     case "5_4":
-      array_a=["1_6","2_6","4_1","4_6","5_1","5_3","5_5"];
+      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_1","4_2","5_1","5_2"];
       break;
    
      case "5_5":
-      
+       array_a=["1_4","1_5","1_6","2_6","3_6","4_6","5_1","5_4"];
       break;
-   case "5_6":
-      
-      break; 
 
-    case "6_1":
-      
-      break;
-    case "6_2":
-      
-      break;
-    case "6_3":
-    
-      break;
-    case "6_4":
-     
-      break;
-    
-   case "6_5":
-      array_a=["4_1","5_1","5_2","5_5"];
-      break;
-   case "6_6":
-     array_a=["4_1","5_1","5_2","5_5"];
+     case "5_6":
+       array_a=["1_4","1_5","1_6","2_6","3_6","4_6","5_1","5_4"];
+
 
       break; 
+
+    
      }
   
+
     return array_a;
  }
 
@@ -3440,26 +3469,25 @@ function s_map(item_1){
   var item_a = item_1;
   var item_a_p =item_a.substr(1,1); //取 "_"     
 
-  var A = m_new_mtx(6,6);
-  var B = m_new_mtx(6,6);
-  var T = m_new_mtx(6,6);
+  var A = m_new_mtx(5,6);
+  var B = m_new_mtx(5,6);
+  var T = m_new_mtx(5,6);
 
   var item_map="" ;
 
-   var A=[["exp","a","7","8","9","/"],
-         ["ln","sin","4","5","6","*"],
-         ["log","cos","1","2","3","-"],
-         ["^","tan","π","0",".","+"],
-         ["!","h","°","(",")","<=x"],                // n!
-         ["xxx","xxx","spc","Ent","ac","="]];
+   var A=[["a","°","(",")","^","/"],
+         ["sin","π","7","8","9","*"],
+         ["cos","exp","4","5","6","-"],
+         ["tan","ln","1","2","3","+"],
+         ["h","log","0",".","ac","="]];                  // n!
+         
 
    var B=[["1_1","1_2","1_3","1_4","1_5","1_6"],
           ["2_1","2_2","2_3","2_4","2_5","2_6"],
           ["3_1","3_2","3_3","3_4","3_5","3_6"],
           ["4_1","4_2","4_3","4_4","4_5","4_6"],
-          ["5_1","5_2","5_3","5_4","5_5","5_6"],
-          ["6_1","6_2","6_3","6_4","6_5","6_6"]];
-
+          ["5_1","5_2","5_3","5_4","5_5","5_6"]];
+          
      if( item_a_p =="_"){
         T=A;
         A=B;
@@ -3494,23 +3522,29 @@ function s_map(item_1){
 
 function s_chang_visible_all(){
 
- 
-     for(var i=1;i <= 6;i++){     //row
+   
+
+     for(var i=1;i <= 5;i++){     //row
 
        for(var j=1;j <= 6;j++){   //col
 
        var item_n= i+"_"+j;
           document.getElementById(item_n).disabled=false;
 
+             
             if(i<=5 && j==1){
-                document.getElementById(item_n).style.backgroundColor= "cyan";
-                document.getElementById(item_n).style.color="blue";}
-
-           if((i<=5) && (j==2)){
                 document.getElementById(item_n).style.backgroundColor= "Lime";
                 document.getElementById(item_n).style.color="blue";}
+         
+           if((i<=5 && i>=3) && (j==2)){
+                document.getElementById(item_n).style.backgroundColor=  "cyan";
+                document.getElementById(item_n).style.color="blue";}
 
-           if(i<=5  && j>2 && j<=5 ){
+          if((i<=2) && (j==2)){
+                document.getElementById(item_n).style.backgroundColor= "white";
+                document.getElementById(item_n).style.color="blue";}
+
+           if(i<=5  && j >2 && j<=5 ){
                 document.getElementById(item_n).style.backgroundColor= "white";
                 document.getElementById(item_n).style.color="blue";}
                
@@ -3518,28 +3552,26 @@ function s_chang_visible_all(){
                 document.getElementById(item_n).style.backgroundColor= "yellow";
                 document.getElementById(item_n).style.color="blue";}
 
-             if(i==5 && j==6){
+             if(i==5 && j==5){
                 document.getElementById(item_n).style.backgroundColor= "pink";
                 document.getElementById(item_n).style.color="#000000";}
 
+               if(i==1 && j==5){
+                document.getElementById(item_n).style.backgroundColor= "yellow";
+                document.getElementById(item_n).style.color="blue";}
 
-            if(i==6 && j<=5 && j>=3 ){
-                document.getElementById(item_n).style.backgroundColor= "pink";
-                document.getElementById(item_n).style.color="#000000";}
 
-             if(i==6 && j==6 ){
+             if(i==5 && j==6 ){
                 document.getElementById(item_n).style.backgroundColor= "#FF3333";
                 document.getElementById(item_n).style.color="#000000";}
-
-              if(i==6 && (j==1 || j==2)){
-                document.getElementById(item_n).style.backgroundColor= "olive";
-                document.getElementById(item_n).style.color="#000000";}
-
-        
+              
+                 
                             }
                           }
+     
 
-}
+
+               }
 
 
 function s_chang_sum(item){     //綜整
@@ -3578,7 +3610,7 @@ function s_chang_sum(item){     //綜整
 
 //  //////////////////////////////////////////////////////////////////////////   防呆3    "↓"
 
-
+ 
    function s_check_end(str){                             //check 2碼以上 字串  asin acos atan 
        var str_1=str;
        var asin_1 = m_str_spc_end(str_1,"asin");
@@ -3606,23 +3638,23 @@ function s_chang_sum(item){     //綜整
 
        var array_a=[];    //產生將隱藏 之 陣列元素
 
-           if(asin_1==1 || acos_1==1){                                             //check 2碼
-                array_a=["1_3","1_4","1_5","1_6","2_3","2_4","2_5","2_6","3_4","3_5","4_3","4_3","5_3"]; }
+        //   if(asin_1==1 || acos_1==1){                                             //check 2碼
+        //        array_a=["1_3","1_4","1_5","1_6","2_3","2_4","2_5","2_6","3_4","3_5","4_3","4_3","5_3"]; }
 
-            if(acosh_1==1 ){
-                array_a=["4_4","4_5","5_2","5_3"]; }
+        //    if(acosh_1==1 ){
+        //        array_a=["4_4","4_5","5_2","5_3"]; }
 
-             if(atanh_1==1 ){
-                array_a=["1_3","1_4","1_5","1_6","2_3","2_4","2_5","2_6","3_3","3_4","3_5","4_3"]; }
+        //     if(atanh_1==1 ){
+        //        array_a=["1_3","1_4","1_5","1_6","2_3","2_4","2_5","2_6","3_3","3_4","3_5","4_3"]; }
 
 
-             if(asin1_1==1 || acos1_1==1 ||asin_1_1==1 || acos_1_1==1){                 //check 3碼
-                array_a=["1_1","1_2","1_3","1_4","1_5","2_1","2_2","2_3","2_4","2_5","3_2","3_1","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2","5_3"];
-                  }
+        //     if(asin1_1==1 || acos1_1==1 ||asin_1_1==1 || acos_1_1==1){                 //check 3碼
+         //       array_a=["1_1","1_2","1_3","1_4","1_5","2_1","2_2","2_3","2_4","2_5","3_2","3_1","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2","5_3"];
+        //          }
                
-             if(asin1_a==1 || acos1_a==1 ||asin_1_a==1 || acos_1_a==1){                 //check 3碼
-                array_a=["1_1","1_2","1_3","1_4","1_5","2_1","2_2","2_3","2_4","2_5","3_2","3_1","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2"];
-                  }
+         //    if(asin1_a==1 || acos1_a==1 ||asin_1_a==1 || acos_1_a==1){                 //check 3碼
+         //       array_a=["1_1","1_2","1_3","1_4","1_5","2_1","2_2","2_3","2_4","2_5","3_2","3_1","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2"];
+          //        }
 
 
        s_chang_hidden_array(array_a);    //陣列元素 隱藏 
@@ -3692,18 +3724,23 @@ function m_new_mtx(rows,cols){
                                 
       var this_it = m_dele_bf_char(it,';').trim();        //結束符號前字串 刪除 //s 為字串   c結束字
 
+
+         //alert(this_it);
      
+
           this_it = m_str_math_replacec(this_it);         //自製函數取代 
 
-            //alert(this_it);
+         // alert(this_it);  
+
 
           this_it =  m_oct_nb(this_it);    //             //處理 8進位為 10進位   //新增 //+0 -0 *0 /0  0
 
-           // alert(this_it);
 
-        var this_data =  eval(this_it);  //066+0.3=54.3 ???? 8進位
 
-         //alert(this_data);
+           
+
+        var this_data =  eval(this_it);  
+         
            
 
 
@@ -3742,11 +3779,6 @@ function m_new_mtx(rows,cols){
              }
     
 
-            
-
-           
-
-          
 
           newline_1();
 
