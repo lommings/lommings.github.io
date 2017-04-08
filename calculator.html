@@ -26,9 +26,12 @@ function to_mobile(){
        
 	if(navigator.userAgent.match(/Android|iPhone|iPad/i)) {
 	 	window.location = 'calculator_mobile.html' ;          //'手機版網址'
-	    	 }
+	 
+                   	 }
+        else { window.location = 'calculator.html' ;  }        //'pc 版網址'
+
  
-         }
+                    }
  
 
 
@@ -39,7 +42,7 @@ function to_mobile(){
    
 
 </head>
-<body onload=" to_mobile() ;document.getElementById('input').focus()  ">
+<body onload=" to_mobile() ;document.getElementById('input').focus()" >
 <form id="calc">
 
 <div class="block">

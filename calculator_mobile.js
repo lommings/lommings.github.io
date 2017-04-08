@@ -141,6 +141,9 @@ var mc = new Math_c();   //class head
     {
         s_chang_visible_all();     //key 解禁
 
+
+        
+
         var no = cursor_position();
        
            
@@ -479,6 +482,64 @@ function cursor_coords(){      //新增 cursor 做標
 //  //////////////////////////////////////////////////////////////////////////   key  "↓"
 
  
+var repeat_bs;
+ var repeat_del;
+ var repeat_sp;
+ var repeat_left;
+ var repeat_right;
+ var repeat_up;
+ var repeat_down;
+
+
+function m_repeat_fu(nub){  
+
+  var nub_a=nub;
+
+    if(nub_a==0){
+        repeat_bs = setInterval("backspace()" , 1);  }   //repeat 
+    
+    if(nub_a==1){
+        repeat_del = setInterval("delete_a()" , 100);  }   //repeat
+
+    if(nub_a==2){
+        repeat_sp = setInterval("space_1()" , 100);  }   //repeat
+    if(nub_a==3){
+        repeat_left = setInterval("cursor_left_1()" , 100);  }   //repeat
+     if(nub_a==4){
+        repeat_right = setInterval("cursor_right_1()" , 100);  }   //repeat
+      if(nub_a==5){
+        repeat_up = setInterval("cursor_up_1()" , 100);  }   //repeat
+      if(nub_a==6){
+        repeat_down = setInterval("cursor_down_1()" , 100);  }   //repeat
+
+      
+      
+  }
+
+
+ function m_stop_repeat_fu(nub){
+
+  var nub_a=nub;
+    if(nub_a==0){
+      clearInterval(repeat_bs); }    //stop repeat
+     if(nub_a==1){
+      clearInterval(repeat_del); }    //stop repeat
+     if(nub_a==2){
+      clearInterval(repeat_sp); }    //stop repeat
+    if(nub_a==3){
+      clearInterval(repeat_left); }    //stop repeat
+    if(nub_a==4){
+      clearInterval(repeat_right); }    //stop repeat 
+    if(nub_a==5){
+      clearInterval(repeat_up); }    //stop repeat 
+    if(nub_a==6){
+      clearInterval(repeat_down); }    //stop repeat 
+   
+
+
+
+ }
+
 
 
  
@@ -486,7 +547,14 @@ function cursor_coords(){      //新增 cursor 做標
 
 function backspace(){
 
+   //alert("ll");
+
       s_chang_visible_all();     //key 解禁
+
+
+      //s_chang_sum("<=x");      //防呆 //新增//需open
+
+     // alert("ll");
 
         var no = cursor_position();
            
@@ -582,7 +650,7 @@ function space_1(){
 function key_1(char_1){
 
 
-     
+     //alert("oo");
 
       var char_1=char_1;
    
@@ -616,7 +684,7 @@ function key_1(char_1){
 
       document.getElementById('input').value = new_str;
 
-        cursor_position_set(no+char_lg) ;    //set cursor  位置//暫不用
+      //  cursor_position_set(no+char_lg) ;    //set cursor  位置//暫不用
           
 
          
@@ -717,7 +785,7 @@ function newline_1(){                 //cursor 在所有字串 後,換行
 //  //////////////////////////////////////////////////////////////////////////   display   "↓" 
 
 
-function scroll_cursor(){       //配和 cursor  scroll_cursor()
+function scroll_cursor(){       //配和 cursor  scroll_cursor()//暫停
 
       var text_area = document.getElementById('input');
     
@@ -1783,7 +1851,7 @@ function message_1(n){
           break;
 
           case 10:
-          message_1 = "<--  Msg : value approximation to  0 -->" ;
+          message_1 = "<--  Msg : exp(x) value approximation to  0 -->" ;
           break;
 
           case 11:
@@ -1825,7 +1893,7 @@ function message_1(n){
 
 //  //////////////////////////////////////////////////////////////////////////   string string  "↓"
     //  結束符號前字串 刪除    處理display 
-  function m_dele_bf_char(s,c){     //s 為字串   c結束字  //刪除
+  function m_del4_2f_char(s,c){     //s 為字串   c結束字  //刪除
     
      var ss=s;
      var cc=c;
@@ -2348,7 +2416,7 @@ function m_str_spc_index(str,spec){            //計算特殊字串 在 長字�
 function m_str_spc_inter(str,spec_1,spec_2){            //計算特殊字串 在 長字串  取spec1(含),spec2(含) 間字串   //<  >
    var str_1 = str;
    var spec_a = spec_1;
-   var spec_b = spec_2;
+   var spe2_2 = spec_2;
 
    var str_1_lg = str_1.length;
    
@@ -2356,7 +2424,7 @@ function m_str_spc_inter(str,spec_1,spec_2){            //計算特殊字串 在
    var index_2 = 0; 
                     
        index_1 = m_str_spc_index(str,spec_a);
-       index_2 = m_str_spc_index(str,spec_b);
+       index_2 = m_str_spc_index(str,spe2_2);
 
    var new_str =str_1.substring(index_1,index_2+1);   //取spec1(含),spec2(含) 間字串
 
@@ -2369,7 +2437,7 @@ function m_str_spc_inter(str,spec_1,spec_2){            //計算特殊字串 在
 function m_str_spc_inter_2word(str,spec_1,spec_2){            //計算特殊字串 在 長字串  取spec1(含),spec2(含) 間字串   //<  >
    var str_1 = str;
    var spec_a = spec_1;
-   var spec_b = spec_2;
+   var spe2_2 = spec_2;
 
    var str_1_lg = str_1.length;
    
@@ -2377,7 +2445,7 @@ function m_str_spc_inter_2word(str,spec_1,spec_2){            //計算特殊字�
    var index_2 = 0; 
                     
        index_1 = m_str_spc_index(str,spec_a);
-       index_2 = m_str_spc_index(str,spec_b);
+       index_2 = m_str_spc_index(str,spe2_2);
 
    var new_str =str_1.substring(index_1,index_2+2);   //取spec1(含),spec2(含) 間字串
 
@@ -2603,29 +2671,29 @@ return  this_it_a;
       
      var new_str ="";
 
-    var str_b_b_1 = m_str_b_sec(str_b,"<--");          //取"<--"前之字串  spec="<--"
-    var str_b_b_2 = m_str_b_sec(str_b,"=");          //取"="前之字串  spec="="
+    var str_2_0_1 = m_str_b_sec(str_b,"<--");          //取"<--"前之字串  spec="<--"
+    var str_2_0_2 = m_str_b_sec(str_b,"=");          //取"="前之字串  spec="="
        
-      if(str_b_b_1.length >0){
+      if(str_2_0_1.length >0){
 
-         var str_b_b=str_b_b_1;}
+         var str_2_0=str_2_0_1;}
        else{
-          var str_b_b=str_b_b_2;}
+          var str_2_0=str_2_0_2;}
 
 
 
 
      
-    var str_b_b_r =  m_str_math_replacec(str_b_b);     //自製公式取代 display
+    var str_2_0_r =  m_str_math_replacec(str_2_0);     //自製公式取代 display
 
 
-    var str_b_b_r_ans = eval(str_b_b_r);             //計算值
+    var str_2_0_r_ans = eval(str_2_0_r);             //計算值
 
      
- if( str_b_b_r_ans >=0 || str_b_b_r_ans < 0){    //顯示數字
+ if( str_2_0_r_ans >=0 || str_2_0_r_ans < 0){    //顯示數字
 
           
-        var new_str = str_a+str_b_b.trim()+"="+str_b_b_r_ans.toString().trim()+";"+str_c ;
+        var new_str = str_a+str_2_0.trim()+"="+str_2_0_r_ans.toString().trim()+";"+str_c ;
 
           document.getElementById('input').value = "";        //clear 
            document.getElementById('input').value = new_str;
@@ -2636,15 +2704,15 @@ return  this_it_a;
        else {
 
          
-            str_b_b_r_ans =  m_str_spc_inter( str_b_b_r_ans,"<",">");    //取字串
+            str_2_0_r_ans =  m_str_spc_inter( str_2_0_r_ans,"<",">");    //取字串
 
          document.getElementById('input').value = "";        //clear 
   
 
-         document.getElementById('input').value = str_a+str_b_b ;
+         document.getElementById('input').value = str_a+str_2_0 ;
                newline_1();                 //增加一空行
 
-         document.getElementById('input').value +=  str_b_b_r_ans+";" +str_c ;   //顯示文字 error :message
+         document.getElementById('input').value +=  str_2_0_r_ans+";" +str_c ;   //顯示文字 error :message
 
        
         
@@ -3269,14 +3337,14 @@ function m_fixed(nub,pit_n){        //取小數點後 (pit_n) 幾位 ,四捨五�
 
 function m_c_fixed(nub_1,nub_2,end_nub){        //消除c語言影響小數點後誤差 。
     var nub_a=nub_1;
-    var nub_b=nub_2;
+    var nu2_0=nub_2;
     var nub_c=end_nub;
     var nub_a_s =nub_a.toString().trim();
     var nub_a_s_lg = nub_a_s.length;
-    var nub_b_s =nub_b.toString().trim();
-    var nub_b_s_lg = nub_b_s.length;
+    var nu2_0_s =nu2_0.toString().trim();
+    var nu2_0_s_lg = nu2_0_s.length;
 
-    var lg=nub_a_s_lg+nub_b_s_lg;
+    var lg=nub_a_s_lg+nu2_0_s_lg;
      
     var new_nub = m_fixed(nub_c,lg);   //取小數點後 (pit_n) 幾位 ,四捨五入
 
@@ -3335,8 +3403,10 @@ function s_chang_hidden_nub(nub_1){      //隱藏 單筆
    var nub_a = nub_1;
        document.getElementById(nub_a).disabled=true;                  //隱藏
        //document.getElementById(nub_a).setAttribute("disabled","disabled");//隱藏 同上
-       document.getElementById(nub_a).style.backgroundColor="#6495ed";
-       document.getElementById(nub_a).style.color="while";
+       //document.getElementById(nub_a).style.backgroundColor="#6495ed";
+         document.getElementById(nub_a).style.opacity=0.5;
+
+      // document.getElementById(nub_a).style.color="while";
 }
   
 
@@ -3350,115 +3420,142 @@ function s_nub_array(nub_1){      //產生將隱藏 之 陣列元素
   
   
     switch(nub_a){
-    case "1_1":
-      array_a=["1_1","1_2","1_3","1_4","1_5","1_6","2_2","2_3","2_4","2_5","2_6","3_2","3_3","3_4","3_5","3_6","4_2","4_3","4_4","4_5","4_6","5_1","5_2","5_3","5_4"];
+
+     case "1_0":
+      array_a=["1_0","1_1","1_2","1_4","2_0","5_1","5_5"];
       break;
+
+    case "1_1":
+      array_a=["1_0","1_1","1_4","1_5","1_6","1_2","2_0","2_2","2_3","2_4","2_5","2_6","3_2","3_3","3_4","3_5","3_6","4_3","4_4","4_5","4_6","5_1","5_4","5_5"];
+      break;
+
     case "1_2":
-      array_a=["1_2","1_3","2_2","5_1","5_4"];
+      array_a=["1_0","1_1","1_4","1_5","1_2","2_0","2_1","2_3","2_4","2_5","3_1","2_2","3_2","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2","5_4","5_5"];
+
+      break;
+
+      case "1_3":
+     
+      array_a=["1_2","1_5","1_6","2_6","3_6","4_6","5_1","5_2","5_5"];
       break;
   
-    case "1_3":
-      
-      array_a=["1_4","1_5","1_6","2_6","3_6","4_6","5_1"];
-      break;
     case "1_4":
-      array_a=["1_1","1_2","1_3","1_4","2_1","2_2","2_3","2_4","2_5","3_1","3_2","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2","5_3","5_4"];
-     
+      
+      array_a=["1_2","1_5","1_6","2_6","4_6","5_1","5_2"];
       break;
     case "1_5":
-      array_a=["1_4","1_5","1_6","2_6","3_6","4_6","5_1"];
-      break;
-    case "1_6":
-      array_a=["1_4","1_5","1_6","2_6","3_6","4_6","5_1"];
+      array_a=["1_0","1_1","1_2","1_4","1_5","2_0","2_1","2_2","2_3","2_4","2_5","3_1","3_2","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_4","5_5"];
+     
       break;
    
+    case "1_6":
+      array_a=["1_2","1_5","1_6","2_6","4_6","5_1","5_2"];
+      break;
+
+    case "2_0":
+       array_a=["1_0","1_1","1_2","1_4","2_0","5_1","5_5"];
+      break;
+
     case "2_1":
-      array_a=["1_1","1_2","1_4","1_5","1_6","2_1","2_6","3_1","3_2","4_1","4_2","4_6","5_2"];
+      array_a=["1_1","1_2","1_5","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_2"];
       break;
     case "2_2":
-       array_a=["1_2","1_3","2_2","5_1","5_4"];
+      array_a=["1_1","1_2","1_5","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_1","5_2"];
       break;
-    case "2_3":
-      array_a=["1_3","5_1"];
+
+    case "2_3":                //7
+      array_a=["1_4","5_1"];
       break;
     case "2_4":
-     array_a=["1_3","5_1"];
+     array_a=["1_4","5_1"];
       break;
     case "2_5":
-      array_a=["1_3","5_1"];
+      array_a=["1_4","5_1"];
       break;
     case "2_6":
-      array_a=["1_4","1_5","1_6","2_6","3_6","4_6","5_1"];
+      array_a=["1_2","1_5","1_6","2_6","4_6","5_1"];
       break;
    
+   
     case "3_1":
-      array_a=["1_1","1_2","1_4","1_5","1_6","2_1","2_6","3_1","3_2","4_1","4_2","4_6","5_2"];
+      array_a=["1_1","1_2","1_5","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_2"];
       break;
-    case "3_2":
-      array_a=["1_1","1_2","1_4","1_5","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_1","5_2"];
+
+   case "3_2":
+      array_a=["1_1","1_2","1_5","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_1","5_2"];
       break;
-    case "3_3":
-      array_a=["1_3","5_1"];
+
+     case "3_3":
+      array_a=["1_4","5_1"];
       break;
     case "3_4":
-      array_a=["1_3","5_1"];
+      array_a=["1_4","5_1"];
       break;
     case "3_5":
-      array_a=["1_3","5_1"];
+      array_a=["1_4","5_1"];
       break;
     case "3_6":
-      array_a=["1_4","1_5","1_6","2_6","3_6","4_6","5_1"];
+      array_a=["1_2","1_5","1_6","2_6","3_6","4_6","5_1"];
       break;
    
     case "4_1":
-      array_a=["1_1","1_2","1_4","1_5","1_6","2_1","2_6","3_1","3_2","4_1","4_2","4_6","5_2"];
+      array_a=["1_1","1_2","1_5","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_2"];
       break;
-    case "4_2":
-     array_a=["1_1","1_2","1_4","1_5","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_1","5_2"];
-      break;
-    case "4_3":
-       array_a=["1_3","5_1"];
-      break;
-    case "4_4":
-      array_a=["1_3","5_1"];
-      break;
-    case "4_5":
-       array_a=["1_3","5_1"];
-      break;
-   case "4_6":
-      array_a=["1_4","1_5","1_6","2_6","3_6","4_6","5_1"];
+    
+      case "4_2":
+      array_a=["1_1","1_2","1_5","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_1","5_2"];
       break;
    
-   case "5_1":                                                  
-      array_a=["1_1","1_2","1_4","1_5","1_6","2_1","2_6","3_1","3_2","4_1","4_2","4_6","5_2"];
+   
+    case "4_3":
+       array_a=["1_4","5_1"];
+      break;
+    case "4_4":
+      array_a=["1_4","5_1"];
+      break;
+    case "4_5":
+       array_a=["1_4","5_1"];
+      break;
+   case "4_6":
+      array_a=["1_2","1_5","1_6","2_6","3_6","4_6","5_1"];
+      break;
+   
+    case "5_0":   //???
+      array_a=["1_2","1_5","1_6","2_6","3_6","4_6","5_1","5_2","5_5"];
       break;
 
+   case "5_1":                                                  
+      array_a=["1_1","1_2","1_5","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_2"];
+      break;
 
     case "5_2":
-      array_a=["1_1","1_2","1_4","1_5","1_6","2_1","2_2","2_6","3_1","3_2","4_1","4_2","4_6","5_1","5_2"];
+     array_a=["1_1","1_2","1_5","1_6","2_1","2_2","2_6","3_1","3_2","3_6","4_1","4_2","4_6","5_1","5_2"];
       break;
+   
+    
     case "5_3":
-      array_a=["1_3","5_1"];
+      array_a=["1_2","1_5","1_6","2_6","3_6","4_6","5_1","5_2","5_5"];
       break;
 
     case "5_4":
-      array_a=["1_1","1_2","2_1","2_2","3_1","3_2","4_1","4_2","5_1","5_2"];
+
+      array_a=["1_4","5_1"];  
+   
       break;
+    
    
      case "5_5":
-       array_a=["1_4","1_5","1_6","2_6","3_6","4_6","5_1","5_4"];
+       array_a=["1_1","1_0","1_2","1_4","2_0","2_1","2_2","3_1","3_2","4_1","5_1","5_5"];
       break;
 
      case "5_6":
-       array_a=["1_4","1_5","1_6","2_6","3_6","4_6","5_1","5_4"];
-
-
+       array_a=["1_2","1_5","1_6","2_6","4_6","5_1","5_2","5_5"];
       break; 
-
+   
     
      }
   
-
+  
     return array_a;
  }
 
@@ -3469,24 +3566,24 @@ function s_map(item_1){
   var item_a = item_1;
   var item_a_p =item_a.substr(1,1); //取 "_"     
 
-  var A = m_new_mtx(5,6);
-  var B = m_new_mtx(5,6);
-  var T = m_new_mtx(5,6);
+  var A = m_new_mtx(5,7);
+  var B = m_new_mtx(5,7);
+  var T = m_new_mtx(5,7);
 
   var item_map="" ;
 
-   var A=[["a","°","(",")","^","/"],
-         ["sin","π","7","8","9","*"],
-         ["cos","exp","4","5","6","-"],
-         ["tan","ln","1","2","3","+"],
-         ["h","log","0",".","ac","="]];                  // n!
+   var A=[["°","a","!","<=x","(",")","/"],
+         ["π","sin","exp","7","8","9","*"],
+         ["help","cos","ln","4","5","6","-"],
+         ["open","tan","log","1","2","3","+"],
+         ["←","h","^","ac","0",".","="]];                  // n!
          
 
-   var B=[["1_1","1_2","1_3","1_4","1_5","1_6"],
-          ["2_1","2_2","2_3","2_4","2_5","2_6"],
-          ["3_1","3_2","3_3","3_4","3_5","3_6"],
-          ["4_1","4_2","4_3","4_4","4_5","4_6"],
-          ["5_1","5_2","5_3","5_4","5_5","5_6"]];
+   var B=[["1_0","1_1","1_2","1_3","1_4","1_5","1_6"],
+          ["2_0","2_1","2_2","2_3","2_4","2_5","2_6"],
+          ["3_0","3_1","3_2","3_3","3_4","3_5","3_6"],
+          ["4_0","4_1","4_2","4_3","4_4","4_5","4_6"],
+          ["5_0","5_1","5_2","5_3","5_4","5_5","5_6"]];
           
      if( item_a_p =="_"){
         T=A;
@@ -3526,52 +3623,17 @@ function s_chang_visible_all(){
 
      for(var i=1;i <= 5;i++){     //row
 
-       for(var j=1;j <= 6;j++){   //col
+       for(var j=0;j <= 6;j++){   //col
 
        var item_n= i+"_"+j;
           document.getElementById(item_n).disabled=false;
-
-             
-            if(i<=5 && j==1){
-                document.getElementById(item_n).style.backgroundColor= "Lime";
-                document.getElementById(item_n).style.color="blue";}
-         
-           if((i<=5 && i>=3) && (j==2)){
-                document.getElementById(item_n).style.backgroundColor=  "cyan";
-                document.getElementById(item_n).style.color="blue";}
-
-          if((i<=2) && (j==2)){
-                document.getElementById(item_n).style.backgroundColor= "white";
-                document.getElementById(item_n).style.color="blue";}
-
-           if(i<=5  && j >2 && j<=5 ){
-                document.getElementById(item_n).style.backgroundColor= "white";
-                document.getElementById(item_n).style.color="blue";}
-               
-            if(i<=4 && j==6){
-                document.getElementById(item_n).style.backgroundColor= "yellow";
-                document.getElementById(item_n).style.color="blue";}
-
-             if(i==5 && j==5){
-                document.getElementById(item_n).style.backgroundColor= "pink";
-                document.getElementById(item_n).style.color="#000000";}
-
-               if(i==1 && j==5){
-                document.getElementById(item_n).style.backgroundColor= "yellow";
-                document.getElementById(item_n).style.color="blue";}
-
-
-             if(i==5 && j==6 ){
-                document.getElementById(item_n).style.backgroundColor= "#FF3333";
-                document.getElementById(item_n).style.color="#000000";}
               
-                 
+          document.getElementById(item_n).style.opacity=1;      //修改
                             }
                           }
      
+                  }
 
-
-               }
 
 
 function s_chang_sum(item){     //綜整
@@ -3636,25 +3698,38 @@ function s_chang_sum(item){     //綜整
        var asin_1_a = m_str_spc_end(str_1,"(asin-1");        //check4 碼以上 字串  asin1 acos1 atan1 
        var acos_1_a = m_str_spc_end(str_1,"(acos-1");
 
+       var ln_0 = m_str_spc_end(str_1,"ln0");        // 避免 error
+       var log_0 = m_str_spc_end(str_1,"log0");        //避免 error
+
+        
+
        var array_a=[];    //產生將隱藏 之 陣列元素
 
-        //   if(asin_1==1 || acos_1==1){                                             //check 2碼
-        //        array_a=["1_3","1_4","1_5","1_6","2_3","2_4","2_5","2_6","3_4","3_5","4_3","4_3","5_3"]; }
+           if(asin_1==1 || acos_1==1){                                             //check 2碼
+                array_a=["1_2","2_0","2_3","2_4","2_5","3_3","3_4","3_5","4_2","4_4","4_5"]; }
 
-        //    if(acosh_1==1 ){
-        //        array_a=["4_4","4_5","5_2","5_3"]; }
+          if(acosh_1==1 ){                    //>=1
+                array_a=["1_0","3_6","5_4","5_5"]; }
 
-        //     if(atanh_1==1 ){
-        //        array_a=["1_3","1_4","1_5","1_6","2_3","2_4","2_5","2_6","3_3","3_4","3_5","4_3"]; }
+          if(atanh_1==1 ){                 //<1
+                array_a=["2_0","2_3","2_4","2_5","3_3","3_4","3_5","4_3","4_4","4_5",]; }
 
 
-        //     if(asin1_1==1 || acos1_1==1 ||asin_1_1==1 || acos_1_1==1){                 //check 3碼
-         //       array_a=["1_1","1_2","1_3","1_4","1_5","2_1","2_2","2_3","2_4","2_5","3_2","3_1","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2","5_3"];
-        //          }
+             if(asin1_1==1 || acos1_1==1 ||asin_1_1==1 || acos_1_1==1){                 //check 3碼
+                array_a=["1_0","1_1","1_2","2_1","2_0","2_2","2_3","2_4","2_5","3_1","3_2","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2","5_4","5_5"];
+                  }
                
          //    if(asin1_a==1 || acos1_a==1 ||asin_1_a==1 || acos_1_a==1){                 //check 3碼
-         //       array_a=["1_1","1_2","1_3","1_4","1_5","2_1","2_2","2_3","2_4","2_5","3_2","3_1","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2"];
+         //       array_a=["1_0","1_1","1_4","1_5","2_0","2_1","2_2","2_3","2_4","2_5","3_1","3_2","3_3","3_4","3_5","4_1","4_3","4_4","4_5","5_1","5_2"];
           //        }
+
+               if(ln_0==1 || log_0==1 ){                 //error state
+                array_a=["1_0","1_1","1_2","1_4","1_5","1_6","2_0","2_1","2_2","2_3","2_4","2_5","2_6","3_1","3_2","3_3","3_4","3_5","3_6","4_1","4_2","4_3","4_4","4_5","4_6","5_1","5_2","5_4"];
+                  }
+
+
+
+
 
 
        s_chang_hidden_array(array_a);    //陣列元素 隱藏 
@@ -3704,7 +3779,7 @@ function m_new_mtx(rows,cols){
 
 
 
-         
+        // alert("pppp");
 
               var item_a=calc.input.value;  //保持原型
 
@@ -3722,27 +3797,33 @@ function m_new_mtx(rows,cols){
     
         
                                 
-      var this_it = m_dele_bf_char(it,';').trim();        //結束符號前字串 刪除 //s 為字串   c結束字
+      var this_it = m_del4_2f_char(it,';').trim();        //結束符號前字串 刪除 //s 為字串   c結束字
 
 
-         //alert(this_it);
+         
      
 
           this_it = m_str_math_replacec(this_it);         //自製函數取代 
 
-         // alert(this_it);  
+          //alert(this_it);  
 
 
           this_it =  m_oct_nb(this_it);    //             //處理 8進位為 10進位   //新增 //+0 -0 *0 /0  0
 
 
 
-           
+          // alert(this_it);
 
-        var this_data =  eval(this_it);  
+        var this_data =  eval(this_it);      // 
+
+           // try{                                       // test error
+           //     if(isNaN(this_data)) throw "error"; }
+           // catch(err){
+           //     alert(err);
+           //           }
          
            
-
+          // alert("ll="+this_data);
 
             
 
@@ -3754,7 +3835,7 @@ function m_new_mtx(rows,cols){
       var power_a=Number(power_n); 
 
       
-      
+       //alert("lll="+power_a);
      
     if( eval(this_it)>=0 || eval(this_it) < 0){    //顯示數字
 
@@ -3774,8 +3855,11 @@ function m_new_mtx(rows,cols){
 
           document.getElementById('input').value = this_s.trim()  ;  
 
-            newline_1();                                            //增加一空行
-          document.getElementById('input').value += error_str +";"  //顯示文字 error :message
+                                                   //增加一空行
+          document.getElementById('input').value += "     "+error_str +";"  //顯示文字   error :message
+
+           
+                                                    
              }
     
 
@@ -3785,9 +3869,9 @@ function m_new_mtx(rows,cols){
            s_chang_sum("=");     //防呆 //暫停
 
 
-           scroll_cursor();   //暫時 close 關閉  //暫不用
+          // scroll_cursor();   //暫時 close 關閉  //暫不用
   
-           
+         
            
           //初值:計算到小數點第6位
 
