@@ -567,6 +567,9 @@ function backspace(){
           document.getElementById('input').value = new_str;
 
          cursor_position_set(no-1) ;    //set cursor  位置
+
+
+             scroll_cursor();    //轉頁 新增
  
      
              }
@@ -684,13 +687,15 @@ function key_1(char_1){
 
       document.getElementById('input').value = new_str;
 
-      //  cursor_position_set(no+char_lg) ;    //set cursor  位置//暫不用
+        cursor_position_set(no+char_lg) ;    //set cursor  位置// 手機必用
           
-
+           
          
             s_check_nb(new_str);         //  check 是否隱藏 ")"
 
            s_check_end(new_str);        //尾 2碼 之隱藏 //cos 
+
+            scroll_cursor();    //轉頁 新增
   }
 
 
@@ -785,14 +790,46 @@ function newline_1(){                 //cursor 在所有字串 後,換行
 //  //////////////////////////////////////////////////////////////////////////   display   "↓" 
 
 
+ function scroll_x_y(){
+       var elem = document.getElementById('input');
+       var x_1=elem.scrollLeft;
+       var y_1=elem.scrollTop;
+    //  alert("x="+x_1);
+    //  alert("y="+y_1);
+    //  alert("z="+elem.scrollTop);
+
+    //  alert("z1="+elem.scrollHeight);
+
+      //    elem.scrollTop = elem.scrollHeight ; //set   ???
+
+      
+
+          
+   }
+
+
 function scroll_cursor(){       //配和 cursor  scroll_cursor()//暫停
 
       var text_area = document.getElementById('input');
+
+       var y_t=text_area.scrollTop;
+       var y_h=text_area.scrollHeight ;
+
+           
     
-      text_area.scrollTop= (cursor_position_row()-5)*15;  // 15 pix ?
 
+      var n_cur = cursor_position_row();  //位置
 
-          // alert(text_area.scrollTop);
+         var c_data = Math.floor((y_h-y_t)/3) +1;
+
+    
+
+        if(n_cur >=4){
+    
+         text_area.scrollTop = y_t + c_data ;  // 15 pix ?
+                      }
+          
+         
  
  };
 
@@ -3869,7 +3906,11 @@ function m_new_mtx(rows,cols){
            s_chang_sum("=");     //防呆 //暫停
 
 
-          // scroll_cursor();   //暫時 close 關閉  //暫不用
+             scroll_x_y();  //test ing
+
+
+
+          scroll_cursor();   //暫時 close 關閉  //暫不用
   
          
            
