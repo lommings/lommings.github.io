@@ -59,21 +59,25 @@
       <br>
    operator precedence   (non-standard way.)
        <br>
-    precedence.......evaluation order.......operator.......description 
-       <br>   
-         5...........left to right.........()............. parentheses ( ). 
-       <br>
-         4             left to right       sin cos tan
-       <br>
-                                            ^   ln log    exponents 
-        <br>
-         3             right to left        -             unary operator (unary minus (negation or +/-) has higher precedence than exponentiation
-        <br>
- 
-         2             left to right        *, /          multiplication ,division  
-        <br>
-         1              left to right       +,-           addition,subtraction
-        <br>
 
+ <table>
+<thead>
+<tr>
+<th>precedence</th>
+<th>evaluation order</th>
+<th>Operator</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>5</td><td>left to right</td><td>()</td><td>parentheses</td></tr>
+<tr><td>4</td><td>right to left</td><td>-</td><td>unary minus (negation or +/-)</td></tr>
+<tr><td>3</td><td>left to right</td><td>sin,cos,tan,^,ln,log</td><td> function </td></tr>
+<tr><td>2</td><td>left to right</td><td> *, / </td><td>multiplication ,division</td></tr>
+<tr><td>1</td><td>left to right</td><td> +,-  </td><td>addition,subtraction</td></tr>
+</tbody>
+</table>
+
+  
    </body>
 </html>                
