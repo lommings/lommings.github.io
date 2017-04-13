@@ -829,8 +829,7 @@ function scroll_cursor(){       //配和 cursor  scroll_cursor()//暫停
          text_area.scrollTop = y_t + c_data ;  // 15 pix ?
                       }
           
-         
- 
+  
  };
 
 

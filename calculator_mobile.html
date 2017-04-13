@@ -4,13 +4,12 @@
 
 <html>
 <head>
-    <meta charset=utf-8 />
-    <meta name="viewport" content="width=device-width, maximum-scale=1.0 ,use-scalable = 1 " />
-    <meta name="apple-mobile-web-app-capable " content="yes" />
-    <meta name="mobile-web-app-capable " content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="Keywords" content="sin,cos,tan,asin,acos,atan,sinh,cosh,tanh,asinh,acosh,atanh,log,ln,n!,^ power,addition,substraction,multiplication,division" /> 
-    <meta name="Description" content="calculator for real number " />
+    <meta charset=utf-8 >
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0 ,use-scalable = no " >
+    <meta name="apple-mobile-web-app-capable " content="yes" >
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="Keywords" content="sin,cos,tan,asin,acos,atan,sinh,cosh,tanh,asinh,acosh,atanh,log,ln,n!,^ power,addition,substraction,multiplication,division" > 
+    <meta name="Description" content="calculator for real number " >
 
    
  
@@ -38,7 +37,7 @@
     .hidden_1 { display:none;}
     .hidden_2 { display:none;}
     .textarea_1{width:98%;height:37%;font-size:20px;overflow:auto;border="0px";}
-    .table_1  {width:98%;height:62%;overflow:auto;position:fixed;left:2px;}
+    .table_1  {width:98%;height:60%;overflow:auto;position:fixed;left:2px;}
 
     .button_1  {width:100%;height:100%;font-size:20px;border="0px";}
 
@@ -65,6 +64,9 @@
 <script src="calculator_mobile.js" ></script>
 
 <script type="text/javascript">
+
+  document.ondblclick = function(){return false;}   //disable double click
+
 
   window.onload=function(){
    
@@ -115,7 +117,7 @@
            <td><input button type="button" class="button_1"  id="3_3" value="4" style="background-color:white;color:blue;" OnClick="key_1('4')" ></button></td>
            <td><input button type="button" class="button_1"  id="3_4" value="5" style="background-color:white;color:blue;" OnClick="key_1('5')" ></button></td>
            <td><input button type="button" class="button_1"  id="3_5" value="6" style="background-color:white;color:blue;" OnClick="key_1('6')" ></button></td>
-           <td><input button type="button" class="button_1"  id="3_6" value="-" style="background-color:yellow;color:blue;" OnClick="key_1('-')" ></button></td></tr>
+           <td><input button type="button" class="button_1"  id="3_6" value="－" style="background-color:yellow;color:blue;" OnClick="key_1('-')" ></button></td></tr>
            
       
        <tr border="1px" cellspacing="0" cellpadding="0"  align="center">
@@ -125,7 +127,7 @@
            <td><input button type="button" class="button_1"  id="4_3" value="1" style="background-color:white;color:blue;" OnClick="key_1('1')" ></button></td>
            <td><input button type="button" class="button_1"  id="4_4" value="2" style="background-color:white;color:blue;" OnClick="key_1('2')" ></button></td>
            <td><input button type="button" class="button_1"  id="4_5" value="3" style="background-color:white;color:blue;" OnClick="key_1('3')" ></button></td>
-           <td><input button type="button" class="button_1"  id="4_6" value="+"   style="background-color:yellow;color:blue;" OnClick="key_1('+')" ></button></td></tr>
+           <td><input button type="button" class="button_1"  id="4_6" value="＋"   style="background-color:yellow;color:blue;" OnClick="key_1('+')" ></button></td></tr>
                 
      
        <tr border="1px" cellspacing="0" cellpadding="0"  align="center"> 

@@ -619,6 +619,8 @@ function key_1(char_1){
             s_check_nb(new_str);         //  check 是否隱藏 ")"
 
            s_check_end(new_str);        //尾 2碼 之隱藏 //cos 
+
+           scroll_cursor();   //新增106/04/13
   }
 
 
@@ -717,7 +719,9 @@ function scroll_cursor(){       //配和 cursor  scroll_cursor()
 
       var text_area = document.getElementById('input');
     
-      text_area.scrollTop= (cursor_position_row()-5)*15;  // 15 pix ?
+     // text_area.scrollTop= (cursor_position_row()-5)*15;  // 15 pix ?
+
+      text_area.scrollTop= 9999;
 
 
           // alert(text_area.scrollTop);
