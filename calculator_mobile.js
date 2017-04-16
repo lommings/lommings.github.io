@@ -22,6 +22,8 @@ var M =0.434294481903251827651128918917;  // M =log10e
  
   // //////////////////////////////////////////////////////classical model  "↓"
 
+
+
  function Math_c(){               //classical
       this.isTrue = true ;}
  
@@ -464,13 +466,18 @@ function cursor_position_row(){                //計算 cursor  行數 位置
 
 // //
 
-function cursor_coords(){      //新增 cursor 做標
-  var event = document.getElementById('input')
-  var x=enent.clientX;
-  var y=enent.clientY;
+function cursor_coords(event){      //新增 cursor 做標
+ 
+  var x=event.clientX;
+  var y=event.clientY;
+
+  var ys=event.screenY;
+
   //var data_a= "x="+x +";y="+y;
 
-   //alert(x);
+  // alert("cursor_x="+x);
+   alert("cursor_y="+y);
+   alert("screen_y="+ys);
 
   return data_a;
  }
@@ -794,15 +801,21 @@ function newline_1(){                 //cursor 在所有字串 後,換行
        var elem = document.getElementById('input');
        var x_1=elem.scrollLeft;
        var y_1=elem.scrollTop;
-    //  alert("x="+x_1);
-    //  alert("y="+y_1);
-    //  alert("z="+elem.scrollTop);
 
-    //  alert("z1="+elem.scrollHeight);
+       
 
-      //    elem.scrollTop = elem.scrollHeight ; //set   ???
 
-      
+    
+      alert("y="+y_1);
+     
+
+     //alert("z1="+elem.scrollHeight);
+
+         // elem.scrollTop =999;
+
+        elem.scrollTop = elem.scrollHeight ; //set   ???
+
+      // alert("z2="+elem.scrollTop);
 
           
    }
@@ -820,13 +833,15 @@ function scroll_cursor(){       //配和 cursor  scroll_cursor()//暫停
 
       var n_cur = cursor_position_row();  //位置
 
-         var c_data = Math.floor((y_h-y_t)/3) +1;
+        // var c_data = Math.floor((y_h-y_t)/3) +1;  //取大不取小
 
-    
+         // var c_data = Math.floor(y_h-y_t)+1 ;  //取大不取小 px
+
+           //  var c_data = 20 ;  //取大不取小 px 
 
         if(n_cur >=4){
     
-         text_area.scrollTop = y_t + c_data ;  // 15 pix ?
+         text_area.scrollTop = y_t + 35 ;   //取大不取小 px
                       }
           
   
@@ -3466,7 +3481,7 @@ function s_nub_array(nub_1){      //產生將隱藏 之 陣列元素
       break;
 
     case "1_2":
-      array_a=["1_0","1_1","1_4","1_5","1_2","2_0","2_1","2_3","2_4","2_5","3_1","2_2","3_2","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2","5_4","5_5"];
+      array_a=["1_0","1_1","1_4","1_2","2_0","2_1","2_3","2_4","2_5","3_1","2_2","3_2","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2","5_4","5_5"];
 
       break;
 
@@ -3780,6 +3795,44 @@ function s_chang_sum(item){     //綜整
 
 //  //////////////////////////////////////////////////////////////////////////   防呆3    "↑"
 
+function s_check_str_char(str,char ){       //char 在 str 中之index 數量 存距陣內
+     var str_1=str;
+     var str_lg=str_1.length;
+     var char_1=char;
+     var char_lg=char_.length;
+
+
+    var A = m_new_mtx(1,str_lg);  // NEW MTX
+
+     var data_a = -1;
+     var jj=0;
+     
+   
+
+
+  for(var i=0;i<str_lg;i++){
+
+    var data_a=str_1.indexOf(char_1,i);
+
+          if(data_a >=0){ var A[0,jj]=data_a;}
+
+         var i=data_a+char_lg ;  //index 
+             jj=jj+1;
+   
+       }
+
+    
+
+    return  A ;
+ }
+
+
+
+//  //////////////////////////////////////////////////////////////////////////   防呆5    "↑"
+
+
+
+
 //  //////////////////////////////////////////////////////////////////////////   mtx    "↓"
 
 function m_new_mtx(rows,cols){
@@ -3897,21 +3950,25 @@ function m_new_mtx(rows,cols){
            
                                                     
              }
-    
 
+    
+         // scroll_x_y();          //test ing screet_top
+
+           //cursor_coords(event);  //test cursor
 
           newline_1();
 
            s_chang_sum("=");     //防呆 //暫停
 
 
-             scroll_x_y();  //test ing
+            // scroll_x_y();          //test ing screet_top
+
+            // cursor_coords(event);  //test cursor
 
 
-
-          scroll_cursor();   //暫時 close 關閉  //暫不用
+          scroll_cursor();   //暫時 close 關閉  //暫不用 //???
   
-         
+            //scroll_x_y();
            
           //初值:計算到小數點第6位
 

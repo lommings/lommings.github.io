@@ -620,7 +620,7 @@ function key_1(char_1){
 
            s_check_end(new_str);        //尾 2碼 之隱藏 //cos 
 
-           scroll_cursor();   //新增106/04/13
+           //scroll_cursor();   //新增106/04/13 //暫停
   }
 
 

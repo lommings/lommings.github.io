@@ -8,8 +8,10 @@
     <meta name="viewport" content="width=device-width, maximum-scale=1.0 ,use-scalable = no " >
     <meta name="apple-mobile-web-app-capable " content="yes" >
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="Keywords" content="sin,cos,tan,asin,acos,atan,sinh,cosh,tanh,asinh,acosh,atanh,log,ln,n!,^ power,addition,substraction,multiplication,division" > 
-    <meta name="Description" content="calculator for real number " >
+    <meta name="Keywords" content="calculator,sin,cos,tan,asin,acos,atan,sinh,cosh,tanh,asinh,acosh,atanh,log,ln,n!,^ power,addition,substraction,multiplication,division" > 
+    <meta name="Description" content="calculator for real number(test) " >
+    <meta name="Author" content="huang t.m.">
+    <meta http-equiv="Pragma" content="no_cache">
 
    
  
@@ -52,7 +54,7 @@
     .table_1  {width:98%;overflow:auto;position:fixed;left:2px;}
     .button_1  {width:100%;height:36px;font-size:20px;}
     .button_2  {width:100%;height:36px;font-size:20px;}
-
+    .button_3  {width:100%;height:36px;font-size:20px;}
      }
 
 
@@ -65,15 +67,19 @@
 
 <script type="text/javascript">
 
-  document.ondblclick = function(){return false;}   //disable double click
+  
+  function dis_dblclk( ){        //disable sys double click
 
+             
+                // alert("disable sys double click");  //test
 
-  window.onload=function(){
-   
-   document.loction.href="#";
+                    preventDefault();
 
+             return;
+                            }
 
-   }
+ 
+  
 
 </script>
 
@@ -84,19 +90,19 @@
 
 <div class="block_1" align="center" >
       
-    <textarea class="textarea_1" id="input"   rows=3 required   readonly="readonly"  onclick="blur(this);document.getElementById('input').focus();" ></textarea>
+    <textarea class="textarea_1" id="input"   rows=3 required  readonly="readonly"   onclick="cursor_coords(event);blur(this);document.getElementById('input').focus();" ></textarea>
      
 
 
- <table class="table_1"  border="1px" cellspacing="0" cellpadding="0"  align="center" >
+ <table class="table_1" id="table_a" border="1px" cellspacing="0" cellpadding="0"  align="center" Onclick="dis_dblclk( )">
        
      <tr border="1px" cellspacing="0" cellpadding="0"  align="center">
 
-           <td class="hidden_1"><input button  type="button" class="button_2" id="1_0" value="  °  " style="background-color:white;color:blue;" OnClick="key_1('°')" ></button></td>
-           <td class="hidden_1"><input button  type="button" class="button_2" id="1_1" value=" arc "  style="background-color:Lime;color:blue;" OnClick="key_1('a')" ></button></td>
-           <td class="hidden_1"><input button type="button" class="button_2" id="1_2" value="n!" style="background-color:cyan;color:blue;" OnClick="key_1('!')" ></button></td>
+           <td class="hidden_1"><input button  type="button" class="button_2" id="1_0"  value="  °  " style="background-color:white;color:blue;" OnClick="key_1('°')" ></button></td>
+           <td class="hidden_1"><input button  type="button" class="button_2" id="1_1"  value=" arc "  style="background-color:Lime;color:blue;" OnClick="key_1('a')" ></button></td>
+           <td class="hidden_1"><input button  type="button" class="button_2" id="1_2" value="n!" style="background-color:cyan;color:blue;" OnClick="key_1('!')" ></button></td>
            <td><input button type="button" class="button_1" id="1_3" value="<=x"  style="background-color:pink;color:#000000;" OnClick="backspace()"></button></td>
-           <td><input button type="button" class="button_1" id="1_4" value="   (   " style="background-color:white;color:blue;" OnClick="key_1('(')" ></button></td>
+           <td><input button type="button" class="button_1" id="1_4" value="   (   " style="background-color:white;color:blue;" OnClick="key_1('(')"  ></button></td>
            <td><input button type="button" class="button_1"  id="1_5" value="   )   " style="background-color:white;color:blue;" OnClick="key_1(')')" ></button></td>  
            <td><input button type="button" class="button_1"  class="btn_1" id="1_6" value="   ∕   "  style="background-color:yellow;color:blue;" OnClick="key_1('/')" ></button></td></tr>
       
