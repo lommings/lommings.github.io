@@ -473,11 +473,15 @@ function cursor_coords(event){      //新增 cursor 做標
 
   var ys=event.screenY;
 
+   s_chang_visible_all(); //解鎖
+
+
+
   //var data_a= "x="+x +";y="+y;
 
   // alert("cursor_x="+x);
-   alert("cursor_y="+y);
-   alert("screen_y="+ys);
+   //alert("cursor_y="+y);
+  // alert("screen_y="+ys);
 
   return data_a;
  }
@@ -806,7 +810,7 @@ function newline_1(){                 //cursor 在所有字串 後,換行
 
 
     
-      alert("y="+y_1);
+      //alert("y="+y_1);
      
 
      //alert("z1="+elem.scrollHeight);
@@ -2084,9 +2088,9 @@ function m_str_spec_part_bf(str ,spec){          //    取特殊字前之部分�
      var count_1 = 1 ;
      var count_mark = pos ;
 
-      // alert("ooo="+spec_1);
+       //alert("ooo="+spec_1);
 
-       //alert("ooo1="+pos);
+      //alert("ooo1="+pos);
 
        // alert("ooo2="+ mark_1);
 
@@ -2278,7 +2282,7 @@ function m_str_spec_part_af(str ,spec){          //    取特殊字 後 之部�
           
 
      if(part_bf_lg > 0 &&  part_bf[0] !='(' ){
-        str_1 = str_1.replace(part_bf+'!' , "m_n("+part_bf+')');             //自製函數取代    
+        str_1 = str_1.replace(part_bf+'!' , "(m_n("+part_bf+'))');             //自製函數取代  // 增加 前後括號  //優先權
 
             
 
@@ -2355,7 +2359,7 @@ function m_fun_aft(str,spec1,spec2){                   // 處理   exp ln log  s
 
      if(part_aft_lg > 0 &&  part_aft[0] !='(' ){
        
-        str_1 = str_1.replace(spec_1+part_aft , spec2 +"("+part_aft+')');              //自製函數取代  zzz 轉換中間值
+        str_1 = str_1.replace(spec_1+part_aft , "("+spec2 +"("+part_aft+')'+")" );              //自製函數取代  zzz 轉換中間值  // 增加 前後括號//優先權
 
            
 
@@ -2380,7 +2384,7 @@ function m_hat_bf_aft(str,spec1,spec2){                   // 處理  hat ^  1筆
 
    var part_bf = m_str_spec_part_bf(str_1 ,spec1);
 
-        // alert("s11="+part_bf); //
+       // alert("s11="+part_bf); //
 
 
 
@@ -2406,12 +2410,16 @@ function m_hat_bf_aft(str,spec1,spec2){                   // 處理  hat ^  1筆
 
  
    if((part_bf_lg > 0)  && (part_aft_lg > 0 )){
-        str_1 = str_1.replace(part_bf+spec_1+part_aft , spec2+"("+part_bf_1 +','+part_aft_1+")" ) ;  }        //自製函數取代 ,已有()
+
+        str_1 = str_1.replace(part_bf+spec_1+part_aft , "("+spec2+"("+part_bf_1 +','+part_aft_1+")"+")" ) ;  }        //自製函數取代 ,已有() // 增加 前後括號//優先權
  
+
+        
+                
  
      if(part_aft_lg == 0 || part_bf_lg == 0 ){  str_1 = "error,  not data" ; }
 
- 
+     // alert("s12="+str_1);
     
 
      return str_1;
@@ -2616,8 +2624,11 @@ function m_hat_bf_aft_many(str,spec1,spec2){                   // 處理  hat ^ 
 
                    }
 
+    
+
    return  str_1;
 
+    
 }
 
 
@@ -2698,16 +2709,16 @@ function m_str_math_replacec(this_it){         //自製公式取代 display
              this_it_a =  m_star_deg_many(this_it_a);           // 處理   degree  多筆
              this_it_a = this_it_a.replace(/°/g , "(3.14159265358979323846/180) ");   //取代 replace
 
-     //alert("2="+this_it_a);
+    // alert("2="+this_it_a);
              this_it_a = m_hat_bf_aft_many(this_it_a ,'^','hhh');
 
-    // alert("3="+this_it_a);
+    //alert("3="+this_it_a);
 
              this_it_a = this_it_a.replace(/hhh/g , "m_pow");   //自製函數取代      //第2次 處理
 
              this_it_a = m_replace_star(this_it_a) ;         //  m_fuc 前有數字 或")" 則中間加 *
 
-            
+        // alert("5="+this_it_a);   
 
 return  this_it_a;
 
@@ -3477,11 +3488,11 @@ function s_nub_array(nub_1){      //產生將隱藏 之 陣列元素
       break;
 
     case "1_1":
-      array_a=["1_0","1_1","1_4","1_5","1_6","1_2","2_0","2_2","2_3","2_4","2_5","2_6","3_2","3_3","3_4","3_5","3_6","4_3","4_4","4_5","4_6","5_1","5_4","5_5"];
+      array_a=["1_0","1_1","1_4","1_5","1_6","1_2","2_0","2_2","2_3","2_4","2_5","2_6","3_2","3_3","3_4","3_5","3_6","4_2","4_3","4_4","4_5","4_6","5_1","5_2","5_4","5_5"];
       break;
 
     case "1_2":
-      array_a=["1_0","1_1","1_4","1_2","2_0","2_1","2_3","2_4","2_5","3_1","2_2","3_2","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2","5_4","5_5"];
+      array_a=["1_0","1_1","1_4","1_2","2_0","2_1","2_3","2_4","2_5","3_1","2_2","3_2","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_4","5_5"];
 
       break;
 
@@ -3596,7 +3607,7 @@ function s_nub_array(nub_1){      //產生將隱藏 之 陣列元素
     
    
      case "5_5":
-       array_a=["1_1","1_0","1_2","1_4","2_0","2_1","2_2","3_1","3_2","4_1","5_1","5_5"];
+       array_a=["1_1","1_0","1_2","1_4","2_0","2_1","2_2","3_1","3_2","4_1","4_2","5_1","5_2","5_5"];
       break;
 
      case "5_6":
@@ -3738,49 +3749,56 @@ function s_chang_sum(item){     //綜整
        var acos_1_1 = m_str_spc_end(str_1,"acos-1");
 
 
-       var asin_a = m_str_spc_end(str_1,"(asin");          //含 "("
-       var acos_a = m_str_spc_end(str_1,"(acos");
-       var acosh_a = m_str_spc_end(str_1,"(acosh");
-       var atanh_a = m_str_spc_end(str_1,"(atanh");
 
-       var asin1_a = m_str_spc_end(str_1,"(asin1");        //check 3碼以上 字串  asin1 acos1 atan1 
-       var acos1_a = m_str_spc_end(str_1,"(acos1");
+       var asin_t = m_str_spc_end(str_1,"asin(");          //含 after "("
+       var acos_t = m_str_spc_end(str_1,"acos(");
+       var acosh_t = m_str_spc_end(str_1,"acosh(");
+       var atanh_t = m_str_spc_end(str_1,"atanh(");   
 
-       var asin_1_a = m_str_spc_end(str_1,"(asin-1");        //check4 碼以上 字串  asin1 acos1 atan1 
-       var acos_1_a = m_str_spc_end(str_1,"(acos-1");
+     
+
+       var asin1_t = m_str_spc_end(str_1,"asin(1");     //含 after "("   //check 3碼以上 字串  asin1 acos1 atan1 
+       var acos1_t = m_str_spc_end(str_1,"acos(1");
+
+       var asin_1_t = m_str_spc_end(str_1,"asin(-1");               //check4 碼以上 字串  asin1 acos1 atan1 
+       var acos_1_t = m_str_spc_end(str_1,"acos(-1");
+
 
        var ln_0 = m_str_spc_end(str_1,"ln0");        // 避免 error
        var log_0 = m_str_spc_end(str_1,"log0");        //避免 error
+       var ln_a = m_str_spc_end(str_1,"ln(0");        // 避免 error
+       var log_a = m_str_spc_end(str_1,"log(0");        //避免 error
 
-        
+       var ln_1 = m_str_spc_end(str_1,"ln0.");        // 避免 error
+       var log_1 = m_str_spc_end(str_1,"log0.");        //避免 error
+       var ln_t = m_str_spc_end(str_1,"ln(0.");        // 避免 error
+       var log_t = m_str_spc_end(str_1,"log(0.");        //避免 error
+
+
+ 
 
        var array_a=[];    //產生將隱藏 之 陣列元素
 
-           if(asin_1==1 || acos_1==1){                                             //check 2碼
+           if(asin_1==1 || asin_t==1||acos_1==1 ||acos_t==1 ){                                             //check 2碼
                 array_a=["1_2","2_0","2_3","2_4","2_5","3_3","3_4","3_5","4_2","4_4","4_5"]; }
 
-          if(acosh_1==1 ){                    //>=1
+          if(acosh_1==1 ||  acosh_t==1){                    //>=1
                 array_a=["1_0","3_6","5_4","5_5"]; }
 
-          if(atanh_1==1 ){                 //<1
+          if(atanh_1==1  || atanh_t==1){                 //<1
                 array_a=["2_0","2_3","2_4","2_5","3_3","3_4","3_5","4_3","4_4","4_5",]; }
 
-
-             if(asin1_1==1 || acos1_1==1 ||asin_1_1==1 || acos_1_1==1){                 //check 3碼
+          if(asin1_1==1 || acos1_1==1 ||asin_1_1==1 || acos_1_1==1||asin1_t==1||acos1_t==1||asin_1_t==1||acos_1_t==1){                 //check 3碼
                 array_a=["1_0","1_1","1_2","2_1","2_0","2_2","2_3","2_4","2_5","3_1","3_2","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2","5_4","5_5"];
                   }
                
-         //    if(asin1_a==1 || acos1_a==1 ||asin_1_a==1 || acos_1_a==1){                 //check 3碼
-         //       array_a=["1_0","1_1","1_4","1_5","2_0","2_1","2_2","2_3","2_4","2_5","3_1","3_2","3_3","3_4","3_5","4_1","4_3","4_4","4_5","5_1","5_2"];
-          //        }
-
-               if(ln_0==1 || log_0==1 ){                 //error state
+           if(ln_0==1 || log_0==1 ||ln_a==1||log_a==1){                 //error state
                 array_a=["1_0","1_1","1_2","1_4","1_5","1_6","2_0","2_1","2_2","2_3","2_4","2_5","2_6","3_1","3_2","3_3","3_4","3_5","3_6","4_1","4_2","4_3","4_4","4_5","4_6","5_1","5_2","5_4"];
                   }
 
-
-
-
+            if(ln_1==1 || log_1==1 ||ln_t==1 || log_t==1 ){ 
+                 array_a=["4_2","5_2"];  
+             }
 
 
        s_chang_hidden_array(array_a);    //陣列元素 隱藏 
@@ -3795,36 +3813,115 @@ function s_chang_sum(item){     //綜整
 
 //  //////////////////////////////////////////////////////////////////////////   防呆3    "↑"
 
-function s_check_str_char(str,char ){       //char 在 str 中之index 數量 存距陣內
-     var str_1=str;
-     var str_lg=str_1.length;
-     var char_1=char;
-     var char_lg=char_.length;
 
+function s_check_str_char(str,char_a ){       //char 在 str 中之index 數量 存距陣內 //計算出現次數
+     var str_1= str;
+     var str_lg = str_1.length;
+     var char_1=char_a;
+     var char_lg=char_1.length;
 
     var A = m_new_mtx(1,str_lg);  // NEW MTX
 
      var data_a = -1;
      var jj=0;
      
-   
-
+   var data_count=0;
 
   for(var i=0;i<str_lg;i++){
 
-    var data_a=str_1.indexOf(char_1,i);
+    var data_a = str_1.indexOf(char_1,i);
 
-          if(data_a >=0){ var A[0,jj]=data_a;}
+           // alert("data_a="+data_a);
 
-         var i=data_a+char_lg ;  //index 
-             jj=jj+1;
+          if(data_a >=0){  A[0,jj]=data_a;
+
+               data_count=data_count+1;
+
+               jj=jj+1;
+
+                
+              var i=data_a+(char_lg-1) ;       //找到 index   //(char_lg-1)  處理連續符號
+                 }
    
        }
+                          
+ // alert(data_count);
 
-    
-
-    return  A ;
+    return  data_count ;  //計算出現次數
  }
+
+
+function s_check_str_equal(str ){    // str 中之 "=" 數量
+
+   var str_1=str;
+   var data_a = s_check_str_char(str_1,"=");
+
+     return  data_a ;  //計算 "=" 出現次數
+}
+
+function s_check_str_equation(str ){       //str 是否可執行
+
+  var str_1=str;
+
+      str_1 = str_1.replace(/m_asinh\(/g,'');   //"" 取代  m_asinh(     // 處理  delete 三角部分
+      str_1 = str_1.replace(/m_asin\(/g,'');    //"" 取代  m_asin(      // 處理  delete 三角部分
+      str_1 = str_1.replace(/m_sinh\(/g,'');    //"" 取代  m_sinh(      // 處理  delete 三角部分
+      str_1 = str_1.replace(/m_sin\(/g,'');     //"" 取代  m_sin(       // 處理  delete 三角部分
+
+
+       //alert("str_1="+str_1);
+       
+      str_1 = str_1.replace(/m_acosh\(/g,'');   //"" 取代  m_acosh(     // 處理  delete 三角部分
+      str_1 = str_1.replace(/m_acos\(/g,'');    //"" 取代  m_acos(      // 處理  delete 三角部分
+      str_1 = str_1.replace(/m_cosh\(/g,'');    //"" 取代  m_cosh(      // 處理  delete 三角部分
+      str_1 = str_1.replace(/m_cos\(/g,'');     //"" 取代  m_cos(       // 處理  delete 三角部分
+
+      str_1 = str_1.replace(/m_atanh\(/g,'');   //"" 取代  m_atanh(     // 處理  delete 三角部分
+      str_1 = str_1.replace(/m_atan\(/g,'');    //"" 取代  m_atan(      // 處理  delete 三角部分
+      str_1 = str_1.replace(/m_tanh\(/g,'');    //"" 取代  m_tanh(      // 處理  delete 三角部分
+      str_1 = str_1.replace(/m_tan\(/g,'');     //"" 取代  m_tan(      // 處理  delete 三角部分 
+
+      str_1 = str_1.replace(/m_n\(/g,'');     //"" 取代  m_n(       // 處理 n! 部分 
+      str_1 = str_1.replace(/m_exp\(/g,'');   //"" 取代  m_exp(     // 處理 exp 部分 
+      str_1 = str_1.replace(/m_ln\(/g,'');    //"" 取代  m_ln(      // 處理 ln 部分 
+      str_1 = str_1.replace(/m_log\(/g,'');   //"" 取代  m_log(     // 處理 log 部分
+ 
+          // alert("str1="+str_1);
+
+      str_1 = str_1.replace(/m_pow\(/g,'');   //"" 取代  m_pow(     // 處理 pow 部分 
+
+          //alert("str2="+str_1);
+    
+      str_1 = str_1.replace(/\(/g,'');   //"" 取代 (     // 處理 ( 部分 
+      str_1 = str_1.replace(/\)/g,'');   //"" 取代 )     // 處理 ) 部分 
+      str_1 = str_1.replace(/\,/g,'');   //"" 取代 ,     // 處理 , 部分 
+
+      str_1 = str_1.replace(/0/g,'');   //"" 取代 0     // 處理 0 部分 
+      str_1 = str_1.replace(/1/g,'');   //"" 取代 1     // 處理 1 部分 
+      str_1 = str_1.replace(/2/g,'');   //"" 取代 2     // 處理 2 部分
+      str_1 = str_1.replace(/3/g,'');   //"" 取代 3     // 處理 3 部分 
+      str_1 = str_1.replace(/4/g,'');   //"" 取代 4     // 處理 4 部分 
+      str_1 = str_1.replace(/5/g,'');   //"" 取代 5     // 處理 5 部分
+      str_1 = str_1.replace(/6/g,'');   //"" 取代 6     // 處理 6 部分
+      str_1 = str_1.replace(/7/g,'');   //"" 取代 7     // 處理 7 部分 
+      str_1 = str_1.replace(/8/g,'');   //"" 取代 8     // 處理 8 部分 
+      str_1 = str_1.replace(/9/g,'');   //"" 取代 9     // 處理 9 部分
+
+      str_1 = str_1.replace(/\+/g,'');   //"" 取代 +     // 處理 + 部分
+      str_1 = str_1.replace(/\-/g,'');   //"" 取代 -     // 處理 - 部分 
+      str_1 = str_1.replace(/\*/g,'');   //"" 取代 *     // 處理 * 部分 
+      str_1 = str_1.replace(/\//g,'');   //"" 取代 /     // 處理 / 部分  
+      str_1 = str_1.replace(/\./g,'');   //"" 取代 .    // 處理 . 部分  
+
+
+     
+  //alert("str3="+str_1);
+
+    return  str_1 ;
+
+
+}
+
 
 
 
@@ -3901,7 +3998,57 @@ function m_new_mtx(rows,cols){
 
 
 
-          // alert(this_it);
+            // //////////
+
+           var data_chk1 = s_check_str_char(this_s,"(" ); //test "(" 數量  //this_s//原值    //字串中間空白刪除
+
+           // alert("data_1="+data_chk1);
+
+           var data_chk2 = s_check_str_char(this_s,")" ); //test ")" 數量     //this_s//原值    //字串中間空白刪除
+
+            
+    
+            // alert("data_2="+data_chk2);
+
+           // alert("this_s="+this_s);
+
+             
+               if(data_chk1-data_chk2 !=0){
+
+                  document.getElementById('input').value += "     "+"<- error '(' != ')' ->" +";"  //顯示文字   error :message
+                     return;
+                                          }
+
+              var data_equal = s_check_str_equal(this_it);    //test "=" 數量     //this_it
+
+
+                 if(data_equal > 0){
+
+                  document.getElementById('input').value += "     "+"<- error  '= ' no supplore  ->" + ";"  //顯示文字   error :message
+                     return;
+                                          }
+
+
+                  // alert(this_it); // test
+
+               var data_equation =  s_check_str_equation(this_it );       //str 是否可執行
+
+                  //  alert(this_it); // test
+                  // alert(data_equation ); // test
+ 
+                  if(data_equation !=""){
+                      document.getElementById('input').value += "     "+"<- error  'equation ' no supplore  ->" + ";"  //顯示文字   error :message
+                         return;
+                                          }
+
+               
+                
+
+                // alert(this_it); // test
+
+             // /////
+
+           
 
         var this_data =  eval(this_it);      // 
 
