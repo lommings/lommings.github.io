@@ -843,9 +843,9 @@ function scroll_cursor(){       //配和 cursor  scroll_cursor()//暫停
 
            //  var c_data = 20 ;  //取大不取小 px 
 
-        if(n_cur >=4){
+        if(n_cur >=3){       //3減小
     
-         text_area.scrollTop = y_t + 35 ;   //取大不取小 px
+         text_area.scrollTop = y_t + 50 ;   //取大不取小 px 50
                       }
           
   
@@ -2287,9 +2287,10 @@ function m_str_spec_part_af(str ,spec){          //    取特殊字 後 之部�
             
 
                         }
-      if(part_bf_lg == 0){  str_1 = "error :n! ; n=''" ; }
 
-    
+     // if(part_bf_lg == 0){  str_1 = "error :n! ; n=''" ; }
+
+         if(part_bf_lg == 0){  str_1 = str_1.replace(part_bf+'!' , "(m_n("+1+'))'); }   //修正   ! =  1!
 
      return str_1;
 
@@ -2364,7 +2365,11 @@ function m_fun_aft(str,spec1,spec2){                   // 處理   exp ln log  s
            
 
                         }
-      if(part_aft_lg == 0){  str_1 = "error,  not data" ; }
+
+
+      if(part_aft_lg == 0 && spec2 =="eee" ){  str_1 = str_1.replace(spec_1+part_aft , "("+spec2 +"("+1+')'+")" );  }   //處理 exp = exp1 
+
+      if(part_aft_lg == 0 && spec2 !="eee" ){  str_1 = "error,  not data" ; }
 
      
 
@@ -3503,7 +3508,7 @@ function s_nub_array(nub_1){      //產生將隱藏 之 陣列元素
   
     case "1_4":
       
-      array_a=["1_2","1_5","1_6","2_6","4_6","5_1","5_2"];
+      array_a=["1_5","1_6","2_6","4_6","5_1","5_2"];
       break;
     case "1_5":
       array_a=["1_0","1_1","1_2","1_4","1_5","2_0","2_1","2_2","2_3","2_4","2_5","3_1","3_2","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_4","5_5"];
@@ -3596,7 +3601,7 @@ function s_nub_array(nub_1){      //產生將隱藏 之 陣列元素
    
     
     case "5_3":
-      array_a=["1_2","1_5","1_6","2_6","4_6","5_1","5_2","5_5"];
+      array_a=["1_5","1_6","2_6","4_6","5_1","5_2","5_5"];
       break;
 
     case "5_4":
@@ -3611,7 +3616,7 @@ function s_nub_array(nub_1){      //產生將隱藏 之 陣列元素
       break;
 
      case "5_6":
-       array_a=["1_2","1_5","1_6","2_6","4_6","5_1","5_2","5_5"];
+       array_a=["1_5","1_6","2_6","4_6","5_1","5_2","5_5"];
       break; 
    
     
@@ -3750,8 +3755,8 @@ function s_chang_sum(item){     //綜整
 
 
 
-       var asin_t = m_str_spc_end(str_1,"asin(");          //含 after "("
-       var acos_t = m_str_spc_end(str_1,"acos(");
+      // var asin_t = m_str_spc_end(str_1,"asin(");          //含 after "("  //可運算
+      // var acos_t = m_str_spc_end(str_1,"acos(");
        var acosh_t = m_str_spc_end(str_1,"acosh(");
        var atanh_t = m_str_spc_end(str_1,"atanh(");   
 
@@ -3779,7 +3784,7 @@ function s_chang_sum(item){     //綜整
 
        var array_a=[];    //產生將隱藏 之 陣列元素
 
-           if(asin_1==1 || asin_t==1||acos_1==1 ||acos_t==1 ){                                             //check 2碼
+           if(asin_1==1 || acos_1==1  ){                                             //check 2碼
                 array_a=["1_2","2_0","2_3","2_4","2_5","3_3","3_4","3_5","4_2","4_4","4_5"]; }
 
           if(acosh_1==1 ||  acosh_t==1){                    //>=1
@@ -3913,7 +3918,7 @@ function s_check_str_equation(str ){       //str 是否可執行
       str_1 = str_1.replace(/\//g,'');   //"" 取代 /     // 處理 / 部分  
       str_1 = str_1.replace(/\./g,'');   //"" 取代 .    // 處理 . 部分  
 
-
+      str_1=str_1.trim();  //
      
   //alert("str3="+str_1);
 
@@ -4016,7 +4021,8 @@ function m_new_mtx(rows,cols){
                if(data_chk1-data_chk2 !=0){
 
                   document.getElementById('input').value += "     "+"<- error '(' != ')' ->" +";"  //顯示文字   error :message
-                     return;
+                   newline_1(); 
+                      return;
                                           }
 
               var data_equal = s_check_str_equal(this_it);    //test "=" 數量     //this_it
@@ -4025,7 +4031,8 @@ function m_new_mtx(rows,cols){
                  if(data_equal > 0){
 
                   document.getElementById('input').value += "     "+"<- error  '= ' no supplore  ->" + ";"  //顯示文字   error :message
-                     return;
+                    newline_1(); 
+                       return;
                                           }
 
 
@@ -4033,11 +4040,16 @@ function m_new_mtx(rows,cols){
 
                var data_equation =  s_check_str_equation(this_it );       //str 是否可執行
 
-                  //  alert(this_it); // test
+                  // alert(this_it); // test
                   // alert(data_equation ); // test
  
-                  if(data_equation !=""){
+                  if(data_equation !="" || data_equation==null){
+
+                           //alert("data_equation="+data_equation ); // test
+
                       document.getElementById('input').value += "     "+"<- error  'equation ' no supplore  ->" + ";"  //顯示文字   error :message
+
+                          newline_1(); 
                          return;
                                           }
 
