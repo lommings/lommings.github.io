@@ -843,11 +843,13 @@ function scroll_cursor(){       //配和 cursor  scroll_cursor()//暫停
 
            //  var c_data = 20 ;  //取大不取小 px 
 
-        if(n_cur >=3){       //3減小
+      //  if(n_cur >=3){       //3減小
     
-         text_area.scrollTop = y_t + 50 ;   //取大不取小 px 50
-                      }
-          
+     //    text_area.scrollTop = y_t + 50 ;   //取大不取小 px 50
+      //                }
+         
+          text_area.scrollTop = 9999 ;   //取大不取小  
+
   
  };
 
@@ -3511,7 +3513,7 @@ function s_nub_array(nub_1){      //產生將隱藏 之 陣列元素
       array_a=["1_5","1_6","2_6","4_6","5_1","5_2"];
       break;
     case "1_5":
-      array_a=["1_0","1_1","1_2","1_4","1_5","2_0","2_1","2_2","2_3","2_4","2_5","3_1","3_2","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_4","5_5"];
+      array_a=["1_1","1_2","1_4","2_0","2_1","2_2","2_3","2_4","2_5","3_1","3_2","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_4","5_5"];
      
       break;
    
@@ -3779,10 +3781,29 @@ function s_chang_sum(item){     //綜整
        var ln_t = m_str_spc_end(str_1,"ln(0.");        // 避免 error
        var log_t = m_str_spc_end(str_1,"log(0.");        //避免 error
 
+       var a_0=m_str_spc_end(str_1,"0");        //避免 error
+       var a_1=m_str_spc_end(str_1,"1");        //避免 error 
+       var a_2=m_str_spc_end(str_1,"2");        //避免 error 
+       var a_3=m_str_spc_end(str_1,"3");        //避免 error
+       var a_4=m_str_spc_end(str_1,"4");        //避免 error 
+       var a_5=m_str_spc_end(str_1,"5");        //避免 error 
+       var a_6=m_str_spc_end(str_1,"6");        //避免 error
+       var a_7=m_str_spc_end(str_1,"7");        //避免 error 
+       var a_8=m_str_spc_end(str_1,"8");        //避免 error 
+       var a_9=m_str_spc_end(str_1,"9");        //避免 error
+       var a_ =m_str_spc_end(str_1,".");        //避免 error   //check 1碼
 
- 
+
+
 
        var array_a=[];    //產生將隱藏 之 陣列元素
+
+
+           if(a_0==1 || a_1==1 || a_2==1 || a_3==1 ||a_4==1 || a_5==1 || a_6==1 || a_7==1 ||a_8==1 || a_9==1 || a_==1 ){                                             //check 1碼
+                array_a=["1_1","2_1","2_2","3_1","3_2","4_1","4_2"]; }
+
+
+
 
            if(asin_1==1 || acos_1==1  ){                                             //check 2碼
                 array_a=["1_2","2_0","2_3","2_4","2_5","3_3","3_4","3_5","4_2","4_4","4_5"]; }

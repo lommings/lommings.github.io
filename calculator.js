@@ -501,7 +501,8 @@ function backspace(){
           document.getElementById('input').value = new_str;
 
          cursor_position_set(no-1) ;    //set cursor  位置
- 
+            
+            scroll_cursor();   //新增106/04/28
      
              }
 
