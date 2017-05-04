@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0 , minimum-scale=1.0,use-scalable = no " >
     <meta name="apple-mobile-web-app-capable " content="yes" >
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
     <meta name="Keywords" content="calculator,sin,cos,tan,asin,acos,atan,sinh,cosh,tanh,asinh,acosh,atanh,log,ln,n!,^ power,addition,substraction,multiplication,division" > 
     <meta name="Description" content="calculator for real number(test) " >
     <meta name="Author" content="huang t.m.">
@@ -15,9 +16,7 @@
 
    
  
-<title>calculator</title>
-
-
+<title>calculator for real number </title>
 
 
 <style>
@@ -31,6 +30,7 @@
     position:fixed;
     top:2px;
     left:2px;
+    z-index:2147483647;
 } 
  
 
@@ -41,7 +41,7 @@
     .textarea_1{width:98%;height:30%;font-size:24px;overflow:auto;border:0px;wrap:physical;zoom:normal;}
     .table_1  {width:98%;height:60%;overflow:auto;position:fixed;left:2px;zoom:normal;}
     
-    .button_1  {width:100%;height:100%;font-size:20px;border:0px;resize:none;border-radius:initial;background-size:100% 100%;zoom:normal;box-shadow:1px 1px 1px  1px #999;}
+    .button_1  {width:100%;height:100%;font-size:26px;border:0px;resize:none;border-radius:initial;background-size:100% 100%;zoom:normal;box-shadow:1px 1px 1px  1px #999;}
    
 
 
@@ -68,28 +68,41 @@
 
 <script type="text/javascript">
 
-  /*    //無效
-  function dis_dblclk( ){        //disable sys double click
+ 
 
-             
-                // alert("disable sys double click");  //test
+ function stopDefAction(evt) {
 
-                    preventDefault();
+     // alert("dblsingle");
 
-             return;
-                            }
+      evt.preventDefault();
 
-     */
-  
+      document.getElementById('block_1').style.position="fixed";
+      document.getElementById('block_1').style.top="2px";
+       document.getElementById('block_1').style.left="2px";
+      document.getElementById('table_a').style.left="2px";
+      document.getElementById('block_1').style.zoom="normal";
+        
+   }
+    
 
+ function init(){
+
+  document.getElementById('calc').addEventListener( 'dblclick', stopDefAction, false );
+
+                }
+
+
+
+
+ 
 </script>
 
 
 </head>
-<body onload="document.getElementById('input').focus()">
+<body onload="document.getElementById('input').focus();init()">
 <form id="calc">
 
-<div class="block_1" align="center" >
+<div class="block_1" align="center" id="block_1">
       
     <textarea class="textarea_1" id="input"   rows=3 required  readonly="readonly"   onclick="cursor_coords(event);blur(this);document.getElementById('input').focus();" ></textarea>
      
@@ -147,8 +160,7 @@
            <td><button type="button" class="button_1"  id="5_6" style="background-color:#FF3333;color:#000000;" OnClick="calculate('=');blur(this);" ><strong>=</strong></button></td></tr>  
  </table>
 
-
-  </div>
+</div>
 
   <div class="hidden_2" >
   <td  ><input type="text"    id="input2" size="2" maxlength="2" value=15>dgt</td>

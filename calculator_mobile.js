@@ -3190,6 +3190,8 @@ function m_pow_m(base,pit_n){       //base >0 ,pit_n 為整數時(無小數部�
                               }
         if(pit_a >=20 ) { var  base_20=base_10*base_10 ;
                                }
+        if(pit_a >=30 ) { var  base_30=base_20*base_10 ;
+                               }
         if(pit_a >=40 ) { var  base_40=base_20*base_20 ;
                                }
         if(pit_a >=50 ) { var  base_50=base_40*base_10 ;
@@ -3268,6 +3270,18 @@ function m_pow_m(base,pit_n){       //base >0 ,pit_n 為整數時(無小數部�
                               }
                             }
 
+       if(pit_a >=30 ){ 
+             for(var j=0; j< pit_a ;j++){       //處理
+               var  base_tot= base_tot* base_30 ;
+          
+               var  pit_a = pit_a-30;
+                   if(pit_a < 30 ){ j=pit_sta ;}  //跳出
+
+                              }
+                            }
+
+
+
       if(pit_a >=10 ){ 
              for(var j=0; j< pit_a ;j++){       //處理
                var  base_tot= base_tot* base_10 ;
@@ -3293,6 +3307,7 @@ function m_pow_m(base,pit_n){       //base >0 ,pit_n 為整數時(無小數部�
                             }
 
 
+            //alert( "1="+base_tot);  
 
      if(pit_a < 5 ){ 
 
@@ -3302,7 +3317,7 @@ function m_pow_m(base,pit_n){       //base >0 ,pit_n 為整數時(無小數部�
           
                var  base_tot= base_tot* base_a ;
 
-                          
+                        //alert( "11="+base_tot);     
                
                             }
                     } 
@@ -3330,7 +3345,7 @@ function m_pow_m(base,pit_n){       //base >0 ,pit_n 為整數時(無小數部�
             var  base_tot=  1/base_tot ;     //負偶數指數 
              }
 
-          
+       //alert( "2="+base_tot);  
        
    return base_tot;
 }
@@ -3353,8 +3368,45 @@ function m_fixed(nub,pit_n){        //取小數點後 (pit_n) 幾位 ,四捨五�
    var next_nub = ""; 
 
 
+        // alert("1="+nub_a_s);
+         //alert("2="+nub_a_s_lg); 
+         //alert("21="+pit_n); 
 
-      if(index_e==0){       //無指數 //先四捨五入
+     if(index_e==0 && index_pit_a ==0 ){    // >0 正 負 數
+
+
+             if( nub_a_s_lg >= 17 && nub_a >=0){
+
+                 var data_def= nub_a_s_lg-16;
+                      
+                        new_nub_a_s= nub_a_s.substr(0,1)+"."+nub_a_s.substr(1,pit_n)+"e+"+(data_def+16-1);
+
+                             return new_nub_a_s;
+                                   
+                                              }
+
+                     
+          
+              if(nub_a_s_lg >= 18 && nub_a < 0){
+
+                 var data_def= nub_a_s_lg-17;
+                      
+                         new_nub_a_s="-"+nub_a_s.substr(1,1)+"."+nub_a_s.substr(2,pit_n)+"e+"+(data_def+16-1);
+
+                                 return new_nub_a_s ;    //字串輸出 16位後有誤差
+                                              }
+            
+
+                     
+
+               if((nub_a_s_lg < 17 && nub_a >=0)||(nub_a_s_lg < 18 && nub_a < 0)) {
+                   new_nub_a_s=nub_a;}
+
+        }
+
+
+
+      if(index_e==0 && index_pit_a !=0 ){       //無指數 //先四捨五入
          var shift_a = index_pit_a+pit_a+1;
           
             next_nub = nub_a_s.substr(shift_a,1);
@@ -3608,7 +3660,7 @@ function s_nub_array(nub_1){      //產生將隱藏 之 陣列元素
       break;
 
     case "5_2":
-     array_a=["1_1","1_2","1_5","1_6","2_1","2_2","2_6","3_1","3_2","3_6","4_1","4_2","4_6","5_1","5_2","5_6"];
+     array_a=["1_6","2_6","3_6","4_6","5_1","5_2","5_6"];
       break;
    
     
@@ -4098,14 +4150,9 @@ function m_new_mtx(rows,cols){
 
         var this_data =  eval(this_it);      // 
 
-           // try{                                       // test error
-           //     if(isNaN(this_data)) throw "error"; }
-           // catch(err){
-           //     alert(err);
-           //           }
          
            
-          // alert("ll="+this_data);
+           //alert("ll="+this_data);
 
             
 
@@ -4117,12 +4164,16 @@ function m_new_mtx(rows,cols){
       var power_a=Number(power_n); 
 
       
-       //alert("lll="+power_a);
+      // alert("lll="+power_a);
      
     if( eval(this_it)>=0 || eval(this_it) < 0){    //顯示數字
 
-          
-        document.getElementById('input').value = this_s.trim()+"="+m_fixed(eval(this_it),power_a).toString() +";";
+               
+                   
+             document.getElementById('input').value = this_s.trim()+" = "+m_fixed(eval(this_it),power_a).toString() +";";
+                  
+
+
                                            }
 
        else {
