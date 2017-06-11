@@ -41,7 +41,7 @@
     .textarea_1{width:98%;height:30%;font-size:24px;overflow:auto;border:0px;wrap:physical;zoom:normal;}
     .table_1  {width:98%;height:60%;overflow:auto;position:fixed;left:2px;zoom:normal;}
     
-    .button_1  {width:100%;height:100%;font-size:26px;border:0px;resize:none;border-radius:initial;background-size:100% 100%;zoom:normal;box-shadow:1px 1px 1px  1px #999;}
+    .button_1  {width:100%;height:100%;font-size:30px;border:0px;resize:none;border-radius:initial;background-size:100% 100%;zoom:normal;box-shadow:1px 1px 1px  1px #999;}
    
 
 
@@ -69,16 +69,24 @@
 <script type="text/javascript">
 
  
+  function dblclick_a(evt) {   //還原 dblclick 縮\放
 
- function stopDefAction(evt) {
+        //alert("single");
 
-     // alert("dblsingle");
+         setTimeout(dblclick_inv(evt),200);   //延後0.2s   //執行
+
+             }  
+
+
+ function dblclick_inv(evt) {   //還原 dblclick 縮\放
+
+      //alert("dblsingle");
 
       evt.preventDefault();
 
       document.getElementById('block_1').style.position="fixed";
       document.getElementById('block_1').style.top="2px";
-       document.getElementById('block_1').style.left="2px";
+      document.getElementById('block_1').style.left="2px";
       document.getElementById('table_a').style.left="2px";
       document.getElementById('block_1').style.zoom="normal";
         
@@ -87,10 +95,9 @@
 
  function init(){
 
-  document.getElementById('calc').addEventListener( 'dblclick', stopDefAction, false );
+  document.getElementById('calc').addEventListener( 'dblclick', dblclick_a, false );
 
                 }
-
 
 
 
@@ -118,7 +125,7 @@
            <td><button type="button" class="button_1" id="1_3"  style="background-color:pink;color:#000000;" OnClick="backspace();blur(this);"><strong><=x </strong></button></td>
            <td><button type="button" class="button_1" id="1_4"  style="background-color:white;color:blue;" OnClick="key_1('(');blur(this);"  ><strong>&nbsp ( &nbsp&nbsp </strong></button></td>
            <td><button type="button" class="button_1" id="1_5"  style="background-color:white;color:blue;" OnClick="key_1(')');blur(this);" ><strong>&nbsp ) &nbsp&nbsp</strong></button></strong></td>  
-           <td><button type="button" class="button_1"  class="btn_1" id="1_6"   style="background-color:yellow;color:blue;" OnClick="key_1('/');blur(this);" ><strong>&nbsp / &nbsp&nbsp</strong></button></td></tr>
+           <td><button type="button" class="button_1" id="1_6"   style="background-color:yellow;color:blue;" OnClick="key_1('/');blur(this);" ><strong>&nbsp / &nbsp&nbsp</strong></button></td></tr>
       
       <tr border="1px" cellspacing="0" cellpadding="0"  align="center">
            <td class="hidden_1"><button type="button" class="button_2" id="2_0"  style="background-color:white;color:blue;" OnClick="key_1('π');blur(this);" ><strong>π</strong></button></td>

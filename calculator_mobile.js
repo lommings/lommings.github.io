@@ -1108,8 +1108,10 @@ function m_c_u(n,k){           //(n,k)= n!/((n-k)! * k!)    //組合 Combination
 function m_pow(base,p){                      // (-1)^2=1 已處理 //  Math.pow(0.5,300.2)=4.2736140814882916e-91
                                                                    // m_pow(0.005,300.2)=0
 
-                                                                   //Math.pow(0.005,100.4)= 9.475201082736407e-232
-                                                                  // Math.pow(0.0055,100.4)=1.3564819687931545e-227  
+  //alert(p);
+
+   //var ans_1 =Math.pow(base,p);                                                                //Math.pow(0.005,100.4)= 9.475201082736407e-232
+    //return  ans_1;                                                             // Math.pow(0.0055,100.4)=1.3564819687931545e-227  
 
                   //m_pow(200,133)=1.0889035741470031e+306  //base=200  p 最大133
                   //m_pow(300,124)=1.4555783429306887e+307  //base=300  p 最大124
@@ -1366,19 +1368,256 @@ function m_log(x){       //log x = M * ln x  ;   M =loge =0.43429 44819 03251 82
 }
 
 
+function m_pi_mod_lag_m(x){   //x 很大//多筆
+
+ var xx = m_abs(x);  //取絕對值
+ var xx=x;
+ var data_tt=0;
+
+  var data_tt =  m_pi_mod_lag(xx);
+
+  //alert("data_tt="+data_tt);
+
+
+  var i=0;
+
+   while ( data_tt > 6.283185307179587  && i< 20 ){   //最多做20次
+          var data_tt =  m_pi_mod_lag(data_tt);
+           var i=i+1;   }
+
+
+    if(x < 0){ data_tt= -data_tt;}
+      else { data_tt= data_tt;} 
+
+
+  return data_tt;
+
+}
+
+
+function m_pi_mod_lag(x){   //x 很大
+
+  var xx = m_abs(x);  //取絕對值
+  var xx_ng = m_nub_p(xx);      //取 point 後 小數部分 ,含 -符號
+  var xx_ps = m_nub_m(xx);      //取 point 前 整數部分 , 含 -符號 (0.)
+  var str_2pi="628318530717958647692528676655900576839433879875020";
+ 
+   var data_t=0;
+   
+
+  var xx_ng_lg = xx_ng.toString().length;
+  var xx_ps_lg = xx_ps.toString().length;
+
+        if(xx_ng !=0 ){
+           xx_ng = xx_ng*1000000000000000;}  //含0.//取小數點後15位 //變成整數,不含小數
+         else{ xx_ng=0;}
+   
+
+ var count_nb = (xx_ps.toString().length)*10;
+
+
+     var nub_ps = str_2pi.substr(0,xx_ps_lg);          //等位數
+
+      var nub_ng = str_2pi.substr(xx_ps_lg,15);        //等位數 //取小數點後15位
+  
+
+  var nub_ps_1 = str_2pi.substr(0,xx_ps_lg-1);                  //少一位數
+  var nub_ng_1 = str_2pi.substr(xx_ps_lg-1,15);       //少一位數 //取小數點後15位
+
+      nub_ps= parseInt(nub_ps); 
+      nub_ng =parseInt(nub_ng); //不含0. //取 .15位
+      nub_ps_1=parseInt(nub_ps_1);
+      nub_ng_1=parseInt(nub_ng_1);
+
+
+    
+
+  var str_2_nub= str_2pi.substr(0,xx_ps_lg) +"."+ str_2pi.substr(xx_ps_lg,15);  //-2  //0.
+
+      // alert("str_2_nub="+str_2_nub);
+
+
+     
+ 
+          var doub = Math.floor((xx_ps + xx_ng*m_pow(10,-15))/(nub_ps_1 + nub_ng_1*m_pow(10,-15)));
+
+            var rem_ng  = xx_ng - nub_ng_1*doub;
+            var rem_ps  = xx_ps - nub_ps_1*doub;
+    
+            rem_ng_lg = rem_ng.toString().length;
+
+            //alert("rem_ng_lg="+rem_ng_lg);
+
+            xx = rem_ps + rem_ng*m_pow(10,-15) ;  //去掉rem_ng  轉小數點
+
+          //alert("xxxx1="+xx);
+
+          // alert("xxxx2="+xx_ps.toString().length);
+
+           xx= xx/m_pow(10,(xx_ps.toString().length-2 ));  //取至小餘 6.28...
+
+
+       //alert("xxxx="+xx);
+
+
+    if(x < 0){ data_t= -xx;}
+    else { data_t= xx;} 
+
+      // alert("data_t="+data_t);
+
+    
+       return data_t;
+                
+}
+
+
+
+
+
+function m_pi_mod(x){  // /pi 之餘數      //pi=3 1415926535 8979323846 2643383279 5028841971 6939937510 
+                                        
+                                         //2pi=6.2831853071 79586 47692 5286766559 0057683943 3879875020
+
+                                         //support   -10,000,000<x<10,000,000     
+
+ var xx = m_abs(x);  //取絕對值
+
+    //var xx= 628318530717958647692; //顯示 628318530717958700000
+
+    //alert(xx);
+
+   var data_lg = xx.length ;
+   var data_ng = m_nub_p(xx);      //取 point 後 小數部分 ,含 -符號
+   var data_ps = m_nub_m(xx);      //取 point 前 整數部分 , 含 -符號 (0.)
+   var zz_quot= xx/6.2831853071795865 ;                                                                 // var zz= x % (6.2831853071795864 );
+   var zz_quot=Math.floor(zz_quot); //取 商 整數                                                                                       //var data_test = 6.2831853071795864 *m_pow(10,16);
+                                                                                    // var zz_remain_1= xx - ((zz_quot*62831853071795865)/m_pow(10,16)); //後項修正j4
+
+         //support   -10,000,000<x<10,000,000                                                                            // var zz_test= (x*m_pow(10,16) % (6.2831853071795864 *m_pow(10,16)))/m_pow(10,16);
+                                                                                       //alert("zz_remain_1="+zz_remain); 
+
+  // var zz_remain_1= (xx*m_pow(10,15) % (6.283185307179586 *m_pow(10,15)))/m_pow(10,15);  //棄位
+  // var zz_remain_2= (xx*m_pow(10,15) % (6.283185307179587 *m_pow(10,15)))/m_pow(10,15);    //進位
+
+  
+  if(xx <=1000000 ){                                                        // to 99,999
+    var zz_remain_1= (xx*1000000000000000 % (6283185307179586 ))/1000000000000000;  //棄位
+    var zz_remain_2= (xx*1000000000000000 % (6283185307179587 ))/1000000000000000;    //進位
+          var  zz=(zz_remain_1*0.523074713233441  + zz_remain_2*0.476925286766559);   //權重
+
+                                    }
+
+    if(xx > 1000000 && xx <= 100000000 ){                               //to 99,999,999
+    var zz_remain_1= (xx*100000000000 % (628318530717 ))/100000000000;    //棄位
+    var zz_remain_2= (xx*100000000000 % (628318530718 ))/100000000000;    //進位
+
+            var  zz=(zz_remain_1*0.041352307471324 +zz_remain_2*0.958647692528676 );   //權重
+                                         }
+
+
+      if(xx > 100000000 && xx <= 1000000000 ){                        //to  999,999,999
+         var zz_remain_1= (xx*1000000000 % (6283185307 ))/1000000000;    //棄位
+         var zz_remain_2= (xx*1000000000 % (6283185308 ))/1000000000;    //進位
+
+            var  zz=(zz_remain_1*0.8204135230747133 +zz_remain_2*0.1795864769252867 );   //權重
+                                         }
+        //2pi=6.2831853071 79586 47692 5286766559 0057683943 3879875020
+
+    if(xx > 1000000000  ){                                  //to 9,999,999,999//???
+
+          //var zz=m_pi_mod_lag(xx);
+
+           var zz_remain_1= (xx*100000000 % 628318530)/100000000;    //棄位
+           var zz_remain_2= (xx*100000000 % 628318531)/100000000;    //進位
+
+            //alert("zz_remain_1="+zz_remain_1);
+           // alert("zz_remain_2="+zz_remain_2);
+
+            var  zz=(zz_remain_1*0.2820413523074714 + zz_remain_2 *0.7179586476925286);   //權重
+
+                //zz=zz_remain_1;
+                                         }
+
+
+
+
+
+
+   //  var zz_remain_1= xx % 6.283185307179586 ;  //棄位
+   //  var zz_remain_2= xx % 6.283185307179587 ;    //進位
+
+                                                                                           // var  zz=(zz_remain_1 +zz_remain_2)/2;   //平均
+       
+                                                                                          // if(x<0){ zz_remain = zz_remain*(-1);}
+
+       if(x<0){ zz = zz*(-1);}
+     
+                                                                                      //alert("zz_remain_2="+zz_remain);
+
+                                                                                        //zz = zz_remain;
+   return zz; 
+}
+
+
+
 function m_sin(x){
 
-   var zz = x % (3.14159265358979323846 * 2);   // x >2 pi 
-       var nn=100;       //設定執行次數
-       var sum_total=0;
+  // var zz = x % (3.14159265358979323846 * 2);   // x >2 pi 
 
+     var xx=x;
+     var sum_total=0;
+
+
+   //  if(xx >10000000 || xx < -10000000){
+    //      var xx =  m_pi_mod_lag_m(xx); }  //降階
+
+
+      // alert(xx);   //5pi =15.70796326794897  //3.14159265358979323846
+
+     
+
+     
+
+      if( m_abs(xx)<=20 &&  m_abs(xx) > 6.28318530717958647692){                 // x  範圍縮小 2pi內
+        var zz = (xx*1000000000000000 % 6283185307179586.47)/1000000000000000; }
+
+      if(  m_abs(xx) <= 6.28318530717958647692) {  var zz = xx ;}
+
+     // if(m_abs(xx)== 3.141592653589793) {  var zz = 0;}   //pi 轉 0
+ 
+
+     // alert("xxm="+zz); 
+
+     if( m_abs(xx)>20){
+
+            sum_total=Math.sin(xx);
+             return sum_total;}
+         
+      
+
+
+      // alert("zz="+zz);
+
+    // var zz = x % (6.283185307179586 );   // x >2 pi //先乘47692  //.15位
+
+   
+
+   // var zz = (x*10000000000 % 6283185307179586.47692)/10000000000;   // x >2 pi //先乘
+                              
+       
+
+       var nn=200;       //設定執行次數
+      
       
 
          if(zz >PI/2 && zz<=PI) { var zz=PI-zz ;}             //轉 2 項
 
          if(zz >PI && zz<=3*PI/2) { var zz=-(zz-PI);}         //轉 3
 
-         if(zz >3*PI/2 && zz<=2*PI) { var zz=-(2*PI-zz);}    //轉 4
+       //  if(zz >3*PI/2 && zz<=2*PI) { var zz=-(2*PI-zz);}    //轉 4
+
+         if(zz >3*PI/2 && zz<=2*PI) { var zz=-6.28318530717958647692+zz ;}    //轉 4
+  
 
          if(zz < -PI/2 && zz>=-PI) { var zz=-(PI+zz) ;}       //轉3
 
@@ -1386,7 +1625,7 @@ function m_sin(x){
 
          if(zz < -3*PI/2 && zz>= -2*PI) { var zz= (2*PI+zz);}  // 轉1
 
-          
+         
 
          for(var i = 0 ; i < (nn+1) ; i++){
 
@@ -1395,58 +1634,212 @@ function m_sin(x){
 
 
               }
-          
-      
 
-       //alert(sum_total);
+
+           // alert("sum_total1="+sum_total)
+
+            //  sum_total=Math.sin(xx);
+
+          // alert("sum_total2="+sum_total)
 
      return sum_total; 
 }
 
+function m_cos(x){
 
-function m_cos(x){         //cos(x) = sin(pi/2 -x )
+ 
 
-     var zz = x % (3.14159265358979323846 * 2);   // x >2 pi ;
-
-     var yy=PI/2 -zz; 
-     var sum_total=m_sin(yy);
+     var xx=x;
+     var sum_total=0;
 
 
+
+      if( m_abs(xx)<=20 &&  m_abs(xx) > 6.28318530717958647692){                 // x  範圍縮小 2pi內
+        var zz = (xx*1000000000000000 % 6283185307179586.47)/1000000000000000; }
+
+      if(  m_abs(xx) <= 6.28318530717958647692) {  var zz = xx ;}
+
+     
+
+     if( m_abs(xx)>20){
+
+            sum_total=Math.cos(xx);
+             return sum_total;}
+    
+       
+
+       var nn=200;       //設定執行次數
+      
+     
+
+       //  if(zz >PI/2 && zz<=PI) { var zz=PI-zz ;}             //轉 2 項
+
+         if(zz >PI && zz<=3*PI/2) { var zz=2*PI-zz;}             //轉 3
+
+         if(zz >3*PI/2 && zz<=2*PI) { var zz=-zz ;}    //轉 4
+  
+
+         if(zz <= 0 && zz >= -PI/2) { var zz = -zz ;}           //轉4  -
+  
+         if(zz < -PI/2 && zz>=-PI) { var zz=-zz ;}           //轉3  -
+
+         if(zz < -PI && zz>=-3*PI/2) { var zz=2*PI+ zz ;}       //轉2  -
+
+         if(zz < -3*PI/2 && zz>= -2*PI) { var zz= (2*PI+zz);}  // 轉1 -
+
+          
+
+         for(var i = 0 ; i < (nn+1) ; i++){
+
+           var k=2*i;
+            sum_total=sum_total+ Math.pow(-1,i)*Math.pow(zz,k)/m_n(k);     //級數作法
+
+
+              }
+
+
+           // alert("sum_total1="+sum_total)
+
+            //  sum_total=Math.cos(xx);
+
+          // alert("sum_total2="+sum_total)
+  
      return sum_total; 
+}
 
 
-   }
+function m_cos_1(x){         //cos(x) = sin(pi/2 -x )//pi=3 14159 26535 89793 23846 2643383279 5028841971 6939937510 
+                                                //0.5pi=1.57079 63267 94896 61923 1321691639 //被上式修正
+     var xx= m_abs(x);  //對稱 x 軸  +-角度 其值相同
+
+
+   //alert("xx_cos="+xx);
+
+       if( m_abs(xx)<= 25 &&  m_abs(xx) >6.28318530717958647){     
+                                                                                    // x  範圍縮小 2pi內
+                   
+                 //   var xx = (xx*1000000000000000 % 6283185307179586.47692)/1000000000000000;
+
+                     var xx = xx % 6.28318530717958647692;
+
+
+
+                               }
+        if( m_abs(xx)>25){
+
+            sum_total=Math.cos(xx);
+             return sum_total;}
+
+   
+    
+
+    // var yy=PI/2-xx;
+
+      var yy=(1570796326794896619-xx*m_pow(10,18))/m_pow(10,18); //1570796326794896619 //
+
+      //alert("yy1="+yy);
+
+          //yy=yy-0.00000000000000019; //修正尾數誤差  //微調
+        
+
+        //alert("yy2="+yy);
+
+     var sum_total=m_sin(yy); 
+
+     // alert("sum_total="+sum_total);
+
+   // sum_total = Math.cos(xx);  // //取代
+
+      // alert("sum_total_m="+sum_total);
+
+
+      return sum_total; 
+
+
+}
+
 
 
 
 function m_tan(x){
+
  
+   // alert("x="+x);
+
+      var xx = m_abs(x);
+
+
+      if( xx <=10 && xx > 3.141592653589793238466433){   
+                                                                  // x  範圍縮小 pi內
+
+         //var zz = (xx*1000000000000000 % 1570796326794896.619 )/1000000000000000;
+
  
-      var zz = x;
+            // var xx = xx % 3.141592653589793238466433;
+
+           var xx = (xx*1000000000000000 % 3141592653589793.238466433 )/1000000000000000;
+                                                     }
+
+
+      //alert("xx1="+xx);
+
+                                                      
+
+     if(  xx > 1.570796326794896619 && xx <= 3.141592653589793238466433) {  var xx = xx - 3.141592653589793238466433  ;}
+
+
+
+     // alert("xx2="+xx);
+
+
+     if( xx >10){
+
+            sum_total=Math.tan(x);
+
+             return sum_total;}
+
+    
+      var zz=xx;      
 
       var yy = m_sin(zz);
-      var xx = m_cos(zz);
 
-     
+       // alert("yy="+yy);
+
+      var xx_c = m_cos(zz);
+
+       // alert("xx1="+xx_c);
       
        var sum_total=0.0;
 
   
          
-       if(xx !=0){
-          sum_total = yy/xx;     //公式作法
+       if(xx_c !=0){
+
+           //sum_total = yy/xx_c;   
+
+          sum_total = (yy*m_pow(10,17))/(xx_c*m_pow(10,17));     //公式作法
+
                         }
 
+
+        if( x < 0){ sum_total = - sum_total;}   // 對稱
+
      
-        if(xx == 0.0 && yy>0.0 ) 
+        if(xx_c == 0.0 && yy>0.0  ) 
          {   
            sum_total = message_1(11); }
 
-       if(xx == 0.0 && yy<0.0 ) 
+       if(xx_c == 0.0 && yy<0.0  ) 
          {   
            sum_total = message_1(12); }
 
-         
+
+      // sum_total=m_fixed(sum_total,15);   //取小數點後15位  
+
+       //      if(m_abs(sum_total) < m_pow_m(0.1,15)){sum_total=0;}  //m_fixed 處理 指數型式不一樣 //取小數點後15位
+
+  
+   //sum_total = Math.tan(x);  //取代
 
      return sum_total; 
 
@@ -1458,6 +1851,12 @@ function m_cot(x){
  
       var zz = x;
 
+
+     if(zz <=100 && zz >=-100){                    // x  範圍縮小 
+        var zz = (zz*10000000000 % 31415926535.8979323 )/10000000000; }
+     else{ sum_total=Math.cot(zz);
+            return sum_total;}
+
       var yy = m_sin(zz);
       var xx = m_cos(zz);
 
@@ -1468,7 +1867,7 @@ function m_cot(x){
   
          
        if(yy !=0){
-          sum_total = xx/yy;     //公式作法
+          sum_total = (xx*m_pow(10,16))/(yy*m_pow(10,16));  //xx/yy;     //公式作法
                         }
 
      
@@ -1509,7 +1908,7 @@ function m_sinh(x){   //new間
 function m_sinh_1(x){   //-5  ~ +5 間
  
       var zz=x;
-       //var zz = x % (3.14159265358979323846 * 2);   // x >2 pi 
+       //var zz = x % (3.14159265358979323 * 2);   // x >2 pi 
        var nn=100;       //設定執行次數
        var sum_total=0;
 
@@ -1600,16 +1999,20 @@ function m_asin(x){
  
       var zz = m_abs(x);
 
+
           
-       var nn =1000;       //設定執行次數  //次數不足影響精度
+       var nn =1900;       //設定執行次數  //次數不足影響精度
        var sum_total=0;
 
      
     
-    if((zz >0.7) && (zz < 1)){             //分段執行 避免 x>0.99 誤差  級數產生誤差    //加速級數收斂
+    if((zz >0.8) && (zz < 1)){             //分段執行 避免 x>0.99 誤差  級數產生誤差    //加速級數收斂
+
+       alert("zz="+zz);
 
         var  zz2=zz*zz;
-        var  zz3 = 1-zz2;
+
+        var  zz3 = (1*m_pow(10,16)-zz2*m_pow(10,16))/m_pow(10,16);
 
      
 
@@ -1625,15 +2028,16 @@ function m_asin(x){
                                           } 
                
 
-             sum_total= (PI/2)-sum_total;  //90度 補角作法   避免 x>0.99 誤差
-                 
+           //  sum_total= (PI/2)-sum_total;  //90度 補角作法   避免 x>0.99 誤差
+
+             sum_total= 1.570796326794896619 - sum_total;  //90度 補角作法   避免 x>0.99 誤差
 
                              }
 
 
 
 
-     if((zz <=0.7) && (zz >0)){
+     if((zz <=0.8) && (zz >0)){
 
          for(var i = 0 ; i < (nn+1) ; i++){    //i由 0 star?
 
@@ -1763,7 +2167,13 @@ function m_acos(x){
     var π= 3.1415926535897932384623846;
 
 
-    var ans_1= π/2 - nn;
+    //var ans_1= π/2 - nn;
+   
+    //alert("nn="+nn);
+
+    var ans_1 = (15707963267948966.19 - nn*m_pow(10,16))/m_pow(10,16) ; //實數相乘
+
+    //alert("ans_1="+ans_1);
 
     if( zz >1 || zz< -1){ 
             var ans_1= message_1(2);
@@ -2158,8 +2568,11 @@ function m_str_spec_part_af(str ,spec){          //    取特殊字 後 之部�
      var pos = str_1.indexOf(spec_1) ;  //特殊字 之 index
      var mark_1 =str_1[pos +spec_a_lg];        //取後1碼
      var count_a = 1 ;
-     var count_mark=100;
+     var count_mark=2500;  //增加 長運算
 
+
+     // alert("pos ="+pos);
+     // alert("mark_1 ="+mark_1);
 
           if(mark_1 =="("){
             
@@ -2316,11 +2729,11 @@ function m_str_spec_part_af(str ,spec){          //    取特殊字 後 之部�
   
 
     if(part_bf_lg > 0 ){
-        str_1 = str_1.replace(part_bf+"π" , part_bf+'*3.141592653589793' ) ; }           //自製函數取代  ,已有()  //修正 3.141592653589793
+        str_1 = str_1.replace(part_bf+"π" , part_bf+'*3.14159265358979323846' ) ; }           //自製函數取代  ,已有()  //修正 3.141592653589793
 
          
    
-    if(part_bf_lg == 0){  str_1 = str_1.replace(part_bf+"π" , part_bf+'3.141592653589793' ) ; }     //修正 3.141592653589793
+    if(part_bf_lg == 0){  str_1 = str_1.replace(part_bf+"π" , part_bf+'31415926535897932.3846/10000000000000000' ) ; }     //修正 3.141592653589793 //修正浮點之精度
 
      
      return str_1;
@@ -2339,12 +2752,13 @@ function m_star_deg(str){                                 // 處理   degree  1�
 
    
     if(part_bf_lg > 0 ){
-        str_1 = str_1.replace(part_bf+"°" , part_bf+'* 0.017453292519943' ) ; }           //自製函數取代  ,已有() //修正
+        str_1 = str_1.replace(part_bf+"°" , part_bf+' * 0.01745329251994329577 ' ) ; }           //自製函數取代  ,已有() //修正  //31415926535897932.3846/1800000000000000000
 
            
-    if(part_bf_lg == 0){  str_1 = str_1.replace(part_bf+"°" , part_bf+'0.017453292519943' ) ; }   //修正
+    if(part_bf_lg == 0){  str_1 = str_1.replace(part_bf+"°" , part_bf+'0.01745329251994329577' ) ; }   //修正浮點之精度//  避免 /°  除法
 
-     
+    // alert(str_1);
+
      return str_1;
 
    }
@@ -2396,18 +2810,20 @@ function m_hat_bf_aft(str,spec1,spec2){                   // 處理  hat ^  1筆
    var spec_1=spec1;
    var spec_2=spec2;
 
+   var part_aft ="";//初值
 
     //alert("s0="+str_1);
 
    var part_bf = m_str_spec_part_bf(str_1 ,spec1);
 
-       // alert("s11="+part_bf); //
+      // alert("s11="+part_bf); //
 
 
 
    var part_bf_lg = part_bf.length;
 
    var part_aft =  m_str_spec_part_af(str_1 ,spec_1);
+
    var part_aft_lg = part_aft.length;
 
    var part_aft_1=part_aft;
@@ -2424,6 +2840,13 @@ function m_hat_bf_aft(str,spec1,spec2){                   // 處理  hat ^  1筆
     else{part_bf_1= part_bf;}
 
     
+      // alert("sa="+part_bf); 
+      //  alert("sb="+spec_1); 
+       //  alert("sc="+part_aft); 
+
+        //   alert("ta="+spec2); 
+        //alert("tb="+part_bf_1); 
+        // alert("tc="+part_aft_1); 
 
  
    if((part_bf_lg > 0)  && (part_aft_lg > 0 )){
@@ -2431,12 +2854,12 @@ function m_hat_bf_aft(str,spec1,spec2){                   // 處理  hat ^  1筆
         str_1 = str_1.replace(part_bf+spec_1+part_aft , "("+spec2+"("+part_bf_1 +','+part_aft_1+")"+")" ) ;  }        //自製函數取代 ,已有() // 增加 前後括號//優先權
  
 
-        
+       
                 
  
      if(part_aft_lg == 0 || part_bf_lg == 0 ){  str_1 = "error,  not data" ; }
 
-     // alert("s12="+str_1);
+      //alert("s12="+str_1);
     
 
      return str_1;
@@ -2472,7 +2895,7 @@ function m_str_spc_index(str,spec){            //計算特殊字串 在 長字�
    var spec_1_lg = spec_1.length;
    var index_1 = 0;                      //失敗
 
-     for(var i=0;i<str_1_lg;i++){
+     for(var i=0;i<(str_1_lg-spec_1_lg+1);i++){
    
        var str_ref= str_1.substr(i,spec_1_lg) ;
             if(str_ref == spec_1){
@@ -2487,6 +2910,183 @@ function m_str_spc_index(str,spec){            //計算特殊字串 在 長字�
      return index_1;
 
    }
+
+
+function m_str_spc_index_m(str,spec){            //計算特殊字串 在 長字串  之第 all 個 index
+   var str_1 = str;
+   var spec_1 = spec;
+   var str_1_lg = str_1.length;
+   var spec_1_lg = spec_1.length;
+  
+   var nub_count =  m_str_spc_count(str_1,spec_1);            //計算特殊字串 在 長字串 數量count
+
+
+      var A=m_new_mtx(nub_count,2); //nub_count row // 2 col
+      var k=0 ; //初值  
+      
+
+     for(var i=0;i<(str_1_lg-spec_1_lg+1);i++){
+   
+       var str_ref= str_1.substr(i,spec_1_lg) ;
+            if(str_ref == spec_1){
+                A[k][0]=i;
+                A[k][1]= spec_1;
+                k=k+1;              // 找到第i個 index  
+ 
+     
+                                 }  
+
+                                }
+   
+     return A;
+
+   }
+
+
+function m_str_spc_index_m_2(str,spec_1,spec_2){            //計算 2特殊字串 在 長字串  之第 all 個 index
+   var str_a = str;
+   var spec_a = spec_1;
+   var spec_b = spec_2;
+   var str_a_lg = str_a.length;
+   var spec_a_lg = spec_a.length;
+   var spec_b_lg = spec_b.length;
+
+ 
+   var nub_count_a =  m_str_spc_count(str_a,spec_a);            //計算特殊字串 在 長字串 數量count
+   var nub_count_b =  m_str_spc_count(str_a,spec_b);            //計算特殊字串 在 長字串 數量count
+
+      var A=m_new_mtx((nub_count_a+nub_count_b),2); //nub_count row // 2 col
+      var k=0 ; //初值  
+      var m=0 ; //初值  
+
+     for(var i=0;i < str_a_lg;i++){
+   
+       var str_ref_a= str_a.substr(i,spec_a_lg) ;
+            if(str_ref_a == spec_a){
+                A[k][0]=i;
+                A[k][1]= spec_a;
+                k=k+1;              // 找到第 spec_1 個 index  
+    
+                                 }  
+
+         var str_ref_b= str_a.substr(i,spec_b_lg) ;
+            if(str_ref_b == spec_b){
+                A[k][0]=i;
+                A[k][1]= spec_b;
+                k=k+1;              // 找到第 spec_2 個 index  
+    
+                                 }     
+
+
+
+                                }
+   
+     return A;
+
+   }
+
+
+function m_str_spc_index_m_2_sp(str,spec_1,spec_2){            //計算 2特殊字串 在 長字串  之第 all 個 index
+   var str_a = str;                                           // 特別處理 sin cos tan 函數 不含 "a" "h" "(" 
+   var spec_a = spec_1;                                       //spec_1 =sin     spec_2 =pi
+   var spec_b = spec_2;
+   var str_a_lg = str_a.length;
+   var spec_a_lg = spec_a.length;
+   var spec_b_lg = spec_b.length;
+
+   var nub_count_a =  m_str_spc_count(str_a,spec_a);            //計算特殊字串 在 長字串 數量count
+   var nub_count_b =  m_str_spc_count(str_a,spec_b);            //計算特殊字串 在 長字串 數量count
+
+      var A=m_new_mtx((nub_count_a+nub_count_b),2); //nub_count row // 2 col
+      var k=0 ; //初值  
+      var m=0 ; //初值  
+
+     for(var i=0;i < str_a_lg;i++){
+
+       var str_bf_a = str_a.substr(i-1,1) ;//取 a  //sin 前
+       var str_af_h = str_a.substr(i+3,1) ;//取 h   //sin 後
+       var str_af_a = str_a.substr(i+3,1) ;//取 "("  //sin 後
+     //  var str_af_pi = str_a.substr(i+3,1) ;//取 "π"  //sin 後 //另解
+     //  var str_af_dg = str_a.substr(i+3,1) ;//取 "°"  //sin 後  //另解
+
+       var str_af_b = str_a.substr(i+1,1) ;//取 ")" //pi 後
+      // var str_bf_n = str_a.substr(i-1,1) ;//取 "-" //pi 前      //另解
+   
+       var str_ref_a= str_a.substr(i,spec_a_lg) ;
+            if(str_ref_a == spec_a && str_bf_a !="a" && str_af_h !="h" && str_af_a !="(" ){
+                A[k][0]=i;
+                A[k][1]= spec_a;
+                k=k+1;              // 找到第 spec_1 個 index  
+    
+                                 }  
+
+         var str_ref_b= str_a.substr(i,spec_b_lg) ;
+            if(str_ref_b == spec_b && str_af_b !=")"  ){
+                A[k][0]=i;
+                A[k][1]= spec_b;
+                k=k+1;              // 找到第 spec_2 個 index  
+    
+                                 }     
+
+
+
+                                }
+   
+     return A;
+
+   }
+
+
+function m_str_spc_index_m_2_st(str,spec_1,spec_2){            //計算 2特殊字串 在 長字串  之第 all 個 index
+   var str_a = str;                                           // 特別處理 sin( cos( tan( 函數 不含 "a" 
+   var spec_a = spec_1;                                       //spec_1 =sin(     spec_2 =pi)
+   var spec_b = spec_2;
+   var str_a_lg = str_a.length;
+   var spec_a_lg = spec_a.length;
+   var spec_b_lg = spec_b.length;
+
+   var nub_count_a =  m_str_spc_count(str_a,spec_a);            //計算特殊字串 在 長字串 數量count
+   var nub_count_b =  m_str_spc_count(str_a,spec_b);            //計算特殊字串 在 長字串 數量count
+
+      var A=m_new_mtx((nub_count_a+nub_count_b),2); //nub_count row // 2 col
+      var k=0 ; //初值  
+      var m=0 ; //初值  
+
+     for(var i=0;i < str_a_lg;i++){
+
+       var str_bf_a = str_a.substr(i-1,1) ;//取 a
+     //  var str_af_pi = str_a.substr(i+3,1) ;//取 "π"  //sin 後   //另解
+     //  var str_af_dg = str_a.substr(i+3,1) ;//取 "°"  //sin 後    //另解
+
+     //  var str_bf_n = str_a.substr(i-1,1) ;//取 "-" //pi 前  //另解
+   
+       var str_ref_a= str_a.substr(i,spec_a_lg) ;
+            if(str_ref_a == spec_a && str_bf_a !="a" ){
+                A[k][0]=i;
+                A[k][1]= spec_a;
+                k=k+1;              // 找到第 spec_1 個 index  
+    
+                                 }  
+
+         var str_ref_b= str_a.substr(i,spec_b_lg) ;
+            if(str_ref_b == spec_b  ){
+                A[k][0]=i;
+                A[k][1]= spec_b;
+                k=k+1;              // 找到第 spec_2 個 index  
+    
+                                 }     
+
+
+
+                                }
+   
+     return A;
+
+   }
+
+
+
+
 
 
 function m_str_spc_inter(str,spec_1,spec_2){            //計算特殊字串 在 長字串  取spec1(含),spec2(含) 間字串   //<  >
@@ -2529,6 +3129,551 @@ function m_str_spc_inter_2word(str,spec_1,spec_2){            //計算特殊字�
 
    }
 
+
+ function m_str_spc_inter_m_word(str,spec_1,spec_2){            //計算特殊字串 在 長字串  取spec1(不含),spec2(不含) 間字串   //<  >
+   var str_1 = str;                                             //(m_sin(200*3141592653589793238/1000000000000000000))
+   var spec_a = spec_1;  //m_sin(
+   var spec_b = spec_2;  //*314159
+
+   var str_1_lg = str_1.length;
+   
+   var index_1 = 0; 
+   var index_2 = 0; 
+                    
+       index_1 = m_str_spc_index(str,spec_a);
+       index_2 = m_str_spc_index(str,spec_b);
+
+   var new_str =str_1.substring((index_1+spec_a.length) ,(index_2+spec_b.length-1));   //取spec1(不含),spec2(不含) 間字串
+
+       return new_str;
+
+   }
+
+
+
+
+
+
+function m_str_spc_inter_m_word_rp_sum(str ){       //綜整
+
+
+     var str_1 = str;
+     var str_1_lg = str_1.length;
+
+
+        str_1 = m_str_spc_inter_m_word_rp_s(str_1 ,"sin" ,"π");       //單筆
+       str_1 = m_str_spc_inter_m_word_rp_s(str_1 ,"sin(" ,"π)");       //單筆
+        str_1 = m_str_spc_inter_m_word_rp_s(str_1 ,"cos" ,"π");       //單筆
+        str_1 = m_str_spc_inter_m_word_rp_s(str_1 ,"cos(" ,"π)");       //單筆
+        str_1 = m_str_spc_inter_m_word_rp_s(str_1 ,"tan" ,"π");       //單筆
+        str_1 = m_str_spc_inter_m_word_rp_s(str_1 ,"tan(" ,"π)");       //單筆
+
+        str_1 = m_str_spc_inter_m_word_rp_s(str_1 ,"sin" ,"°");       //單筆
+        str_1 = m_str_spc_inter_m_word_rp_s(str_1 ,"sin(" ,"°)");       //單筆
+        str_1 = m_str_spc_inter_m_word_rp_s(str_1 ,"cos" ,"°");       //單筆
+        str_1 = m_str_spc_inter_m_word_rp_s(str_1 ,"cos(" ,"°)");       //單筆
+        str_1 = m_str_spc_inter_m_word_rp_s(str_1 ,"tan" ,"°");       //單筆
+        str_1 = m_str_spc_inter_m_word_rp_s(str_1 ,"tan(" ,"°)");       //單筆  
+ 
+      
+     return str_1;
+}
+
+
+function m_str_spc_inter_m_word_rp_s(str ,sins ,pi){       //單筆
+
+
+     var str_1 = str;
+     var str_1_lg = str_1.length;
+     var sin_a=sins;
+     var pi_a=pi;
+     
+
+   
+  
+    if((sin_a=="sin\("|| sin_a=="cos\(" || sin_a=="tan\(") && (pi_a=="π\)")){     //處理 有"("
+
+           var AA = m_str_spc_index_m_2_st(str_1,sin_a,"π)");}
+      else { var AA =[];}
+
+      //alert("AA="+AA);
+
+  
+      if( AA.length !==0){      
+     
+         for(var i= (AA.length-2) ;i >=0   ; i--){    //由後往前作
+
+             
+
+
+            if(AA[i][1]== sin_a && AA[i+1][1]== "π)"){
+
+                
+
+             var data_sin_new = str_1.substring(AA[i][0]+4,AA[i+1][0]); // 數目區間
+
+                    var sinpib=AA[i][0];
+                    var sinpia=AA[i+1][0];
+                   
+                 if((sinpia-sinpib) == 4){  data_sin_new =1; return str_1;}   // 處理 sin(π)
+                 if(data_sin_new =="-"){  data_sin_new =-1; return str_1;} // 處理 sin(-π)
+               
+                      var nub_add =  m_str_spc_count(data_sin_new,"+");            //計算特殊字串 在 長字串 數量count
+
+
+                      if(data_sin_new.substr(0,1) =="-" && data_sin_new.length >1 ){
+                         var data_sin_new_1=data_sin_new.substr(1,data_sin_new.length -1); //第1 碼去掉 cos(-1000°)
+                         var nub_sub =  m_str_spc_count(data_sin_new_1,"-"); 
+
+                                           }
+                         else{ var nub_sub =  m_str_spc_count(data_sin_new,"-");}   //計算特殊字串 在 長字串 數量count 
+
+                     var nub_mul =  m_str_spc_count(data_sin_new,"*");            //計算特殊字串 在 長字串 數量count
+                     var nub_div =  m_str_spc_count(data_sin_new,"/");            //計算特殊字串 在 長字串 數量count
+                     var nub_pow =  m_str_spc_count(data_sin_new,"^");            //計算特殊字串 在 長字串 數量count
+                     var nub_sum_op = nub_add+nub_sub+nub_mul+nub_div+nub_pow;
+
+                   if( nub_sum_op > 0  ){ return str_1; }  //跳出回圈不執行 
+                 
+    
+               var   data_sin_new_p= m_nub_m(data_sin_new);      //取 point 前 整數部分 , 含 -符號 //整數
+                     
+
+               var   data_sin_new_n=  m_nub_p(data_sin_new);      //取 point 後 小數部分 ,含 -符號  // 小數
+                     
+                    var pow_lg= data_sin_new_n.toString().length;
+
+                     if(sin_a!="tan\("){
+                      if((data_sin_new_p % 2)==0){
+                             data_sin_new = data_sin_new_n;}   //取小數部分  餘數
+
+                      if((data_sin_new_p % 2) != 0 && data_sin_new_n >= 0 ){  data_sin_new = 1+data_sin_new_n;}
+                      if((data_sin_new_p % 2) != 0 && data_sin_new_n < 0 ){  data_sin_new = -1+data_sin_new_n;}
+
+                             if(sin_a=="sin\("){   //轉至 1 4
+                               if(data_sin_new >=0 && data_sin_new<=0.5){ data_sin_new = data_sin_new;}                                                                       //1 (data_sin_new)  
+                               if(data_sin_new >0.5 && data_sin_new<=1){ data_sin_new = eval((Math.pow(10,pow_lg)-data_sin_new*Math.pow(10,pow_lg))/Math.pow(10,pow_lg));}    //2  (1-data_sin_new)
+                               if(data_sin_new >1 && data_sin_new<=1.5){ data_sin_new = eval((Math.pow(10,pow_lg)-data_sin_new*Math.pow(10,pow_lg))/Math.pow(10,pow_lg));}    //3  (1-data_sin_new)
+                               if(data_sin_new >1.5 && data_sin_new<=2){ data_sin_new = data_sin_new;}                                                                        //4  (data_sin_new)
+
+                               if(data_sin_new <=0 && data_sin_new>=-0.5){ data_sin_new = data_sin_new;}                                                                        // 4(data_sin_new)
+                               if(data_sin_new <-0.5 && data_sin_new>=-1){ data_sin_new = eval((-Math.pow(10,pow_lg)-data_sin_new*Math.pow(10,pow_lg))/Math.pow(10,pow_lg));}   //  3(-1-data_sin_new)
+                               if(data_sin_new <-1 && data_sin_new>=-1.5){ data_sin_new = eval((-Math.pow(10,pow_lg)-data_sin_new*Math.pow(10,pow_lg))/Math.pow(10,pow_lg));}   //  2(-1-data_sin_new)
+                               if(data_sin_new <-1.5 && data_sin_new>=-2){ data_sin_new = data_sin_new;} 
+                                                }
+
+                            if(sin_a=="cos\("){   //轉至 1 2  
+                              if(data_sin_new >=0 && data_sin_new<=0.5){ data_sin_new = data_sin_new;}                                                                        //1    data_sin_new
+                              if(data_sin_new >0.5 && data_sin_new<=1){ data_sin_new = data_sin_new;}                                                                         //2    data_sin_new
+                              if(data_sin_new >1 && data_sin_new<=1.5){ data_sin_new = eval((2*Math.pow(10,pow_lg)-data_sin_new*Math.pow(10,pow_lg))/Math.pow(10,pow_lg));}   //3    (2-data_sin_new)   
+                              if(data_sin_new >1.5 && data_sin_new<=2){ data_sin_new = eval((2*Math.pow(10,pow_lg)-data_sin_new*Math.pow(10,pow_lg))/Math.pow(10,pow_lg));}   //4    (2-data_sin_new)
+
+                              if(data_sin_new <=0 && data_sin_new>=-0.5){ data_sin_new = -data_sin_new;}                                                           //4    (data_sin_new)     //4     2+data_sin_new
+                              if(data_sin_new <-0.5 && data_sin_new>=-1){ data_sin_new = eval((Math.pow(10,pow_lg)+data_sin_new*Math.pow(10,pow_lg))/Math.pow(10,pow_lg));}   //3    (1+data_sin_new)
+                              if(data_sin_new <-1 && data_sin_new>=-1.5){ data_sin_new = eval((2*Math.pow(10,pow_lg)+data_sin_new*Math.pow(10,pow_lg))/Math.pow(10,pow_lg));}  //2    (2+data_sin_new)
+                              if(data_sin_new <-1.5 && data_sin_new>=-2){ data_sin_new = eval((2*Math.pow(10,pow_lg)+data_sin_new*Math.pow(10,pow_lg))/Math.pow(10,pow_lg));}    //1   (2+data_sin_new)
+
+
+                                                }
+                                      }
+
+
+                     
+                      if(sin_a == "tan\("){ 
+                              data_sin_new = data_sin_new_n;
+                               if(data_sin_new >=0 && data_sin_new<=0.5){ data_sin_new = data_sin_new;}        //1 
+                               if(data_sin_new >0.5 && data_sin_new<=1){ data_sin_new = (data_sin_new-1);}   //2 
+                               
+
+                               if(data_sin_new <=0 && data_sin_new>=-0.5){ data_sin_new =  data_sin_new;}           //4
+                               if(data_sin_new <-0.5 && data_sin_new>=-1){ data_sin_new = (data_sin_new+1);}   //3 
+                                 }
+             
+                         
+                
+
+                                                     
+
+            var  str_1 = str_1.substring(0 ,(AA[i][0]+4))+ data_sin_new + str_1.substring(AA[i+1][0] ,str_1_lg);  //
+
+                        
+
+                                                    } //if
+                                            }//for
+
+                      }  //IF
+  
+               
+
+           //.................//................
+
+          if((sin_a=="sin"|| sin_a=="cos" || sin_a=="tan") && (pi_a=="π")){
+
+           var BB = m_str_spc_index_m_2_sp(str_1,sin_a,"π");}
+          else { var BB =[];}
+
+
+      // alert("bb="+BB);
+
+         if(BB.length !=0){
+
+            for(var i= (BB.length-2) ;i >=0   ; i--){    //由後往前作
+
+
+            if(BB[i][1]== sin_a && BB[i+1][1]== "π"){
+
+              //alert("BB="+BB);  
+
+             var data_sin_new = str_1.substring(BB[i][0]+3,BB[i+1][0]); // 數目區間
+
+                // alert("data_sin_new="+data_sin_new); 
+
+                 var sinpib=BB[i][0];
+                 var sinpia=BB[i+1][0];
+                   
+                 if((sinpia-sinpib) == 3){  data_sin_new =1; return str_1;}   // 處理 sinπ
+                 if(data_sin_new =="-"){  data_sin_new =-1; return str_1;} // 處理 sin-π
+
+                 // alert("data_sin_new="+data_sin_new); 
+               
+                   var nub_add =  m_str_spc_count(data_sin_new,"+");            //計算特殊字串 在 長字串 數量count
+
+                   if(data_sin_new.substr(0,1) =="-" && data_sin_new.length >1 ){
+                     var data_sin_new_1=data_sin_new.substr(1,data_sin_new.length -1); //第1 碼去掉 cos(-1000°)
+                     var nub_sub =  m_str_spc_count(data_sin_new_1,"-"); 
+
+                                           }
+                     else{ var nub_sub =  m_str_spc_count(data_sin_new,"-");}   //計算特殊字串 在 長字串 數量count 
+
+
+                              
+                   var nub_mul =  m_str_spc_count(data_sin_new,"*");            //計算特殊字串 在 長字串 數量count
+                   var nub_div =  m_str_spc_count(data_sin_new,"/");            //計算特殊字串 在 長字串 數量count
+                   var nub_pow =  m_str_spc_count(data_sin_new,"^");            //計算特殊字串 在 長字串 數量count
+                   var nub_sum_op = nub_add+nub_sub+nub_mul+nub_div+nub_pow;
+
+                    if( nub_sum_op > 0  ){ return str_1; }  //跳出回圈不執行  
+                  
+
+
+   
+                 
+               var   data_sin_new_p= m_nub_m(data_sin_new);      //取 point 前 整數部分 , 含 -符號 //整數
+
+                     // alert("data_sin_new_p="+data_sin_new_p); 
+
+               var   data_sin_new_n=  m_nub_p(data_sin_new);      //取 point 後 小數部分 ,含 -符號  // 小數
+
+                      //alert("data_sin_new_n="+data_sin_new_n);   
+                     
+                   var pow_lg= data_sin_new_n.toString().length;  
+                    
+                     if(sin_a !="tan"){
+                      if((data_sin_new_p % 2)==0){
+                             data_sin_new = data_sin_new_n;}   //取小數部分  餘數
+
+                      if((data_sin_new_p % 2) != 0 && data_sin_new_n >= 0 ){  data_sin_new = 1+data_sin_new_n;}
+                      if((data_sin_new_p % 2) != 0 && data_sin_new_n < 0 ){  data_sin_new = -1+data_sin_new_n;}
+                           
+                            if(sin_a=="sin"){   //轉至 1 4
+                               if(data_sin_new >=0 && data_sin_new<=0.5){ data_sin_new = data_sin_new;}                                                                       //1 (data_sin_new)  
+                               if(data_sin_new >0.5 && data_sin_new<=1){ data_sin_new = eval((Math.pow(10,pow_lg)-data_sin_new*Math.pow(10,pow_lg))/Math.pow(10,pow_lg));}    //2  (1-data_sin_new)
+                               if(data_sin_new >1 && data_sin_new<=1.5){ data_sin_new = eval((Math.pow(10,pow_lg)-data_sin_new*Math.pow(10,pow_lg))/Math.pow(10,pow_lg));}    //3  (1-data_sin_new)
+                               if(data_sin_new >1.5 && data_sin_new<=2){ data_sin_new = data_sin_new;}                                                                        //4  (data_sin_new)
+
+                               if(data_sin_new <=0 && data_sin_new>=-0.5){ data_sin_new = data_sin_new;}                                                                        // 4(data_sin_new)
+                               if(data_sin_new <-0.5 && data_sin_new>=-1){ data_sin_new = eval((-Math.pow(10,pow_lg)-data_sin_new*Math.pow(10,pow_lg))/Math.pow(10,pow_lg));}   //  3(-1-data_sin_new)
+                               if(data_sin_new <-1 && data_sin_new>=-1.5){ data_sin_new = eval((-Math.pow(10,pow_lg)-data_sin_new*Math.pow(10,pow_lg))/Math.pow(10,pow_lg));}   //  2(-1-data_sin_new)
+                               if(data_sin_new <-1.5 && data_sin_new>=-2){ data_sin_new = data_sin_new;} 
+                                                }
+
+                            if(sin_a=="cos"){   //轉至 1 2  
+                              if(data_sin_new >=0 && data_sin_new<=0.5){ data_sin_new = data_sin_new;}                                                                        //1    data_sin_new
+                              if(data_sin_new >0.5 && data_sin_new<=1){ data_sin_new = data_sin_new;}                                                                         //2    data_sin_new
+                              if(data_sin_new >1 && data_sin_new<=1.5){ data_sin_new = eval((2*Math.pow(10,pow_lg)-data_sin_new*Math.pow(10,pow_lg))/Math.pow(10,pow_lg));}   //3    (2-data_sin_new)   
+                              if(data_sin_new >1.5 && data_sin_new<=2){ data_sin_new = eval((2*Math.pow(10,pow_lg)-data_sin_new*Math.pow(10,pow_lg))/Math.pow(10,pow_lg));}   //4    (2-data_sin_new)
+
+                              if(data_sin_new <=0 && data_sin_new>=-0.5){ data_sin_new = -data_sin_new;}                                                           //4    (data_sin_new)     //4     2+data_sin_new
+                              if(data_sin_new <-0.5 && data_sin_new>=-1){ data_sin_new = eval((Math.pow(10,pow_lg)+data_sin_new*Math.pow(10,pow_lg))/Math.pow(10,pow_lg));}   //3    (1+data_sin_new)
+                              if(data_sin_new <-1 && data_sin_new>=-1.5){ data_sin_new = eval((2*Math.pow(10,pow_lg)+data_sin_new*Math.pow(10,pow_lg))/Math.pow(10,pow_lg));}  //2    (2+data_sin_new)
+                              if(data_sin_new <-1.5 && data_sin_new>=-2){ data_sin_new = eval((2*Math.pow(10,pow_lg)+data_sin_new*Math.pow(10,pow_lg))/Math.pow(10,pow_lg));}    //1   (2+data_sin_new)
+
+
+                                                }
+
+
+                                      }
+
+                    
+                      if(sin_a == "tan"){ 
+                                 data_sin_new = data_sin_new_n;
+
+                               if(data_sin_new >=0 && data_sin_new<=0.5){ data_sin_new = data_sin_new;}        //1 
+                               if(data_sin_new >0.5 && data_sin_new<=1){ data_sin_new = (data_sin_new-1);}   //2 
+                               
+
+                               if(data_sin_new <=0 && data_sin_new>=-0.5){ data_sin_new =  data_sin_new;}           //4
+                               if(data_sin_new <-0.5 && data_sin_new>=-1){ data_sin_new = (data_sin_new+1);}   //3         
+                         
+                                        }
+                                                               
+
+            var  str_1 = str_1.substring(0 ,(BB[i][0]+3))+ data_sin_new + str_1.substring(BB[i+1][0] ,str_1_lg);  //
+
+                        
+
+                                                    } //if
+                                            }//for
+
+                      } //IF
+        //..............................//........
+
+  if((sin_a=="sin\("|| sin_a=="cos\(" || sin_a=="tan\(") && (pi_a=="°\)")){     //處理 有"("
+
+           var CC = m_str_spc_index_m_2_st(str_1,sin_a,"°)");}
+      else { var CC =[];}
+
+      //alert("CC="+CC);
+
+  
+      if( CC.length !==0){      
+     
+         for(var i= (CC.length-2) ;i >=0   ; i--){    //由後往前作
+
+             
+
+
+            if(CC[i][1]== sin_a && CC[i+1][1]== "°)"){
+
+                
+
+             var data_sin_new = str_1.substring(CC[i][0]+4,CC[i+1][0]); // 數目區間
+
+                       var sinpib=CC[i][0];
+                       var sinpia=CC[i+1][0];
+                   
+                       if((sinpia-sinpib) == 4){  data_sin_new =1; return str_1;}   // 處理 sin(°)
+                       if(data_sin_new =="-"){  data_sin_new =-1; return str_1;} // 處理 sin(-°)
+
+                     
+                   
+                       var nub_add =  m_str_spc_count(data_sin_new,"+");            //計算特殊字串 在 長字串 數量count
+
+                      if(data_sin_new.substr(0,1) =="-" && data_sin_new.length >1 ){
+                         var data_sin_new_1=data_sin_new.substr(1,data_sin_new.length -1); //第1 碼去掉 cos(-1000°)
+                        var nub_sub =  m_str_spc_count(data_sin_new_1,"-"); 
+
+                                           }
+                        else{ var nub_sub =  m_str_spc_count(data_sin_new,"-");}   //計算特殊字串 在 長字串 數量count 
+
+                                                              
+
+                       var nub_mul =  m_str_spc_count(data_sin_new,"*");            //計算特殊字串 在 長字串 數量count
+                       var nub_div =  m_str_spc_count(data_sin_new,"/");            //計算特殊字串 在 長字串 數量count
+
+                       var nub_pow =  m_str_spc_count(data_sin_new,"^");            //計算特殊字串 在 長字串 數量count
+
+                      var nub_sum_op = nub_add+nub_sub+nub_mul+nub_div+nub_pow;
+                   
+
+                       if( nub_sum_op > 0  ){ return str_1; }  //跳出回圈不執行 
+                    
+                  
+                     
+                 
+               var   data_sin_new_p= m_nub_m(data_sin_new);      //取 point 前 整數部分 , 含 -符號 //整數
+
+                     data_sin_new_p=data_sin_new_p % 360;          //餘式  
+
+               var   data_sin_new_n=  m_nub_p(data_sin_new);      //取 point 後 小數部分 ,含 -符號  // 小數
+                     
+                    
+                     if(sin_a!="tan\("){
+                     
+                         data_sin_new = data_sin_new_p + data_sin_new_n;
+
+                              if(sin_a=="sin\("){   //轉至 1 4
+                               if(data_sin_new >=0 && data_sin_new<=90){ data_sin_new = data_sin_new;}        //1 
+                               if(data_sin_new >90 && data_sin_new<=180){ data_sin_new = (180-data_sin_new);}   //2 
+                               if(data_sin_new >180 && data_sin_new<=270){ data_sin_new = (180-data_sin_new);}   //3
+                               if(data_sin_new >270 && data_sin_new<=360){ data_sin_new = data_sin_new-360;}   //4
+
+                               if(data_sin_new <=0 && data_sin_new>=-90){ data_sin_new =  data_sin_new;}           //4
+                               if(data_sin_new <-90 && data_sin_new>=-180){ data_sin_new = (-180-data_sin_new);}   //3
+                               if(data_sin_new <-180 && data_sin_new>=-270){ data_sin_new = (-180-data_sin_new);}   //2
+                               if(data_sin_new <-270 && data_sin_new>=-360){ data_sin_new = 360+data_sin_new;}   //1
+                                              }
+
+                             if(sin_a=="cos\("){   //轉至 1 2
+                               if(data_sin_new >=0 && data_sin_new<=90){ data_sin_new = data_sin_new;}        //1 
+                               if(data_sin_new >90 && data_sin_new<=180){ data_sin_new = data_sin_new;}        //2 
+                               if(data_sin_new >180 && data_sin_new<=270){ data_sin_new = (360-data_sin_new);}   //3
+                               if(data_sin_new >270 && data_sin_new<=360){ data_sin_new = (360-data_sin_new);}   //4
+
+                               if(data_sin_new <=0 && data_sin_new>=-90){ data_sin_new = -data_sin_new;}      //4      轉至 1,2
+                               if(data_sin_new <-90 && data_sin_new>=-180){ data_sin_new = 180+data_sin_new ;}   //3   轉至 1,2
+                               if(data_sin_new <-180 && data_sin_new>=-270){ data_sin_new = 360+data_sin_new;}   //2  //轉小正值 
+                               if(data_sin_new <-270 && data_sin_new>=-360){ data_sin_new = 360+data_sin_new;}   //1  //轉小正值
+                                               }
+
+
+                                     }
+
+                    
+                      if(sin_a == "tan\("){    //轉至 1,4
+
+                               data_sin_new_p=data_sin_new_p % 180;
+                               data_sin_new = data_sin_new_p + data_sin_new_n;
+
+                               if(data_sin_new >=0 && data_sin_new<=90){ data_sin_new = data_sin_new;}        //1 
+                               if(data_sin_new >90 && data_sin_new<=180){ data_sin_new = (data_sin_new-180);}   //2 
+                               
+
+                               if(data_sin_new <=0 && data_sin_new>=-90){ data_sin_new =  data_sin_new;}           //4
+                               if(data_sin_new <-90 && data_sin_new>=-180){ data_sin_new = (data_sin_new+180);}   //3
+                              
+                                             }    //餘式
+
+                                     
+                          
+             
+
+                
+
+                                                     
+
+            var  str_1 = str_1.substring(0 ,(CC[i][0]+4))+ data_sin_new + str_1.substring(CC[i+1][0] ,str_1_lg);  //
+
+                        
+
+                                                    } //if
+                                            }//for
+
+                      }  //IF
+  
+               
+
+           //.................//................
+
+          if((sin_a=="sin"|| sin_a=="cos" || sin_a=="tan") && (pi_a=="°")){
+
+           var DD = m_str_spc_index_m_2_sp(str_1,sin_a,"°");}
+          else { var DD =[];}
+
+
+        //alert("DD="+DD);
+
+         if(DD.length !=0){
+
+            for(var i= (DD.length-2) ;i >=0   ; i--){    //由後往前作
+
+
+            if(DD[i][1]== sin_a && DD[i+1][1]== "°"){
+
+             // alert("DD="+DD);  
+
+             var data_sin_new = str_1.substring(DD[i][0]+3,DD[i+1][0]); // 數目區間
+
+                      var sinpib=DD[i][0];
+                       var sinpia=DD[i+1][0];
+                   
+                       if((sinpia-sinpib) == 3){  data_sin_new =1; return str_1;}   // 處理 sin°
+                       if(data_sin_new =="-"){  data_sin_new =-1; return str_1;} // 處理 sin-°
+                  
+                          var nub_add =  m_str_spc_count(data_sin_new,"+");            //計算特殊字串 在 長字串 數量count
+                       
+                           if(data_sin_new.substr(0,1) =="-" && data_sin_new.length >1 ){
+                             var data_sin_new_1=data_sin_new.substr(1,data_sin_new.length -1); //第1 碼去掉 cos(-1000°)
+                              var nub_sub =  m_str_spc_count(data_sin_new_1,"-"); 
+
+                                           }
+                               else{ var nub_sub =  m_str_spc_count(data_sin_new,"-");}   //計算特殊字串 在 長字串 數量count 
+
+                          var nub_mul =  m_str_spc_count(data_sin_new,"*");            //計算特殊字串 在 長字串 數量count
+                          var nub_div =  m_str_spc_count(data_sin_new,"/");            //計算特殊字串 在 長字串 數量count
+                          var nub_pow =  m_str_spc_count(data_sin_new,"^");            //計算特殊字串 在 長字串 數量count
+
+                          var nub_sum_op = nub_add+nub_sub+nub_mul+nub_div+nub_pow;
+
+                        if( nub_sum_op > 0  ){ return str_1; }  //跳出回圈不執行 
+                     
+
+                  // alert("data_sin_new_o="+data_sin_new);    
+                 
+               var   data_sin_new_p= m_nub_m(data_sin_new);      //取 point 前 整數部分 , 含 -符號 //整數
+                     
+                     data_sin_new_p=data_sin_new_p % 360;          //餘式 
+
+
+                     // alert("data_sin_new_pp="+data_sin_new); 
+
+
+               var   data_sin_new_n=  m_nub_p(data_sin_new);      //取 point 後 小數部分 ,含 -符號  // 小數
+                      
+                   
+
+                    
+                     if(sin_a !="tan"){
+                       data_sin_new = data_sin_new_p + data_sin_new_n;
+
+                        // alert("data_sin_new_oo="+data_sin_new) ;   
+
+                               if(sin_a=="sin"){   //轉至 1 4
+                               if(data_sin_new >=0 && data_sin_new<=90){ data_sin_new = data_sin_new;}        //1 
+                               if(data_sin_new >90 && data_sin_new<=180){ data_sin_new = (180-data_sin_new);}   //2 
+                               if(data_sin_new >180 && data_sin_new<=270){ data_sin_new = (180-data_sin_new);}   //3
+                               if(data_sin_new >270 && data_sin_new<=360){ data_sin_new = data_sin_new-360;}   //4
+
+                               if(data_sin_new <=0 && data_sin_new>=-90){ data_sin_new =  data_sin_new;}           //4
+                               if(data_sin_new <-90 && data_sin_new>=-180){ data_sin_new = (-180-data_sin_new);}   //3
+                               if(data_sin_new <-180 && data_sin_new>=-270){ data_sin_new = (-180-data_sin_new);}   //2
+                               if(data_sin_new <-270 && data_sin_new>=-360){ data_sin_new = 360+data_sin_new;}   //1
+                                              }
+
+                             if(sin_a=="cos"){   //轉至 1 2
+                               if(data_sin_new >=0 && data_sin_new<=90){ data_sin_new = data_sin_new;}        //1 
+                               if(data_sin_new >90 && data_sin_new<=180){ data_sin_new = data_sin_new;}        //2 
+                               if(data_sin_new >180 && data_sin_new<=270){ data_sin_new = (360-data_sin_new);}   //3
+                               if(data_sin_new >270 && data_sin_new<=360){ data_sin_new = (360-data_sin_new);}   //4
+
+                               if(data_sin_new <=0 && data_sin_new>=-90){ data_sin_new = -data_sin_new;}      //4      轉至 1,2
+                               if(data_sin_new <-90 && data_sin_new>=-180){ data_sin_new = 180+data_sin_new ;}   //3   轉至 1,2
+                               if(data_sin_new <-180 && data_sin_new>=-270){ data_sin_new = 360+data_sin_new;}   //2  //轉小正值 
+                               if(data_sin_new <-270 && data_sin_new>=-360){ data_sin_new = 360+data_sin_new;}   //1  //轉小正值
+                                               }
+
+
+
+
+                                      }
+
+                      if(sin_a == "tan"){       //轉至 1,4
+                               data_sin_new_p=data_sin_new_p % 180;
+                               data_sin_new = data_sin_new_p + data_sin_new_n;
+
+                               if(data_sin_new >=0 && data_sin_new<=90){ data_sin_new = data_sin_new;}        //1 
+                               if(data_sin_new >90 && data_sin_new<=180){ data_sin_new = (data_sin_new-180);}   //2 
+                               
+
+                               if(data_sin_new <=0 && data_sin_new>=-90){ data_sin_new =  data_sin_new;}           //4
+                               if(data_sin_new <-90 && data_sin_new>=-180){ data_sin_new = (data_sin_new+180);}   //3
+                                     
+                                         }                           
+ 
+            var  str_1 = str_1.substring(0 ,(DD[i][0]+3))+ data_sin_new + str_1.substring(DD[i+1][0] ,str_1_lg);  //
+
+                        
+
+                                                    } //if
+                                            }//for
+
+                      } //IF
+
+
+  
+     
+     return str_1;
+}
 
 
 function m_str_spc_end(str,spec){            //計算特殊字串 是否在 長字串 結尾
@@ -2636,13 +3781,18 @@ function m_hat_bf_aft_many(str,spec1,spec2){                   // 處理  hat ^ 
    var spec_2=spec2;
 
    var nub_1 = m_str_spc_count(str_1,spec_1);   //count !
+
+
+  
+
    for(var i=0; i< nub_1 ; i++){
-            str_1 =  m_hat_bf_aft(str_1,spec_1,spec_2);     //一次處理 1筆 
+            str_1 =  m_hat_bf_aft(str_1,spec_1,spec_2);     //一次處理 1筆
+
+            // alert("str_1="+str_1);
 
                    }
 
     
-
    return  str_1;
 
     
@@ -2716,26 +3866,33 @@ function m_str_math_replacec(this_it){         //自製公式取代 display
 
              this_it_a = m_star_many(this_it_a);                // 處理 pi  多筆
 
+
           // alert("1="+this_it_a);
 
-             this_it_a = this_it_a.replace(/π/g , "(3.14159265358979323846) ");       //取代 replace
+             this_it_a = this_it_a.replace(/π/g , "(31415926535897932.3846/10000000000000000) ");       //取代 replace
 
+           //alert("u1="+this_it_a);
 
-         
-              
+             this_it_a = this_it_a.replace(/\/1°/g , "*100000000*5729577951.308232087680/10000000000000000 ");   //取代 /1° replac 
+            this_it_a = this_it_a.replace(/\/°/g , "*100000000*5729577951.308232087680/10000000000000000 ");   //取代 /° replac
+
+        // alert("u1="+this_it_a);
+
              this_it_a =  m_star_deg_many(this_it_a);           // 處理   degree  多筆
-             this_it_a = this_it_a.replace(/°/g , "(3.14159265358979323846/180) ");   //取代 replace
 
-    // alert("2="+this_it_a);
+      
+             this_it_a = this_it_a.replace(/°/g , "(1745329251994329.577/100000000000000000) ");   //取代 replace  //3.14159265358979323846/180// (0.01745329251994329577)
+
+     // alert("2="+this_it_a);
              this_it_a = m_hat_bf_aft_many(this_it_a ,'^','hhh');
 
-    //alert("3="+this_it_a);
+     //  alert("3="+this_it_a);
 
              this_it_a = this_it_a.replace(/hhh/g , "m_pow");   //自製函數取代      //第2次 處理
 
              this_it_a = m_replace_star(this_it_a) ;         //  m_fuc 前有數字 或")" 則中間加 *
 
-        // alert("5="+this_it_a);   
+         //alert("5="+this_it_a);   
 
 return  this_it_a;
 
@@ -3368,9 +4525,9 @@ function m_fixed(nub,pit_n){        //取小數點後 (pit_n) 幾位 ,四捨五�
    var next_nub = ""; 
 
 
-        // alert("1="+nub_a_s);
-         //alert("2="+nub_a_s_lg); 
-         //alert("21="+pit_n); 
+         //alert("1="+nub_a_s);     //0.49999999999999994
+         //alert("2="+nub_a_s_lg);   //19
+         //alert("21="+pit_n);      //15
 
      if(index_e==0 && index_pit_a ==0 ){    // >0 正 負 數
 
@@ -3406,17 +4563,45 @@ function m_fixed(nub,pit_n){        //取小數點後 (pit_n) 幾位 ,四捨五�
 
 
 
-      if(index_e==0 && index_pit_a !=0 ){       //無指數 //先四捨五入
+      if(index_e==0 && index_pit_a !=0 ){       //無指數 //先四捨五入  //有.
+
          var shift_a = index_pit_a+pit_a+1;
-          
+
+            //alert("s1="+shift_a);   //17
+
             next_nub = nub_a_s.substr(shift_a,1);
+             
+            // alert("s2="+next_nub);  //9
+
             var next_nub= Number(next_nub);
 
-               if( next_nub >4){
-                 nub_a = nub_a +m_pow_m(0.1,pit_a); //先四捨五入
+              // alert("s3="+next_nub); //9
+
+
+               if( next_nub >4 && nub_a>0){          //plus  正  數
+
+                      nub_a_str=nub_a.toString();
+                  
+                 nub_a = parseFloat(nub_a_str.substr(0,shift_a)) +m_pow_m(0.1,pit_a); //先四捨五入
+
+                   
 
                 }
 
+               if( next_nub >4 && nub_a< 0){          //min   負 數
+
+                   
+                    nub_a_str=nub_a.toString();
+                  
+                 nub_a = parseFloat(nub_a_str.substr(0,shift_a)) -m_pow_m(0.1,pit_a); //先四捨五入
+                   
+                      // alert("s6="+nub_a);
+                }
+   
+
+
+               
+                
                 nub_a_s =nub_a.toString().trim();
 
                 new_nub_a_s =nub_a_s.substr(0,shift_a);
@@ -3436,13 +4621,25 @@ function m_fixed(nub,pit_n){        //取小數點後 (pit_n) 幾位 ,四捨五�
 
                var nub_a_p = nub_a_s.substr(0,shift_a);   //有無四捨五入
 
-               if( next_nub >4){
+               if( next_nub >4 && nub_a>0){                 //plus  正  數
                   
                      nub_a_p = Number(nub_a_p);
-                     nub_a_p = nub_a_p +m_pow_m(0.1,pit_a);   //先四捨五入  //前段
+
+                      nub_a_p_str=nub_a_p.toString();
+
+                     nub_a_p = parseFloat(nub_a_p_str.substr(0,shift_a)) +m_pow_m(0.1,pit_a);   //先四捨五入  //前段
 
                 }
                  
+                if( next_nub >4 && nub_a<0){               //minu   負 數
+                  
+                     nub_a_p = Number(nub_a_p);
+                      nub_a_p_str=nub_a_p.toString();
+
+                     nub_a_p = parseFloat(nub_a_p_str.substr(0,shift_a)) -m_pow_m(0.1,pit_a);   //先四捨五入  //前段
+
+                }
+
 
                 nub_a_p =nub_a_p.toString().trim();
 
@@ -3660,7 +4857,7 @@ function s_nub_array(nub_1){      //產生將隱藏 之 陣列元素
       break;
 
     case "5_2":
-     array_a=["1_6","2_6","3_6","4_6","5_1","5_2","5_6"];
+     array_a=["1_6","2_6","4_6","5_1","5_2","5_6"];
       break;
    
     
@@ -3826,22 +5023,22 @@ function s_chang_sum(item){     //綜整
 
      
 
-       var asin1_t = m_str_spc_end(str_1,"asin(1");     //含 after "("   //check 3碼以上 字串  asin1 acos1 atan1 
-       var acos1_t = m_str_spc_end(str_1,"acos(1");
+   //    var asin1_t = m_str_spc_end(str_1,"asin(1");     //含 after "("   //可運算 //check 3碼以上 字串  asin1 acos1 atan1 
+    //   var acos1_t = m_str_spc_end(str_1,"acos(1");
 
-       var asin_1_t = m_str_spc_end(str_1,"asin(-1");               //check4 碼以上 字串  asin1 acos1 atan1 
-       var acos_1_t = m_str_spc_end(str_1,"acos(-1");
+    //   var asin_1_t = m_str_spc_end(str_1,"asin(-1");               //可運算 //check4 碼以上 字串  asin1 acos1 atan1 
+    //   var acos_1_t = m_str_spc_end(str_1,"acos(-1");
 
 
        var ln_0 = m_str_spc_end(str_1,"ln0");        // 避免 error
        var log_0 = m_str_spc_end(str_1,"log0");        //避免 error
-       var ln_a = m_str_spc_end(str_1,"ln(0");        // 避免 error
-       var log_a = m_str_spc_end(str_1,"log(0");        //避免 error
+    //   var ln_a = m_str_spc_end(str_1,"ln(0");        // 避免 error   //可運算
+    //   var log_a = m_str_spc_end(str_1,"log(0");        //避免 error   //可運算
 
        var ln_1 = m_str_spc_end(str_1,"ln0.");        // 避免 error
        var log_1 = m_str_spc_end(str_1,"log0.");        //避免 error
-       var ln_t = m_str_spc_end(str_1,"ln(0.");        // 避免 error
-       var log_t = m_str_spc_end(str_1,"log(0.");        //避免 error
+   //    var ln_t = m_str_spc_end(str_1,"ln(0.");        // 避免 error    //可運算
+   //    var log_t = m_str_spc_end(str_1,"log(0.");        //避免 error     //可運算
 
        var a_0=m_str_spc_end(str_1,"0");        //避免 error
        var a_1=m_str_spc_end(str_1,"1");        //避免 error 
@@ -3876,15 +5073,15 @@ function s_chang_sum(item){     //綜整
           if(atanh_1==1  ){                 //<1
                 array_a=["2_0","2_3","2_4","2_5","3_3","3_4","3_5","4_3","4_4","4_5",]; }
 
-          if(asin1_1==1 || acos1_1==1 ||asin_1_1==1 || acos_1_1==1||asin1_t==1||acos1_t==1||asin_1_t==1||acos_1_t==1){                 //check 3碼
+          if(asin1_1==1 || acos1_1==1 ||asin_1_1==1 || acos_1_1==1){                 //check 3碼
                 array_a=["1_0","1_1","1_2","2_1","2_0","2_2","2_3","2_4","2_5","3_1","3_2","3_3","3_4","3_5","4_1","4_2","4_3","4_4","4_5","5_1","5_2","5_4","5_5"];
                   }
                
-           if(ln_0==1 || log_0==1 ||ln_a==1||log_a==1){                 //error state
+           if(ln_0==1 || log_0==1 ){                 //error state
                 array_a=["1_0","1_1","1_2","1_4","1_5","1_6","2_0","2_1","2_2","2_3","2_4","2_5","2_6","3_1","3_2","3_3","3_4","3_5","3_6","4_1","4_2","4_3","4_4","4_5","4_6","5_1","5_2","5_4"];
                   }
 
-            if(ln_1==1 || log_1==1 ||ln_t==1 || log_t==1 ){ 
+            if(ln_1==1 || log_1==1  ){ 
                  array_a=["4_2","5_2"];  
              }
 
@@ -3974,11 +5171,11 @@ function s_check_str_equation(str ){       //str 是否可執行
       str_1 = str_1.replace(/m_ln\(/g,'');    //"" 取代  m_ln(      // 處理 ln 部分 
       str_1 = str_1.replace(/m_log\(/g,'');   //"" 取代  m_log(     // 處理 log 部分
  
-          // alert("str1="+str_1);
+           //alert("str1="+str_1);
 
       str_1 = str_1.replace(/m_pow\(/g,'');   //"" 取代  m_pow(     // 處理 pow 部分 
 
-          //alert("str2="+str_1);
+         //alert("str2="+str_1);
     
       str_1 = str_1.replace(/\(/g,'');   //"" 取代 (     // 處理 ( 部分 
       str_1 = str_1.replace(/\)/g,'');   //"" 取代 )     // 處理 ) 部分 
@@ -4075,11 +5272,18 @@ function m_new_mtx(rows,cols){
 
 
          
-         //alert(this_it);  
+        // alert(this_it); 
+
+ 
+          
+          var  this_it =  m_str_spc_inter_m_word_rp_sum(this_it);  //轉小角度
+
+                alert("hhu="+this_it); 
+             
 
           this_it = m_str_math_replacec(this_it);         //自製函數取代 
 
-          //alert(this_it);  
+        //  alert("hhh="+this_it);  
 
 
           this_it =  m_oct_nb(this_it);    //             //處理 8進位為 10進位   //新增 //+0 -0 *0 /0  0
@@ -4090,13 +5294,14 @@ function m_new_mtx(rows,cols){
 
            var data_chk1 = s_check_str_char(this_s,"(" ); //test "(" 數量  //this_s//原值    //字串中間空白刪除
 
-           // alert("data_1="+data_chk1);
+            //alert("data_1="+data_chk1);
 
            var data_chk2 = s_check_str_char(this_s,")" ); //test ")" 數量     //this_s//原值    //字串中間空白刪除
 
             
     
-            // alert("data_2="+data_chk2);
+            //alert("data_2="+data_chk2);
+
 
            // alert("this_s="+this_s);
 
@@ -4125,7 +5330,7 @@ function m_new_mtx(rows,cols){
 
                var data_equation =  s_check_str_equation(this_it );       //str 是否可執行
 
-                  // alert(this_it); // test
+                   //alert(this_it); // test
                   // alert(data_equation ); // test
  
                   if(data_equation !="" || data_equation==null){
@@ -4142,11 +5347,11 @@ function m_new_mtx(rows,cols){
                
                 
 
-                // alert(this_it); // test
+                 //alert(this_it); // test
 
              // /////
 
-           
+        
 
         var this_data =  eval(this_it);      // 
 
@@ -4161,10 +5366,13 @@ function m_new_mtx(rows,cols){
   
       var power_n = document.getElementById('input2').value;
 
-      var power_a=Number(power_n); 
+      var power_a = Number(power_n);  //暫停 對 負值境位?
 
       
-      // alert("lll="+power_a);
+       //alert("lll="+power_a);
+
+         // alert("lll="+eval(this_it));
+
      
     if( eval(this_it)>=0 || eval(this_it) < 0){    //顯示數字
 
