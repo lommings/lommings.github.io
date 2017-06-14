@@ -1105,13 +1105,25 @@ function m_c_u(n,k){           //(n,k)= n!/((n-k)! * k!)    //組合 Combination
    }
 
 
+function m_pow_x(base,p){ //測試用
+
+// var ans_1=m_exp(p*m_ln(base));
+   var p= 0.33333333333333334;
+  // var p= 0.3333333333333334;
+
+ var ans_1 =Math.pow(base,p); //誤差小
+
+ return ans_1;
+
+}
+
 function m_pow(base,p){                      // (-1)^2=1 已處理 //  Math.pow(0.5,300.2)=4.2736140814882916e-91
                                                                    // m_pow(0.005,300.2)=0
 
   //alert(p);
 
-   //var ans_1 =Math.pow(base,p);                                                                //Math.pow(0.005,100.4)= 9.475201082736407e-232
-    //return  ans_1;                                                             // Math.pow(0.0055,100.4)=1.3564819687931545e-227  
+  // var ans_1 =Math.pow(base,p);                                                                //Math.pow(0.005,100.4)= 9.475201082736407e-232
+   // return  ans_1;                                                             // Math.pow(0.0055,100.4)=1.3564819687931545e-227  
 
                   //m_pow(200,133)=1.0889035741470031e+306  //base=200  p 最大133
                   //m_pow(300,124)=1.4555783429306887e+307  //base=300  p 最大124
@@ -1151,11 +1163,51 @@ function m_pow(base,p){                      // (-1)^2=1 已處理 //  Math.pow(
              }
 
      else if(ppp !=0 && bb > 0){      //bb ^ pp =M   ; M=exp(pp * ln(bb))  //指數 有小數
+
         
           var bb_a = m_ln(bb);
 
-               ans_1= m_exp( m_abs(pp) * bb_a) ;
-   
+             // alert("m_abs(pp)="+m_abs(pp)); //0.3333333333333333
+              //alert("bb_a="+bb_a);           //6.907755278982137  //13.815510557964275
+              // alert("hhh="+m_abs(pp) * bb_a); //4.605170185988092
+              // alert("hhh1="+ bb_a*m_pow(10,17)/3/m_pow(10,17)); //4.605170185988092
+
+
+
+              if(m_abs(pp)==0.3333333333333333 && m_abs(bb) <= 42875 ){             //修正//單開3方 //最大 35 3方
+
+                 ans_1= m_exp( m_fixed((m_abs(pp) * bb_a),15)) ;  //修正尾數 //2.3025850929940455 //單開3方
+               
+                                                }
+           
+
+              else{    
+                    ans_1= m_exp( m_abs(pp) * bb_a ) ;  //4.60517085988092
+                  
+                  }
+
+
+
+                   var test_data = m_nub_p(ans_1);      //取 point 後 小數部分 ,含 -符號  // 小數
+
+
+              if(m_abs(pp)==0.3333333333333333 && m_abs(bb) > 42875  &&  (m_abs(test_data) >0.99999 || m_abs(test_data) <0.000001)){
+
+                        ans_1= m_fixed(ans_1,6); //取小數點後6位  //修正為整數 //單開3方
+
+                 }
+
+
+                if(m_abs(pp)==0.3333333333333333 && m_abs(bb) > 42875  &&  (m_abs(test_data) <=0.99999 && m_abs(test_data) >=0.000001)){
+
+                        // ans_1= m_exp( bb_a*m_pow(10,16)/3/m_pow(10,16)) ;   //修正為整數 先除以3 //單開3方
+
+                          var ans_1 =Math.pow(base,pp);   //誤差小 //使用原公式
+
+                        // alert(ans_1);
+
+                 }
+
 
                if( pp < 0 ){ var  ans_1=  (1/ans_1) ;}   //取倒數    
           
@@ -1354,7 +1406,10 @@ function m_log(x){       //log x = M * ln x  ;   M =loge =0.43429 44819 03251 82
                       }
 
     
-     var ans_1 = M * m_ln(xxabs) ;    //由公式作法
+     // alert("m="+M);            // 0.4342944819032518
+      //alert("m1="+m_ln(xxabs));  //0.18232155679395462 //LOG12
+
+     var ans_1 = M * m_ln(xxabs) ;    //由公式作法 //1.079181246047625 //LOG12
      
      
      var ans_t =ans_0 + ans_1;
@@ -2008,7 +2063,7 @@ function m_asin(x){
     
     if((zz >0.8) && (zz < 1)){             //分段執行 避免 x>0.99 誤差  級數產生誤差    //加速級數收斂
 
-       alert("zz="+zz);
+       //alert("zz="+zz);
 
         var  zz2=zz*zz;
 
@@ -4700,6 +4755,163 @@ function m_c_fixed(nub_1,nub_2,end_nub){        //消除c語言影響小數點�
             
   }
 
+function m_add(a_nub,b_nub){          //add 運算 小數點前後 21位數   m_add(12345678901.123456789 ,92345678901.923456789)
+                                                                        // 92345678901.923456789   
+  var nub_a = a_nub.toString();            // 加數   //取 abs 
+  var nub_b = b_nub.toString();            // 被加數
+
+   //alert("nub_a="+nub_a);      //最多顯示18位數
+
+  var nub_a_m = m_nub_m(a_nub) ;        //取 point 前 整數部分 , 含 -符號 // 加數     //分離  整數 與 分數
+  var nub_a_p = m_nub_p(a_nub) ;        //取 point 後 小數部分
+
+    //alert("nub_a_p="+nub_a_p);
+
+  var nub_b_m = m_nub_m(nub_b) ;        //取 point 前 整數部分 , 含 -符號  // 被加數
+  var nub_b_p = m_nub_p(nub_b) ;        //取 point 後 小數部分
+
+  var nub_a_m_lg = nub_a_m.toString().length;     // 加數 長度
+  var nub_a_p_lg = nub_a_p.toString().length;
+
+   if(nub_a_m_lg >=20 || nub_a_p_lg >=20 ){ return "over 20 " ;} //不執行
+
+  var nub_b_m_lg = nub_b_m.toString().length;      // 被加數 長度
+  var nub_b_p_lg = nub_b_p.toString().length;
+
+
+   
+  
+
+  var A = m_new_mtx(3,6);
+
+     // .................加數 整數部分
+
+     if(nub_a_m_lg >14){
+          A[0][0] = nub_a_m.toString().substr(0,nub_a_m_lg-14);  //0-0
+          A[0][1] = nub_a_m.toString().substr(nub_a_m_lg-14,7);   //0-1
+          A[0][2] = nub_a_m.toString().substr(nub_a_m_lg-7,7);}   //0-2
+
+
+     if(nub_a_m_lg < 14){ A[0][0] = 0;}     //0-0
+
+ 
+      if(nub_a_m_lg >7 && nub_a_m_lg <=14){
+          A[0][0] = 0;                                          //0-0
+          A[0][1] = nub_a_m.toString().substr(0,nub_a_m_lg-7);   //0-1
+          A[0][2] = nub_a_m.toString().substr(nub_a_m_lg-7,7);}   //0-2
+
+       if(nub_a_m_lg < 7){ A[0][1] = 0;}   //0-1
+
+      if(nub_a_m_lg >0 && nub_a_m_lg <=7){
+          A[0][0] = 0;                                          //0-0
+          A[0][1] = 0;                                         //0-1
+          A[0][2] = nub_a_m.toString().substr(0,nub_a_m_lg);}    //0-2
+
+    
+
+        // .........   加數 小數部分
+
+     if(nub_a_p_lg >16){    //0.
+          A[0][4] = nub_a_p.toString().substr(2,7);  //0-0
+          A[0][5] = nub_a_p.toString().substr(9,7);   //0-1
+          A[0][6] = nub_a_p.toString().substring(16,nub_a_p_lg);}   //0-2
+
+
+     if(nub_a_p_lg < 16){ A[0][6] = 0;}     //0-0
+ 
+      if(nub_a_p_lg >9 && nub_a_p_lg <=16){
+          A[0][4] = nub_a_p.toString().substr(2,7);             //0-0
+          A[0][5] = nub_a_p.toString().substring(9,nub_a_p_lg);   //0-1
+          A[0][6] = 0 ;}   //0-2
+
+         
+
+       if(nub_a_p_lg < 9 && nub_a_p_lg > 2){ A[0][5] = 0;}   //0-1
+
+      if(nub_a_p_lg >2 && nub_a_p_lg <=9){
+          A[0][4] = nub_a_p.toString().substring(2,nub_a_p_lg);    //0-0
+          A[0][5] = 0;                                         //0-1
+          A[0][6] = 0;}                                         //0-2
+
+      if(nub_a_p_lg == 0 ){  A[0][4] =0;}
+
+          // .........
+      // .................被加數 整數部分
+
+     if(nub_b_m_lg >14){
+          A[1][0] = nub_b_m.toString().substr(0,nub_b_m_lg-14);  //0-0
+          A[1][1] = nub_b_m.toString().substr(nub_b_m_lg-14,7);   //0-1
+          A[1][2] = nub_b_m.toString().substr(nub_b_m_lg-7,7);}   //0-2
+
+
+     if(nub_b_m_lg < 14){ A[1][0] = 0;}     //0-0
+
+ 
+      if(nub_b_m_lg >7 && nub_b_m_lg <=14){
+          A[1][0] = 0;                                          //0-0
+          A[1][1] = nub_b_m.toString().substr(0,nub_b_m_lg-7);   //0-1
+          A[1][2] = nub_b_m.toString().substr(nub_b_m_lg-7,7);}   //0-2
+
+       if(nub_b_m_lg < 7){ A[1][1] = 0;}   //0-1
+
+      if(nub_b_m_lg >0 && nub_b_m_lg <=7){
+          A[1][0] = 0;                                          //0-0
+          A[1][1] = 0;                                         //0-1
+          A[1][2] = nub_b_m.toString().substr(0,nub_b_m_lg);}    //0-2
+
+        // .........   被加數 小數部分
+ 
+       if(nub_b_p_lg >16){    //0.
+          A[1][4] = nub_b_p.toString().substr(2,7);  //0-0
+          A[1][5] = nub_b_p.toString().substr(9,7);   //0-1
+          A[1][6] = nub_b_p.toString().substring(16,nub_b_p_lg);}   //0-2
+
+
+     if(nub_b_p_lg < 16){ A[1][6] = 0;}     //0-0
+ 
+      if(nub_b_p_lg >9 && nub_b_p_lg <=16){
+          A[1][4] = nub_b_p.toString().substr(2,7);             //0-0
+          A[1][5] = nub_b_p.toString().substring(9,nub_b_p_lg);   //0-1
+          A[1][6] = 0 ;}   //0-2
+
+         
+
+       if(nub_b_p_lg < 9 && nub_b_p_lg > 2){ A[1][5] = 0;}   //0-1
+
+      if(nub_b_p_lg >2 && nub_b_p_lg <=9){
+          A[1][4] = nub_b_p.toString().substring(2,nub_b_p_lg);    //0-0
+          A[1][5] = 0;                                         //0-1
+          A[1][6] = 0;}                                         //0-2
+
+      if(nub_b_p_lg == 0 ){  A[1][4] =0;}
+ 
+          // .........
+
+      if(a_nub < 0){
+              for(var i=0;i<6;i++){
+                A[0][i]= A[0][i]*(-1);}
+                   }
+
+       if(b_nub < 0){
+              for(var j=0;j<6;j++){
+                A[1][j]= A[1][j]*(-1);}
+                   }
+
+       for(var n=0;n<6;n++){
+                A[2][n]= parseInt(A[0][n])+parseInt(A[1][n]) ;}    //相加
+                  
+
+ 
+  // alert(A);
+
+  return A;
+
+
+}
+
+
+
+
 //  //////////////////////////////////////////////////////////////////////////   nuber    "↑"
 
 
@@ -5278,7 +5490,7 @@ function m_new_mtx(rows,cols){
           
           var  this_it =  m_str_spc_inter_m_word_rp_sum(this_it);  //轉小角度
 
-                alert("hhu="+this_it); 
+               // alert("hhu="+this_it); //...............
              
 
           this_it = m_str_math_replacec(this_it);         //自製函數取代 

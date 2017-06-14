@@ -43,9 +43,45 @@ function to_mobile(){
 
 <script src="calculator.js" ></script>
    
+<script type="text/javascript">
 
+ 
+  function dblclick_a(evt) {   //還原 dblclick 縮\放
+
+        //alert("single");
+
+         setTimeout(dblclick_inv(evt),4000);   //延後 4 sec   //執行
+
+             }  
+
+
+ function dblclick_inv(evt) {   //還原 dblclick 縮\放
+
+      //alert("dblsingle");
+
+      evt.preventDefault();
+
+      document.getElementById('block_1').style.position="fixed";
+      document.getElementById('block_1').style.top="2px";
+      document.getElementById('block_1').style.left="2px";
+      document.getElementById('table_a').style.left="2px";
+      document.getElementById('block_1').style.zoom="normal";
+        
+   }
+    
+
+ function init(){
+
+  document.getElementById('calc').addEventListener( 'dblclick', dblclick_a, false );
+
+                }
+
+
+
+ 
+</script>
 </head>
-<body onload=" to_mobile() ;document.getElementById('input').focus()" >
+<body onload=" to_mobile() ;document.getElementById('input').focus()";init()" >
 <form id="calc">
 
 <div class="block">
