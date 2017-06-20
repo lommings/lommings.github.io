@@ -68,47 +68,50 @@
 
 <script type="text/javascript">
 
+  var data_setout ;
  
-  function dblclick_a(evt) {   //還原 dblclick 縮\放
+  function dblclick_a() {   //還原 dblclick 縮\放
 
-        //alert("single");
+      // alert("single");
 
-         setTimeout(dblclick_inv(evt),2000);   //延後2s   //執行
+        data_setout = setTimeout(dblclick_inv,600);   //延後0.6s   //執行
 
-         clearTimeout(myVar);
+        
 
              }  
 
 
- function dblclick_inv(evt) {   //還原 dblclick 縮\放
+ function dblclick_inv() {   //還原 dblclick 縮\放
 
-      //alert("dblsingle");
-
-      evt.preventDefault();
+    
+      //preventDefault();  //eav.
 
       document.getElementById('block_1').style.position="fixed";
       document.getElementById('block_1').style.top="2px";
       document.getElementById('block_1').style.left="2px";
       document.getElementById('table_a').style.left="2px";
       document.getElementById('block_1').style.zoom="normal";
-        
+
+         // alert("Hello!");
+       // clearTimeout(data_setout);
+
    }
     
-
+/*
  function init(){
 
-  document.getElementById('calc').addEventListener( 'dblclick', dblclick_a, false );
+  document.getElementById('calc').addEventListener( 'dblclick', dblclick_a, true );  //false true
 
                 }
 
-
+*/
 
  
 </script>
 
 
 </head>
-<body onload="document.getElementById('input').focus();init()">
+<body onload="document.getElementById('input').focus()">   //;init()
 <form id="calc">
 
 <div class="block_1" align="center" id="block_1">
@@ -117,14 +120,14 @@
      
 
 
- <table class="table_1" id="table_a" border="1px" cellspacing="0" cellpadding="0"  align="center" required readonly="readonly" OnClick="blur(this)">
+ <table class="table_1" id="table_a" border="1px" cellspacing="0" cellpadding="0"  align="center" required readonly="readonly" OnClick="blur(this);" ondblclick="dblclick_a();">
        
      <tr border="1px" cellspacing="0" cellpadding="0"  align="center">
 
            <td class="hidden_1"><button  type="button" class="button_2" id="1_0"   style="background-color:white;color:blue;" OnClick="key_1('°');blur(this);" ><strong>°</strong></button></td>
            <td class="hidden_1"><button  type="button" class="button_2" id="1_1"   style="background-color:Lime;color:blue;" OnClick="key_1('a');blur(this);" ><strong>arc &nbsp</strong></button></td>
            <td class="hidden_1"><button  type="button" class="button_2" id="1_2"   style="background-color:cyan;color:blue;" OnClick="key_1('!');blur(this);" ><strong>&nbsp n! &nbsp</strong></button></td>
-           <td><button type="button" class="button_1" id="1_3"  style="background-color:pink;color:#000000;" OnClick="backspace();blur(this);"><strong><=x </strong></button></td>
+           <td><button type="button" class="button_1" id="1_3"  style="background-color:pink;color:#000000;" OnClick="backspace();blur(this);" ><strong><=x </strong></button></td>
            <td><button type="button" class="button_1" id="1_4"  style="background-color:white;color:blue;" OnClick="key_1('(');blur(this);"  ><strong>&nbsp ( &nbsp&nbsp </strong></button></td>
            <td><button type="button" class="button_1" id="1_5"  style="background-color:white;color:blue;" OnClick="key_1(')');blur(this);" ><strong>&nbsp ) &nbsp&nbsp</strong></button></strong></td>  
            <td><button type="button" class="button_1" id="1_6"   style="background-color:yellow;color:blue;" OnClick="key_1('/');blur(this);" ><strong>&nbsp / &nbsp&nbsp</strong></button></td></tr>

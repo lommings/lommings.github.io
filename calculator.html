@@ -45,43 +45,45 @@ function to_mobile(){
    
 <script type="text/javascript">
 
- 
-  function dblclick_a(evt) {   //還原 dblclick 縮\放
+ var data_setout ;
 
-        //alert("single");
+  function dblclick_a() {   //還原 dblclick 縮\放
 
-         setTimeout(dblclick_inv(evt),4000);   //延後 4 sec   //執行
+       // alert("single");
+
+         data_setout = setTimeout(dblclick_inv,400);   //延後 0.4 sec   //執行
 
              }  
 
 
- function dblclick_inv(evt) {   //還原 dblclick 縮\放
+ function dblclick_inv() {   //還原 dblclick 縮\放
 
-      //alert("dblsingle");
+    //  alert("dblsingle");
 
-      evt.preventDefault();
+      //evt.preventDefault();
 
-      document.getElementById('block_1').style.position="fixed";
-      document.getElementById('block_1').style.top="2px";
-      document.getElementById('block_1').style.left="2px";
-      document.getElementById('table_a').style.left="2px";
-      document.getElementById('block_1').style.zoom="normal";
-        
+   //   document.getElementById('block_1').style.position="fixed";
+    //  document.getElementById('block_1').style.top="2px";
+    //  document.getElementById('block_1').style.left="2px";
+    //  document.getElementById('table_a').style.left="2px";
+    //  document.getElementById('block_1').style.zoom="normal";
+
+        alert("Hello!");
    }
     
-
+/*
  function init(){
 
   document.getElementById('calc').addEventListener( 'dblclick', dblclick_a, false );
 
                 }
 
-
+*/
 
  
 </script>
 </head>
-<body onload=" to_mobile() ;document.getElementById('input').focus()";init()" >
+<body onload=" to_mobile() ;document.getElementById('input').focus()" >
 <form id="calc">
 
 <div class="block">
@@ -94,7 +96,7 @@ function to_mobile(){
 
 
 
-   <table id="mytable" border="1" marginheight="0" marginwidth="0" style="width:100%;border:2px black solid;" >
+   <table id="mytable" border="1" marginheight="0" marginwidth="0" style="width:100%;border:2px black solid;" ondblclick="dblclick_a();">
 
         <tr align="center" ><td><input type="button" id="1_1" value="exp" style="width:100%;border:2px blue none;background-color:cyan;color:blue;" OnClick="key_1('exp')"  ></td>
            <td><input type="button"  id="1_2" value="arc" style="width:100%;border:2px blue none;background-color:Lime;color:blue;" OnClick="key_1('a')" ></td>
