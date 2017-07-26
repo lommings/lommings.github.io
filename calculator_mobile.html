@@ -74,7 +74,7 @@
 
       // alert("single");
 
-        data_setout = setTimeout(dblclick_inv,600);   //延後0.6s   //執行
+        data_setout = setTimeout(dblclick_inv,200);   //延後0.4s   ..執行
 
         
 
@@ -92,7 +92,9 @@
       document.getElementById('table_a').style.left="2px";
       document.getElementById('block_1').style.zoom="normal";
 
-         // alert("Hello!");
+      //s_chang_no_visible_all();   //所有不顯示 不能key  ....避免系統 doubleclicl 放大及位移
+
+        // alert("Hello!");
        // clearTimeout(data_setout);
 
    }
@@ -120,56 +122,56 @@
      
 
 
- <table class="table_1" id="table_a" border="1px" cellspacing="0" cellpadding="0"  align="center" required readonly="readonly" OnClick="blur(this);" ondblclick="dblclick_a();">
+ <table class="table_1" id="table_a" border="1px" cellspacing="0" cellpadding="0"  align="center" required readonly="readonly"  >
        
      <tr border="1px" cellspacing="0" cellpadding="0"  align="center">
 
-           <td class="hidden_1"><button  type="button" class="button_2" id="1_0"   style="background-color:white;color:blue;" OnClick="key_1('°');blur(this);" ><strong>°</strong></button></td>
-           <td class="hidden_1"><button  type="button" class="button_2" id="1_1"   style="background-color:Lime;color:blue;" OnClick="key_1('a');blur(this);" ><strong>arc &nbsp</strong></button></td>
-           <td class="hidden_1"><button  type="button" class="button_2" id="1_2"   style="background-color:cyan;color:blue;" OnClick="key_1('!');blur(this);" ><strong>&nbsp n! &nbsp</strong></button></td>
-           <td><button type="button" class="button_1" id="1_3"  style="background-color:pink;color:#000000;" OnClick="backspace();blur(this);" ><strong><=x </strong></button></td>
-           <td><button type="button" class="button_1" id="1_4"  style="background-color:white;color:blue;" OnClick="key_1('(');blur(this);"  ><strong>&nbsp ( &nbsp&nbsp </strong></button></td>
-           <td><button type="button" class="button_1" id="1_5"  style="background-color:white;color:blue;" OnClick="key_1(')');blur(this);" ><strong>&nbsp ) &nbsp&nbsp</strong></button></strong></td>  
-           <td><button type="button" class="button_1" id="1_6"   style="background-color:yellow;color:blue;" OnClick="key_1('/');blur(this);" ><strong>&nbsp / &nbsp&nbsp</strong></button></td></tr>
+           <td class="hidden_1"><button  type="button" class="button_2" id="1_0"   style="background-color:white;color:blue;" OnClick="key_1('°');" ><strong>°</strong></button></td>
+           <td class="hidden_1"><button  type="button" class="button_2" id="1_1"   style="background-color:Lime;color:blue;" OnClick="key_1('a');" ><strong>arc &nbsp</strong></button></td>
+           <td class="hidden_1"><button  type="button" class="button_2" id="1_2"   style="background-color:cyan;color:blue;" OnClick="key_1('!');" ><strong>&nbsp n! &nbsp</strong></button></td>
+           <td><button type="button" class="button_1" id="1_3"  style="background-color:pink;color:#000000;" OnClick="backspace();dblclick_a();"  ><strong><=x </strong></button></td>
+           <td><button type="button" class="button_1" id="1_4"  style="background-color:white;color:blue;" OnClick="key_1('(');dblclick_a();"    ><strong>&nbsp ( &nbsp&nbsp </strong></button></td>
+           <td><button type="button" class="button_1" id="1_5"  style="background-color:white;color:blue;" OnClick="key_1(')');dblclick_a();"   ><strong>&nbsp ) &nbsp&nbsp</strong></button></strong></td>  
+           <td><button type="button" class="button_1" id="1_6"   style="background-color:yellow;color:blue;" OnClick="key_1('/');" ><strong>&nbsp / &nbsp&nbsp</strong></button></td></tr>
       
       <tr border="1px" cellspacing="0" cellpadding="0"  align="center">
-           <td class="hidden_1"><button type="button" class="button_2" id="2_0"  style="background-color:white;color:blue;" OnClick="key_1('π');blur(this);" ><strong>π</strong></button></td>
-           <td class="hidden_1"><button type="button" class="button_2" id="2_1"  style="background-color:Lime;color:blue;" OnClick="key_1('sin');blur(this);" ><strong>sin</strong></button></td>
-           <td class="hidden_1"><button type="button" class="button_2" id="2_2"  style="background-color:cyan;color:blue;" OnClick="key_1('exp');blur(this);" ><strong>exp</strong></button></td>
-           <td><button type="button" class="button_1" id="2_3"  style="background-color:white ;color:blue;" OnClick="key_1('7');blur(this);" ><strong>7</strong></button></td>
-           <td><button type="button" class="button_1" id="2_4"  style="background-color:white;color:blue;" OnClick="key_1('8');blur(this);" ><strong>8</strong></button></td>
-           <td><button type="button" class="button_1" id="2_5"  style="background-color:white;color:blue;" OnClick="key_1('9');blur(this);" ><strong>9</strong></button></td>
-           <td><button type="button" class="button_1" id="2_6"  style="background-color:yellow;color:blue;" OnClick="key_1('*');blur(this);" ><strong>*</strong></button></td></tr> 
+           <td class="hidden_1"><button type="button" class="button_2" id="2_0"  style="background-color:white;color:blue;" OnClick="key_1('π');" ><strong>π</strong></button></td>
+           <td class="hidden_1"><button type="button" class="button_2" id="2_1"  style="background-color:Lime;color:blue;" OnClick="key_1('sin');" ><strong>sin</strong></button></td>
+           <td class="hidden_1"><button type="button" class="button_2" id="2_2"  style="background-color:cyan;color:blue;" OnClick="key_1('exp');" ><strong>exp</strong></button></td>
+           <td><button type="button" class="button_1" id="2_3"  style="background-color:white ;color:blue;" OnClick="key_1('7');dblclick_a();"   ><strong>7</strong></button></td>
+           <td><button type="button" class="button_1" id="2_4"  style="background-color:white;color:blue;" OnClick="key_1('8');dblclick_a();"   ><strong>8</strong></button></td>
+           <td><button type="button" class="button_1" id="2_5"  style="background-color:white;color:blue;" OnClick="key_1('9');dblclick_a();"   ><strong>9</strong></button></td>
+           <td><button type="button" class="button_1" id="2_6"  style="background-color:yellow;color:blue;" OnClick="key_1('*');"  ><strong>*</strong></button></td></tr> 
 
      
         <tr border="1px" cellspacing="0" cellpadding="0"  align="center">
-           <td class="hidden_1"><button  type="button"    class="button_2" id="3_0"  style="background-color:silver;color:blue;" OnClick="window.location='calculator_help.html';blur(this); " ><strong>help</strong></button></td>
-           <td class="hidden_1"><button type="button" class="button_2" id="3_1"  style="background-color:Lime;color:blue; " OnClick="key_1('cos');blur(this);" ><strong>cos</strong></button></td>
-           <td class="hidden_1"><button type="button" class="button_2" id="3_2"  style="background-color:cyan;color:blue;" OnClick="key_1('ln');blur(this);" ><strong>ln</strong></button></td>
-           <td><button type="button" class="button_1"  id="3_3"  style="background-color:white;color:blue;" OnClick="key_1('4');blur(this);" ><strong>4</strong></button></td>
-           <td><button type="button" class="button_1"  id="3_4"  style="background-color:white;color:blue;" OnClick="key_1('5');blur(this);" ><strong>5</strong></button></td>
-           <td><button type="button" class="button_1"  id="3_5"  style="background-color:white;color:blue;" OnClick="key_1('6');blur(this);" ><strong>6</strong></button></td>
-           <td><button type="button" class="button_1"  id="3_6"  style="background-color:yellow;color:blue;" OnClick="key_1('-');blur(this);" ><strong>－</strong></button></td></tr>
+           <td class="hidden_1"><button  type="button"    class="button_2" id="3_0"  style="background-color:silver;color:blue;" OnClick="window.location='calculator_help.html'; "  ><strong>help</strong></button></td>
+           <td class="hidden_1"><button type="button" class="button_2" id="3_1"  style="background-color:Lime;color:blue; " OnClick="key_1('cos');"  ><strong>cos</strong></button></td>
+           <td class="hidden_1"><button type="button" class="button_2" id="3_2"  style="background-color:cyan;color:blue;" OnClick="key_1('ln');"   ><strong>ln</strong></button></td>
+           <td><button type="button" class="button_1"  id="3_3"  style="background-color:white;color:blue;" OnClick="key_1('4');dblclick_a();"   ><strong>4</strong></button></td>
+           <td><button type="button" class="button_1"  id="3_4"  style="background-color:white;color:blue;" OnClick="key_1('5');dblclick_a();"   ><strong>5</strong></button></td>
+           <td><button type="button" class="button_1"  id="3_5"  style="background-color:white;color:blue;" OnClick="key_1('6');dblclick_a();"   ><strong>6</strong></button></td>
+           <td><button type="button" class="button_1"  id="3_6"  style="background-color:yellow;color:blue;" OnClick="key_1('-');"  ><strong>－</strong></button></td></tr>
            
       
        <tr border="1px" cellspacing="0" cellpadding="0"  align="center">
-           <td class="hidden_1"><button type="button" class="button_2" id="4_0"  style="background-color:silver;color:blue;" OnClick="s_chang_visible_all();blur(this);" ><strong>open</strong></button></td>
-           <td class="hidden_1"><button type="button" class="button_2" id="4_1"  style="background-color:Lime;color:blue;" OnClick="key_1('tan');blur(this);" ><strong>tan</strong></button></td>
-           <td class="hidden_1"><button type="button" class="button_2" id="4_2"  style="background-color:cyan;color:blue;" OnClick="key_1('log');blur(this);" ><strong>log</strong></button></td>
-           <td><button type="button" class="button_1"  id="4_3"  style="background-color:white;color:blue;" OnClick="key_1('1');blur(this);" ><strong>1</strong></button></td>
-           <td><button type="button" class="button_1"  id="4_4"  style="background-color:white;color:blue;" OnClick="key_1('2');blur(this);" ><strong>2</strong></button></td>
-           <td><button type="button" class="button_1"  id="4_5"  style="background-color:white;color:blue;" OnClick="key_1('3');blur(this);" ><strong>3</strong></button></td>
-           <td><button type="button" class="button_1"  id="4_6"  style="background-color:yellow;color:blue;" OnClick="key_1('+');blur(this);" ><strong>＋</strong></button></td></tr>
+           <td class="hidden_1"><button type="button" class="button_2" id="4_0"  style="background-color:silver;color:blue;" OnClick="s_chang_visible_all();"   ><strong>open</strong></button></td>
+           <td class="hidden_1"><button type="button" class="button_2" id="4_1"  style="background-color:Lime;color:blue;" OnClick="key_1('tan');"  ><strong>tan</strong></button></td>
+           <td class="hidden_1"><button type="button" class="button_2" id="4_2"  style="background-color:cyan;color:blue;" OnClick="key_1('log');"  ><strong>log</strong></button></td>
+           <td><button type="button" class="button_1"  id="4_3"  style="background-color:white;color:blue;" OnClick="key_1('1');dblclick_a();"   ><strong>1</strong></button></td>
+           <td><button type="button" class="button_1"  id="4_4"  style="background-color:white;color:blue;" OnClick="key_1('2');dblclick_a();"   ><strong>2</strong></button></td>
+           <td><button type="button" class="button_1"  id="4_5"  style="background-color:white;color:blue;" OnClick="key_1('3');dblclick_a();"   ><strong>3</strong></button></td>
+           <td><button type="button" class="button_1"  id="4_6"  style="background-color:yellow;color:blue;" OnClick="key_1('+');"  ><strong>＋</strong></button></td></tr>
                 
      
        <tr border="1px" cellspacing="0" cellpadding="0"  align="center"> 
-           <td class="hidden_1"><button type="button" class="button_2" id="5_0"  style="background-color:pink;color:#000000;" OnClick="cursor_left_1();blur(this);"  ><strong> ← </strong></button></td>
-           <td class="hidden_1"><button type="button" class="button_2" id="5_1"  style="background-color:Lime;color:blue;" OnClick="key_1('h');blur(this);" ><strong>hpy</strong></button></td>
-           <td class="hidden_1"><button type="button" class="button_2" id="5_2" style="background-color:cyan;color:blue;" OnClick="key_1('^');blur(this);" ><strong>^</strong></button></td>
-           <td><button type="button" class="button_1"  id="5_3"  style="background-color:pink;color:#000000;" OnClick="clear_all_1('ac');blur(this);" ><strong>ac</strong></button></td>
-           <td><button type="button" class="button_1"  id="5_4"  style="background-color:white;color:blue;" OnClick="key_1('0');blur(this);" ><strong>0</strong></button></td>
-           <td><button type="button" class="button_1"  id="5_5"  style="background-color:white;color:blue;" OnClick="key_1('.');blur(this);" ><strong>.</strong></button></td>
-           <td><button type="button" class="button_1"  id="5_6" style="background-color:#FF3333;color:#000000;" OnClick="calculate('=');blur(this);" ><strong>=</strong></button></td></tr>  
+           <td class="hidden_1"><button type="button" class="button_2" id="5_0"  style="background-color:pink;color:#000000;" OnClick="cursor_left_1();dblclick_a();"    ><strong> ← </strong></button></td>
+           <td class="hidden_1"><button type="button" class="button_2" id="5_1"  style="background-color:Lime;color:blue;" OnClick="key_1('h');"   ><strong>hpy</strong></button></td>
+           <td class="hidden_1"><button type="button" class="button_2" id="5_2" style="background-color:cyan;color:blue;" OnClick="key_1('^');"   ><strong>^</strong></button></td>
+           <td><button type="button" class="button_1"  id="5_3"  style="background-color:pink;color:#000000;" OnClick="clear_all_1('ac');dblclick_a();"   ><strong>ac</strong></button></td>
+           <td><button type="button" class="button_1"  id="5_4"  style="background-color:white;color:blue;" OnClick="key_1('0');dblclick_a();"   ><strong>0</strong></button></td>
+           <td><button type="button" class="button_1"  id="5_5"  style="background-color:white;color:blue;" OnClick="key_1('.');" ><strong>.</strong></button></td>
+           <td><button type="button" class="button_1"  id="5_6" style="background-color:#FF3333;color:#000000;" OnClick="calculate('=');dblclick_a();"   ><strong>=</strong></button></td></tr>  
  </table>
 
 </div>
